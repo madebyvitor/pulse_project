@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function Nav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 mx-auto max-w-7xl backdrop-blur-md bg-black/20 border-b border-white/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 py-4 mx-auto max-w-7xl backdrop-blur-md bg-black/20 border-b border-white/5">
       {/* Logo */}
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-lg bg-[#C6FF4A] flex items-center justify-center">
@@ -38,14 +38,17 @@ export function Nav() {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4 shrink-0">
         <Link
           href="/login"
           className="hidden sm:block text-sm font-medium text-zinc-400 hover:text-white transition-colors"
         >
           Entrar
         </Link>
-        <PrimaryButtonBase size="sm">Começar Agora</PrimaryButtonBase>
+        <PrimaryButtonBase size="sm" className="whitespace-nowrap">
+          <span className="sm:hidden">Começar</span>
+          <span className="hidden sm:inline">Começar Agora</span>
+        </PrimaryButtonBase>
       </div>
     </nav>
   );

@@ -11,9 +11,9 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="py-20 border-t border-zinc-900 bg-[#050505]">
-      <div className="container px-6 mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-4">
+    <footer className="py-12 md:py-20 border-t border-zinc-900 bg-[#050505]">
+      <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand */}
           <div className="col-span-1">
             <div className="flex items-center gap-2 mb-5">
@@ -52,7 +52,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-12 mt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="pt-8 md:pt-12 mt-8 md:mt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <p className="text-xs text-zinc-600">
             © {new Date().getFullYear()} Pulse Technologies. Todos os direitos
             reservados.

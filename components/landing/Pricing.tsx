@@ -22,7 +22,7 @@ function PricingTier({
 }: PricingTierProps) {
   return (
     <div
-      className={`relative p-8 rounded-2xl border transition-all duration-300 flex flex-col ${
+      className={`relative p-6 md:p-8 rounded-2xl border transition-all duration-300 flex flex-col ${
         isPopular
           ? "bg-[#111111] border-[#C6FF4A]/40 shadow-[0_0_50px_rgba(198,255,74,0.06)]"
           : "bg-[#111111] border-zinc-800 hover:border-zinc-700"
@@ -71,13 +71,13 @@ function PricingTier({
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-24 bg-[#050505]">
-      <div className="container px-6 mx-auto max-w-7xl">
+    <section id="pricing" className="py-16 md:py-24 bg-[#050505]">
+      <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
         <div className="max-w-2xl mx-auto mb-16 text-center">
           <span className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-500 bg-zinc-900/50">
             Preços
           </span>
-          <h2 className="mb-4 text-3xl font-bold text-white md:text-5xl">
+          <h2 className="mb-4 text-3xl sm:text-4xl font-bold text-white md:text-5xl leading-tight">
             Simples e transparente
           </h2>
           <p className="text-zinc-400 text-lg">

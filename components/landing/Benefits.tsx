@@ -25,8 +25,8 @@ const benefits = [
 
 export function Benefits() {
   return (
-    <section id="features" className="py-24 bg-[#050505]">
-      <div className="container px-6 mx-auto max-w-7xl">
+    <section id="features" className="py-16 md:py-24 bg-[#050505]">
+      <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
         {/* Section header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
           <span className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-500 bg-zinc-900/50">

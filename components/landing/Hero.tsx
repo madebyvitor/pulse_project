@@ -11,7 +11,7 @@ export function Hero() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-[#C6FF4A]/5 blur-[140px] pointer-events-none rounded-full" />
       <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-[#C6FF4A]/3 blur-[100px] pointer-events-none rounded-full" />
 
-      <div className="container relative px-6 mx-auto text-center max-w-7xl">
+      <div className="container relative px-4 sm:px-6 mx-auto text-center max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -24,7 +24,7 @@ export function Hero() {
           </span>
 
           {/* Headline */}
-          <h1 className="max-w-4xl mx-auto mb-6 text-4xl font-bold tracking-tight text-white md:text-7xl leading-tight">
+          <h1 className="max-w-4xl mx-auto mb-6 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight">
             Faça o seu cliente sentir que o projeto está{" "}
             <span className="text-[#C6FF4A]">vivo.</span>
           </h1>
@@ -72,7 +72,7 @@ export function Hero() {
               </div>
               <div className="flex-1 mx-4">
                 <div className="h-5 max-w-xs mx-auto bg-zinc-800 rounded-md flex items-center justify-center">
-                  <span className="text-[10px] text-zinc-600">
+                  <span className="text-[10px] text-zinc-600 truncate px-2 block w-full text-center">
                     app.usepulse.com/client/meu-projeto
                   </span>
                 </div>
@@ -80,9 +80,9 @@ export function Hero() {
             </div>
 
             {/* App content */}
-            <div className="bg-[#050505] p-6 flex gap-6 min-h-[340px]">
+            <div className="bg-[#050505] p-4 sm:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 min-h-[340px]">
               {/* Sidebar */}
-              <div className="w-52 border-r border-zinc-900 flex flex-col gap-3 pr-4 shrink-0">
+              <div className="hidden md:flex w-52 border-r border-zinc-900 flex-col gap-3 pr-4 shrink-0">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-6 h-6 rounded-md bg-[#C6FF4A] flex items-center justify-center">
                     <Zap className="w-3 h-3 text-black fill-black" />

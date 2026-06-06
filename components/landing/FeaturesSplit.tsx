@@ -5,15 +5,15 @@ import { PrimaryButtonBase } from "@/components/ui/PrimaryButtonBase";
 
 export function FeaturesSplit() {
   return (
-    <section id="how-it-works" className="py-24 border-b border-zinc-900">
-      <div className="container px-6 mx-auto max-w-7xl">
-        <div className="grid gap-16 items-center md:grid-cols-2">
+    <section id="how-it-works" className="py-16 md:py-24 border-b border-zinc-900">
+      <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
+        <div className="grid gap-12 md:gap-16 items-center md:grid-cols-2">
           {/* Text content */}
           <div>
             <span className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-500 bg-zinc-900/50">
               Como funciona
             </span>
-            <h2 className="mb-6 text-3xl font-bold md:text-5xl leading-tight">
+            <h2 className="mb-6 text-3xl sm:text-4xl font-bold md:text-5xl leading-tight">
               Esqueça os relatórios manuais{" "}
               <span className="text-[#C6FF4A]">de status</span>
             </h2>
@@ -44,9 +44,9 @@ export function FeaturesSplit() {
           {/* Mock timeline */}
           <div className="relative">
             <div className="absolute -inset-4 bg-[#C6FF4A]/5 blur-3xl rounded-full pointer-events-none" />
-            <div className="relative p-6 bg-[#111111] border border-zinc-800 rounded-2xl shadow-2xl">
+            <div className="relative p-4 sm:p-6 bg-[#111111] border border-zinc-800 rounded-2xl shadow-2xl">
               {/* Header */}
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex flex-wrap items-start sm:items-center justify-between gap-3 mb-5">
                 <div>
                   <p className="text-sm font-semibold text-white">
                     App E-commerce — João
@@ -117,10 +117,10 @@ export function FeaturesSplit() {
                       {event.icon}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold text-white truncate">
+                      <p className="text-xs font-semibold text-white leading-tight mb-0.5">
                         {event.title}
                       </p>
-                      <p className="text-[10px] text-zinc-500 truncate">
+                      <p className="text-[10px] text-zinc-500 leading-tight">
                         {event.sub}
                       </p>
                     </div>
