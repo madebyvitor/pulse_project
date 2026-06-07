@@ -7,6 +7,7 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import { RefreshCw, Building2, ArrowRight, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Toast } from "@/components/auth/Toast";
 
 /* ─── Schema ─── */
@@ -25,9 +26,7 @@ const STEPS = ["Conta criada", "Nome da agência", "Dashboard"];
 function ProgresslyLogo() {
   return (
     <div className="flex items-center gap-2.5">
-      <div className="w-7 h-7 rounded-lg bg-[#C6FF4A] flex items-center justify-center">
-        <RefreshCw className="w-4 h-4 text-black" strokeWidth={2.5} />
-      </div>
+      <Image src="/logotipo.svg" alt="Progressly Logo" width={28} height={28} className="w-7 h-7" />
       <span className="text-lg font-bold tracking-tight text-white">Progressly</span>
     </div>
   );

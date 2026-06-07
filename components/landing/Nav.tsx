@@ -1,17 +1,15 @@
 "use client";
 
-import { Zap } from "lucide-react";
 import { PrimaryButtonBase } from "@/components/ui/PrimaryButtonBase";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 py-4 mx-auto max-w-7xl backdrop-blur-md bg-black/20 border-b border-white/5">
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-[#C6FF4A] flex items-center justify-center">
-          <Zap className="w-4 h-4 text-black fill-black" />
-        </div>
+        <Image src="/logotipo.svg" alt="Progressly Logo" width={32} height={32} className="w-8 h-8" />
         <span className="text-xl font-bold tracking-tight text-white">Progressly</span>
       </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import {
   LayoutDashboard,
   Users,
@@ -48,9 +49,7 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
     <div className="w-64 h-screen bg-[#050505] border-r border-[#222222] flex flex-col p-4">
       {/* Logo */}
       <div className="flex items-center gap-2 px-2 mb-8">
-        <div className="w-8 h-8 bg-[#C6FF4A] rounded-lg flex items-center justify-center shrink-0">
-          <div className="w-4 h-4 bg-black rounded-sm rotate-45" />
-        </div>
+        <Image src="/logotipo.svg" alt="Progressly Logo" width={32} height={32} className="w-8 h-8 shrink-0" />
         <span className="text-xl font-bold tracking-tight text-white">Progressly</span>
       </div>
 

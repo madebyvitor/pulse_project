@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, RefreshCw } from "lucide-react";
+import Image from "next/image";
 import { LoginForm } from "./LoginForm";
 import { SignupForm } from "./SignupForm";
 
@@ -15,9 +16,7 @@ const FEATURES = [
 function ProgresslyLogo({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <div className="w-8 h-8 rounded-lg bg-[#C6FF4A] flex items-center justify-center">
-        <RefreshCw className="w-5 h-5 text-black" strokeWidth={2.5} />
-      </div>
+      <Image src="/logotipo.svg" alt="Progressly Logo" width={32} height={32} className="w-8 h-8" />
       <span className="text-xl font-bold tracking-tight text-white">Progressly</span>
     </div>
   );

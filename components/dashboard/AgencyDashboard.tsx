@@ -24,6 +24,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { AgencySidebar } from './AgencySidebar';
 import { MetricCardBase } from './MetricCardBase';
 import { ProgressBar } from './ProgressBar';
@@ -240,9 +241,7 @@ export const AgencyDashboard: React.FC = () => {
 
               {/* Mobile logo */}
               <div className="md:hidden flex items-center gap-2 shrink-0">
-                <div className="w-7 h-7 bg-[#C6FF4A] rounded-lg flex items-center justify-center">
-                  <div className="w-3.5 h-3.5 bg-black rounded-sm rotate-45" />
-                </div>
+                <Image src="/logotipo.svg" alt="Progressly Logo" width={28} height={28} className="w-7 h-7" />
                 <span className="text-base font-bold">Progressly</span>
               </div>
 
