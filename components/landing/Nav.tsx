@@ -12,7 +12,7 @@ export function Nav() {
         <div className="w-8 h-8 rounded-lg bg-[#C6FF4A] flex items-center justify-center">
           <Zap className="w-4 h-4 text-black fill-black" />
         </div>
-        <span className="text-xl font-bold tracking-tight text-white">Pulse</span>
+        <span className="text-xl font-bold tracking-tight text-white">Progressly</span>
       </div>
 
       {/* Links */}

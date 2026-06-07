@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, RefreshCw } from "lucide-react";
 import { LoginForm } from "./LoginForm";
+import { SignupForm } from "./SignupForm";
 
 const FEATURES = [
   { text: "Portal white-label para seus clientes" },
@@ -10,23 +12,25 @@ const FEATURES = [
   { text: "Relatórios gerados por IA" },
 ];
 
-function PulseLogo({ className = "" }: { className?: string }) {
+function ProgresslyLogo({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div className="w-8 h-8 rounded-lg bg-[#C6FF4A] flex items-center justify-center">
         <RefreshCw className="w-5 h-5 text-black" strokeWidth={2.5} />
       </div>
-      <span className="text-xl font-bold tracking-tight text-white">Pulse</span>
+      <span className="text-xl font-bold tracking-tight text-white">Progressly</span>
     </div>
   );
 }
 
 export function AuthScreen() {
+  const [view, setView] = useState<"login" | "signup">("login");
+
   return (
     <main className="flex min-h-screen w-full bg-[#050505] font-sans selection:bg-[#C6FF4A] selection:text-black antialiased">
       {/* ─── LEFT PANEL ─── */}
       <section className="hidden lg:flex flex-col justify-between w-[42%] bg-[#050505] p-12 border-r border-[#222222]">
-        <PulseLogo />
+        <ProgresslyLogo />
 
         <div className="max-w-md">
           <motion.div
@@ -113,7 +117,7 @@ export function AuthScreen() {
             </div>
           </div>
           <p className="text-[#888888] text-xs italic leading-relaxed max-w-xs">
-            &ldquo;O Pulse mudou a forma como entregamos projetos. Nossos clientes
+            &ldquo;O Progressly mudou a forma como entregamos projetos. Nossos clientes
             elogiam a transparência todos os dias.&rdquo;
           </p>
         </div>
@@ -127,18 +131,24 @@ export function AuthScreen() {
         <div className="w-full max-w-md relative z-10">
           {/* Mobile logo */}
           <div className="lg:hidden flex justify-center mb-8">
-            <PulseLogo />
+            <ProgresslyLogo />
           </div>
 
           {/* Auth card */}
           <AnimatePresence mode="wait">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
+              key={view}
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.25 }}
               className="bg-[#111111] border border-[#222222] rounded-2xl p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
             >
-              <LoginForm />
+              {view === "login" ? (
+                <LoginForm onSwitchToSignup={() => setView("signup")} />
+              ) : (
+                <SignupForm onSwitchToLogin={() => setView("login")} />
+              )}
             </motion.div>
           </AnimatePresence>
 

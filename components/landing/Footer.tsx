@@ -21,7 +21,7 @@ export function Footer() {
                 <Zap className="w-4 h-4 text-black fill-black" />
               </div>
               <span className="text-xl font-bold tracking-tight text-white">
-                Pulse
+                Progressly
               </span>
             </div>
             <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">
@@ -54,7 +54,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 md:pt-12 mt-8 md:mt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <p className="text-xs text-zinc-600">
-            © {new Date().getFullYear()} Pulse Technologies. Todos os direitos
+            © {new Date().getFullYear()} Progressly Technologies. Todos os direitos
             reservados.
           </p>
           <div className="flex gap-4">

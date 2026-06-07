@@ -1,24 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { motion } from "framer-motion";
-import { Globe, Mail, ArrowRight } from "lucide-react";
-import { InputField } from "./InputField";
+import { Globe } from "lucide-react";
 import { PrimaryButton } from "./PrimaryButton";
 import { Toast } from "./Toast";
-
-/* ─── Magic Link schema ─── */
-const magicLinkSchema = z.object({
-  email: z
-    .string()
-    .min(1, "E-mail é obrigatório")
-    .email("Informe um e-mail válido"),
-});
-
-type MagicLinkData = z.infer<typeof magicLinkSchema>;
 
 /* ─── GitHub SVG Icon ─── */
 function GitHubIcon() {
@@ -35,22 +21,15 @@ function GitHubIcon() {
   );
 }
 
-export function LoginForm() {
-  const [magicSent, setMagicSent] = useState(false);
+interface LoginFormProps {
+  onSwitchToSignup: () => void;
+}
+
+export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
   const [isGithubLoading, setIsGithubLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const [isMagicLoading, setIsMagicLoading] = useState(false);
-  const [showMagicForm, setShowMagicForm] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<MagicLinkData>({
-    resolver: zodResolver(magicLinkSchema),
-  });
 
   /* ── Mock handlers ── */
   const handleGitHub = async () => {
@@ -69,130 +48,62 @@ export function LoginForm() {
     setShowToast(true);
   };
 
-  const onMagicSubmit = async (_data: MagicLinkData) => {
-    setIsMagicLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setIsMagicLoading(false);
-    setMagicSent(true);
-  };
-
   return (
     <>
       <motion.div
-        key="login"
-        initial={{ opacity: 0, x: 0, y: 8 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.25 }}
-        className="space-y-6"
+        className="space-y-5"
       >
         <header className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-1">Acesse o Pulse</h2>
+          <h2 className="text-2xl font-bold text-white mb-1">Acesse o Progressly</h2>
           <p className="text-[#888888] text-sm">
             Entre com sua conta para continuar
           </p>
         </header>
 
-        {/* ── Primary: GitHub ── */}
-        <PrimaryButton
-          type="button"
-          onClick={handleGitHub}
-          isLoading={isGithubLoading}
-          className="flex items-center justify-center gap-3"
-        >
-          {!isGithubLoading && <GitHubIcon />}
-          Continuar com GitHub
-        </PrimaryButton>
+        <div className="space-y-3">
+          {/* ── Primary: GitHub ── */}
+          <PrimaryButton
+            type="button"
+            onClick={handleGitHub}
+            isLoading={isGithubLoading}
+            disabled={isGoogleLoading}
+            className="flex items-center justify-center gap-3"
+          >
+            {!isGithubLoading && <GitHubIcon />}
+            Continuar com GitHub
+          </PrimaryButton>
 
-        {/* ── Secondary: Google ── */}
-        <button
-          type="button"
-          onClick={handleGoogle}
-          disabled={isGoogleLoading}
-          className="flex items-center justify-center gap-3 w-full bg-transparent border border-[#333333] text-white py-3 rounded-lg hover:bg-[#161616] hover:border-[#444444] transition-all disabled:opacity-50"
-        >
-          {isGoogleLoading ? (
-            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-          ) : (
-            <Globe size={18} />
-          )}
-          <span className="text-sm font-medium">Continuar com Google</span>
-        </button>
-
-        {/* ── Divider ── */}
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-[#222222]" />
-          </div>
-          <div className="relative flex justify-center">
-            <span className="bg-[#111111] px-4 text-[11px] text-[#444444] uppercase tracking-widest font-semibold">
-              ou
-            </span>
-          </div>
+          {/* ── Secondary: Google ── */}
+          <button
+            type="button"
+            onClick={handleGoogle}
+            disabled={isGoogleLoading || isGithubLoading}
+            className="flex items-center justify-center gap-3 w-full bg-transparent border border-[#333333] text-white py-3 rounded-lg hover:bg-[#161616] hover:border-[#444444] transition-all disabled:opacity-50"
+          >
+            {isGoogleLoading ? (
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Globe size={18} />
+            )}
+            <span className="text-sm font-medium">Continuar com Google</span>
+          </button>
         </div>
 
-        {/* ── Magic Link ── */}
-        {!magicSent ? (
-          <>
-            {showMagicForm ? (
-              <motion.form
-                key="magic-form"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                transition={{ duration: 0.2 }}
-                onSubmit={handleSubmit(onMagicSubmit)}
-                noValidate
-                className="space-y-3"
-              >
-                <InputField
-                  label="Seu e-mail"
-                  placeholder="voce@suaagencia.com"
-                  type="email"
-                  icon={Mail}
-                  registration={register("email")}
-                  error={errors.email?.message}
-                />
-                <button
-                  type="submit"
-                  disabled={isMagicLoading}
-                  className="flex items-center justify-center gap-2 w-full text-[#C6FF4A] text-sm font-semibold py-2.5 rounded-lg border border-[#C6FF4A]/20 hover:bg-[#C6FF4A]/5 transition-all disabled:opacity-50"
-                >
-                  {isMagicLoading ? (
-                    <div className="w-4 h-4 border-2 border-[#C6FF4A] border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      Enviar link de acesso
-                      <ArrowRight size={14} />
-                    </>
-                  )}
-                </button>
-              </motion.form>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setShowMagicForm(true)}
-                className="flex items-center justify-center gap-2 w-full text-[#888888] text-sm font-medium py-2 hover:text-white transition-colors"
-              >
-                <Mail size={15} />
-                Entrar com Magic Link (e-mail)
-              </button>
-            )}
-          </>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-4 px-5 rounded-xl border border-[#C6FF4A]/20 bg-[#C6FF4A]/5"
+        {/* ── Footer link ── */}
+        <p className="text-center text-sm text-[#888888] pt-1">
+          Não tem uma conta?{" "}
+          <button
+            type="button"
+            onClick={onSwitchToSignup}
+            className="text-[#C6FF4A] font-semibold hover:underline transition-colors"
           >
-            <Mail className="text-[#C6FF4A] mx-auto mb-2" size={22} />
-            <p className="text-white text-sm font-semibold mb-1">
-              Link enviado!
-            </p>
-            <p className="text-[#888888] text-xs leading-relaxed">
-              Verifique sua caixa de entrada e clique no link para acessar.
-            </p>
-          </motion.div>
-        )}
+            Criar conta manualmente
+          </button>
+        </p>
       </motion.div>
 
       <Toast

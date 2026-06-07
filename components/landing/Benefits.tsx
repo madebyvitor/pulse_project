@@ -38,7 +38,7 @@ export function Benefits() {
           </h2>
           <p className="text-zinc-400 text-lg">
             O desenvolvedor codava o dia todo, mas o cliente achava que nada
-            havia sido feito. O Pulse muda isso.
+            havia sido feito. O Progressly muda isso.
           </p>
         </div>
 

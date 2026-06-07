@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Pulse — Seu projeto, vivo para o cliente",
+  title: "Progressly — Seu projeto, vivo para o cliente",
   description:
     "Plataforma que transforma eventos técnicos do desenvolvimento em atualizações compreensíveis para o cliente, dando visibilidade em tempo real do progresso.",
   keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "comunicação",
   ],
   openGraph: {
-    title: "Pulse — Seu projeto, vivo para o cliente",
+    title: "Progressly — Seu projeto, vivo para o cliente",
     description:
       "Transforme eventos técnicos em atualizações visuais compreensíveis para o seu cliente automaticamente.",
     type: "website",

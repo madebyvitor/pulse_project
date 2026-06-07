@@ -22,13 +22,13 @@ type OnboardingData = z.infer<typeof onboardingSchema>;
 /* ─── Steps indicator ─── */
 const STEPS = ["Conta criada", "Nome da agência", "Dashboard"];
 
-function PulseLogo() {
+function ProgresslyLogo() {
   return (
     <div className="flex items-center gap-2.5">
       <div className="w-7 h-7 rounded-lg bg-[#C6FF4A] flex items-center justify-center">
         <RefreshCw className="w-4 h-4 text-black" strokeWidth={2.5} />
       </div>
-      <span className="text-lg font-bold tracking-tight text-white">Pulse</span>
+      <span className="text-lg font-bold tracking-tight text-white">Progressly</span>
     </div>
   );
 }
@@ -72,7 +72,7 @@ export function OnboardingForm() {
 
         <div className="w-full max-w-sm relative z-10 flex flex-col items-center gap-8">
           {/* Logo */}
-          <PulseLogo />
+          <ProgresslyLogo />
 
           {/* Progress steps */}
           <div className="flex items-center gap-2 w-full justify-center">
@@ -124,7 +124,7 @@ export function OnboardingForm() {
                 Qual o nome da sua agência?
               </h1>
               <p className="text-[#888888] text-sm leading-relaxed">
-                Isso será usado como o nome da sua organização no Pulse. Você
+                Isso será usado como o nome da sua organização no Progressly. Você
                 pode alterar depois.
               </p>
             </header>

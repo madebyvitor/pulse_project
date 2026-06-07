@@ -1,0 +1,116 @@
+'use client';
+
+import React from 'react';
+import {
+  LayoutDashboard,
+  Users,
+  FolderKanban,
+  Settings,
+  LogOut,
+  Bell,
+  Plus,
+} from 'lucide-react';
+
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  label: string;
+  active?: boolean;
+  onClick?: () => void;
+}
+
+const SidebarItem = ({ icon, label, active, onClick }: SidebarItemProps) => (
+  <button
+    onClick={onClick}
+    className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 group ${
+      active
+        ? 'bg-[#1a1a1a] text-[#C6FF4A]'
+        : 'text-[#888888] hover:bg-[#111111] hover:text-white'
+    }`}
+  >
+    <span className={`${active ? 'text-[#C6FF4A]' : 'text-[#888888] group-hover:text-white'}`}>
+      {icon}
+    </span>
+    <span className="text-sm font-medium">{label}</span>
+    {active && <div className="ml-auto w-1 h-4 bg-[#C6FF4A] rounded-full" />}
+  </button>
+);
+
+interface AgencySidebarProps {
+  activeSection?: string;
+  onNewProject?: () => void;
+}
+
+export const AgencySidebar: React.FC<AgencySidebarProps> = ({
+  activeSection = 'dashboard',
+  onNewProject,
+}) => {
+  return (
+    <div className="w-64 h-screen bg-[#050505] border-r border-[#222222] flex flex-col p-4">
+      {/* Logo */}
+      <div className="flex items-center gap-2 px-2 mb-8">
+        <div className="w-8 h-8 bg-[#C6FF4A] rounded-lg flex items-center justify-center shrink-0">
+          <div className="w-4 h-4 bg-black rounded-sm rotate-45" />
+        </div>
+        <span className="text-xl font-bold tracking-tight text-white">Progressly</span>
+      </div>
+
+      {/* Nav Items */}
+      <div className="space-y-1 mb-auto">
+        <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2">
+          Main
+        </div>
+        <SidebarItem
+          icon={<LayoutDashboard size={18} />}
+          label="Dashboard"
+          active={activeSection === 'dashboard'}
+        />
+        <SidebarItem
+          icon={<FolderKanban size={18} />}
+          label="Projetos"
+          active={activeSection === 'projects'}
+        />
+        <SidebarItem
+          icon={<Users size={18} />}
+          label="Clientes"
+          active={activeSection === 'clients'}
+        />
+
+        <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2 mt-6">
+          Sistema
+        </div>
+        <SidebarItem
+          icon={<Bell size={18} />}
+          label="Notificações"
+          active={activeSection === 'notifications'}
+        />
+        <SidebarItem
+          icon={<Settings size={18} />}
+          label="Configurações"
+          active={activeSection === 'settings'}
+        />
+      </div>
+
+      {/* User + New Project */}
+      <div className="mt-auto border-t border-[#222222] pt-4">
+        <button className="w-full flex items-center gap-3 px-3 py-2 text-[#888888] hover:text-white transition-colors mb-4">
+          <div className="w-8 h-8 rounded-full bg-[#222222] flex items-center justify-center text-xs font-bold shrink-0">
+            AD
+          </div>
+          <div className="flex flex-col items-start">
+            <span className="text-sm font-medium text-white">Alex Director</span>
+            <span className="text-[10px] text-[#444444]">Agency Plan</span>
+          </div>
+          <LogOut size={14} className="ml-auto" />
+        </button>
+
+        <button
+          onClick={onNewProject}
+          className="w-full py-2 bg-[#C6FF4A] text-black rounded-md text-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all"
+        >
+          <Plus size={16} />
+          Novo Projeto
+        </button>
+      </div>
+    </div>
+  );
+};
