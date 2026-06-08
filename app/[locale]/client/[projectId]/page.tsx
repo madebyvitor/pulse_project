@@ -133,12 +133,12 @@ export default function ClientPortalPage() {
 
               <div className="p-8 bg-[#111111] border border-[#222222] rounded-2xl space-y-4">
                 <ProgressBar progress={PROJECT_DATA.progress} label="Status Geral do Projeto" size="lg" animated={true} />
-                <div className="flex justify-between items-center pt-2">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pt-2">
                   <div className="flex items-center gap-2 text-xs text-[#888888]">
                     <Circle size={8} className="fill-[#C6FF4A] text-[#C6FF4A]" />
                     <span>Em desenvolvimento ativo</span>
                   </div>
-                  <span className="text-xs text-[#888888]">Previsão de entrega final: 15 Nov</span>
+                  <span className="text-xs text-[#888888] pl-4 sm:pl-0">Previsão de entrega final: 15 Nov</span>
                 </div>
               </div>
             </motion.section>
@@ -150,12 +150,12 @@ export default function ClientPortalPage() {
               </div>
               
               <div className="relative z-10 space-y-6">
-                <div className="flex justify-between items-start">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
                   <div className="space-y-1">
                     <span className="px-2 py-0.5 bg-[#C6FF4A]/10 text-[#C6FF4A] text-[10px] font-bold uppercase tracking-widest rounded border border-[#C6FF4A]/20">Próxima Entrega</span>
                     <h3 className="text-2xl font-bold pt-2">{PROJECT_DATA.nextDelivery.title}</h3>
                   </div>
-                  <div className="text-right">
+                  <div className="text-left sm:text-right flex flex-row sm:flex-col items-baseline sm:items-end gap-2 sm:gap-0">
                     <span className="text-[#888888] text-xs uppercase tracking-wider block">Prazo</span>
                     <span className="font-mono text-sm font-bold">{PROJECT_DATA.nextDelivery.deadline}</span>
                   </div>
@@ -165,11 +165,11 @@ export default function ClientPortalPage() {
                   {PROJECT_DATA.nextDelivery.description}
                 </p>
 
-                <div className="flex flex-wrap gap-4 pt-2">
-                  <PrimaryButtonBase variant="primary" size="md" onClick={() => console.log('Aprovar Entrega')}>
+                <div className="flex flex-col sm:flex-row gap-4 pt-2 w-full justify-center sm:justify-start">
+                  <PrimaryButtonBase variant="primary" size="md" className="w-full sm:w-auto justify-center" onClick={() => console.log('Aprovar Entrega')}>
                     Aprovar Entrega
                   </PrimaryButtonBase>
-                  <PrimaryButtonBase variant="outline" size="md" onClick={() => console.log('Ver Detalhes')}>
+                  <PrimaryButtonBase variant="outline" size="md" className="w-full sm:w-auto justify-center" onClick={() => console.log('Ver Detalhes')}>
                     Ver Detalhes
                   </PrimaryButtonBase>
                 </div>
@@ -280,9 +280,9 @@ export default function ClientPortalPage() {
 
       {/* Footer Branding (Subtle) */}
       <footer className="py-12 border-t border-[#222222] mt-12 opacity-50">
-        <div className="max-w-[1400px] mx-auto px-6 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-[#444444]">
+        <div className="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-[#444444] text-center md:text-left">
           <span>© 2023 FLOW DESIGN STUDIO</span>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
             <a href="#" className="hover:text-white transition-colors">Termos</a>
             <a href="#" className="hover:text-white transition-colors">Privacidade</a>
             <a href="#" className="hover:text-white transition-colors">Suporte</a>

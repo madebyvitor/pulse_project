@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
@@ -12,12 +13,12 @@ export default function NotFound() {
           <p className="text-[#888888] max-w-md">
             O link que você tentou acessar não existe ou a localidade fornecida é inválida.
           </p>
-          <a
+          <Link
             href="/pt"
             className="inline-block px-5 py-2.5 bg-[#C6FF4A] text-black font-bold rounded-lg hover:bg-[#b5eb42] transition-colors"
           >
             Voltar para a página inicial
-          </a>
+          </Link>
         </div>
       </body>
     </html>

@@ -30,15 +30,13 @@ export const WhiteLabelHeader: React.FC<WhiteLabelHeaderProps> = ({
             <span className="font-semibold text-white tracking-tight">{agencyName}</span>
           </div>
         )}
-        <div className="h-4 w-[1px] bg-[#222222] mx-2" />
-        {clientName && <span className="text-sm text-[#888888] font-medium">Portal do Cliente</span>}
       </div>
 
       <div className="flex items-center gap-4">
         <button onClick={onBackToWebsite} className="flex items-center gap-2 text-sm text-[#888888] hover:text-white transition-colors font-medium px-3 py-2 rounded-md hover:bg-[#111111]">
           <Globe size={16} />
-          <span>Visitar Site</span>
-          <ExternalLink size={14} className="opacity-50" />
+          <span className="hidden sm:inline">Visitar Site</span>
+          <ExternalLink size={14} className="opacity-50 hidden sm:inline" />
         </button>
         
         <div className="w-8 h-8 rounded-full bg-[#111111] border border-[#222222] flex items-center justify-center overflow-hidden">
