@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import {
   LayoutDashboard,
   Users,
@@ -45,6 +46,8 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
   activeSection = 'dashboard',
   onNewProject,
 }) => {
+  const t = useTranslations('Dashboard.sidebar');
+
   return (
     <div className="w-64 h-screen bg-[#050505] border-r border-[#222222] flex flex-col p-4">
       {/* Logo */}
@@ -56,35 +59,35 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
       {/* Nav Items */}
       <div className="space-y-1 mb-auto">
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2">
-          Main
+          {t('mainSection')}
         </div>
         <SidebarItem
           icon={<LayoutDashboard size={18} />}
-          label="Dashboard"
+          label={t('dashboard')}
           active={activeSection === 'dashboard'}
         />
         <SidebarItem
           icon={<FolderKanban size={18} />}
-          label="Projetos"
+          label={t('projects')}
           active={activeSection === 'projects'}
         />
         <SidebarItem
           icon={<Users size={18} />}
-          label="Clientes"
+          label={t('clients')}
           active={activeSection === 'clients'}
         />
 
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2 mt-6">
-          Sistema
+          {t('systemSection')}
         </div>
         <SidebarItem
           icon={<Bell size={18} />}
-          label="Notificações"
+          label={t('notifications')}
           active={activeSection === 'notifications'}
         />
         <SidebarItem
           icon={<Settings size={18} />}
-          label="Configurações"
+          label={t('settings')}
           active={activeSection === 'settings'}
         />
       </div>
@@ -107,7 +110,7 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
           className="w-full py-2 bg-[#C6FF4A] text-black rounded-md text-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all"
         >
           <Plus size={16} />
-          Novo Projeto
+          {t('newProject')}
         </button>
       </div>
     </div>

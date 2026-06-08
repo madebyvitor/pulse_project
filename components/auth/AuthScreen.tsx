@@ -3,15 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, RefreshCw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { LoginForm } from "./LoginForm";
 import { SignupForm } from "./SignupForm";
-
-const FEATURES = [
-  { text: "Portal white-label para seus clientes" },
-  { text: "Timeline automática de projetos" },
-  { text: "Relatórios gerados por IA" },
-];
 
 function ProgresslyLogo({ className = "" }: { className?: string }) {
   return (
@@ -24,6 +19,13 @@ function ProgresslyLogo({ className = "" }: { className?: string }) {
 
 export function AuthScreen() {
   const [view, setView] = useState<"login" | "signup">("login");
+  const t = useTranslations("Auth");
+
+  const features = [
+    t("features.f1"),
+    t("features.f2"),
+    t("features.f3"),
+  ];
 
   return (
     <main className="flex min-h-screen w-full bg-[#050505] font-sans selection:bg-[#C6FF4A] selection:text-black antialiased">
@@ -38,15 +40,14 @@ export function AuthScreen() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
-              A plataforma que seus clientes vão amar.
+              {t("heroHeadline")}
             </h1>
             <p className="text-[#888888] text-lg mb-8">
-              Gerencie projetos, onboarding e aprovações em um único lugar
-              profissional.
+              {t("heroSubheadline")}
             </p>
 
             <ul className="space-y-4 mb-10">
-              {FEATURES.map((feature, i) => (
+              {features.map((feature, i) => (
                 <motion.li
                   key={i}
                   initial={{ opacity: 0, x: -10 }}
@@ -58,7 +59,7 @@ export function AuthScreen() {
                     className="text-[#C6FF4A] flex-shrink-0"
                     size={20}
                   />
-                  <span>{feature.text}</span>
+                  <span>{feature}</span>
                 </motion.li>
               ))}
             </ul>
@@ -76,10 +77,10 @@ export function AuthScreen() {
 
               <div className="flex justify-between items-center mb-4">
                 <span className="text-white text-sm font-semibold">
-                  Web Redesign Project
+                  {t("projectPreview")}
                 </span>
                 <span className="text-[#C6FF4A] text-xs font-bold bg-[#C6FF4A]/10 px-2 py-0.5 rounded">
-                  Active
+                  {t("projectStatus")}
                 </span>
               </div>
 
@@ -93,8 +94,8 @@ export function AuthScreen() {
               </div>
 
               <div className="flex justify-between text-[10px] text-[#444444] font-medium uppercase tracking-tighter">
-                <span>Phase 3: Development</span>
-                <span>72% Complete</span>
+                <span>{t("projectPhase")}</span>
+                <span>{t("projectComplete")}</span>
               </div>
 
               <div className="mt-4 pt-4 border-t border-[#222222] flex gap-2">
@@ -116,8 +117,7 @@ export function AuthScreen() {
             </div>
           </div>
           <p className="text-[#888888] text-xs italic leading-relaxed max-w-xs">
-            &ldquo;O Progressly mudou a forma como entregamos projetos. Nossos clientes
-            elogiam a transparência todos os dias.&rdquo;
+            {t("testimonial")}
           </p>
         </div>
       </section>
@@ -151,11 +151,11 @@ export function AuthScreen() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Trust badge — LGPD only */}
+          {/* Trust badge */}
           <div className="mt-8 flex justify-center">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111]/50 border border-[#222222]">
               <span className="text-[10px] text-[#888888] font-medium uppercase tracking-tight">
-                🔒 LGPD Compliant
+                {t("badge")}
               </span>
             </div>
           </div>

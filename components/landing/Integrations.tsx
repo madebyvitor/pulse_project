@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Globe, Triangle } from "lucide-react";
 
 const logos = [
@@ -50,11 +51,13 @@ const logos = [
 ];
 
 export function Integrations() {
+  const t = useTranslations("Integrations");
+
   return (
     <section className="py-12 md:py-20 border-y border-zinc-900">
       <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
         <p className="mb-12 text-sm font-medium text-center uppercase tracking-widest text-zinc-600">
-          Integre com as ferramentas que você já usa
+          {t("label")}
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 md:grid-cols-5 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
           {logos.map((logo) => (

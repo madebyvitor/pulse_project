@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Globe } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { PrimaryButton } from "./PrimaryButton";
 import { Toast } from "./Toast";
 
@@ -26,6 +27,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
+  const t = useTranslations("Auth.login");
   const [isGithubLoading, setIsGithubLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -36,7 +38,7 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
     setIsGithubLoading(true);
     await new Promise((r) => setTimeout(r, 1500));
     setIsGithubLoading(false);
-    setToastMessage("Redirecionando para o GitHub…");
+    setToastMessage(t("redirectGithub"));
     setShowToast(true);
   };
 
@@ -44,7 +46,7 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
     setIsGoogleLoading(true);
     await new Promise((r) => setTimeout(r, 1500));
     setIsGoogleLoading(false);
-    setToastMessage("Redirecionando para o Google…");
+    setToastMessage(t("redirectGoogle"));
     setShowToast(true);
   };
 
@@ -58,10 +60,8 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
         className="space-y-5"
       >
         <header className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-1">Acesse o Progressly</h2>
-          <p className="text-[#888888] text-sm">
-            Entre com sua conta para continuar
-          </p>
+          <h2 className="text-2xl font-bold text-white mb-1">{t("title")}</h2>
+          <p className="text-[#888888] text-sm">{t("subtitle")}</p>
         </header>
 
         <div className="space-y-3">
@@ -74,7 +74,7 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
             className="flex items-center justify-center gap-3"
           >
             {!isGithubLoading && <GitHubIcon />}
-            Continuar com GitHub
+            {t("github")}
           </PrimaryButton>
 
           {/* ── Secondary: Google ── */}
@@ -89,19 +89,19 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
             ) : (
               <Globe size={18} />
             )}
-            <span className="text-sm font-medium">Continuar com Google</span>
+            <span className="text-sm font-medium">{t("google")}</span>
           </button>
         </div>
 
         {/* ── Footer link ── */}
         <p className="text-center text-sm text-[#888888] pt-1">
-          Não tem uma conta?{" "}
+          {t("noAccount")}{" "}
           <button
             type="button"
             onClick={onSwitchToSignup}
             className="text-[#C6FF4A] font-semibold hover:underline transition-colors"
           >
-            Criar conta manualmente
+            {t("createAccount")}
           </button>
         </p>
       </motion.div>

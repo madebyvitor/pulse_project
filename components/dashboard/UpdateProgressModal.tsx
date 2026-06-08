@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, SlidersHorizontal } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface Project {
   id: string;
@@ -24,6 +25,7 @@ export const UpdateProgressModal: React.FC<UpdateProgressModalProps> = ({
   onSave,
   projects,
 }) => {
+  const t = useTranslations('Dashboard.modals.progress');
   const [selectedId, setSelectedId] = useState(projects[0]?.id ?? '');
   const [progress, setProgress] = useState(0);
 
@@ -82,7 +84,7 @@ export const UpdateProgressModal: React.FC<UpdateProgressModalProps> = ({
                 <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
                   <SlidersHorizontal size={16} />
                 </div>
-                <h2 className="text-base font-bold">Atualizar Progresso</h2>
+                <h2 className="text-base font-bold">{t('title')}</h2>
               </div>
               <button
                 onClick={onClose}
@@ -96,7 +98,7 @@ export const UpdateProgressModal: React.FC<UpdateProgressModalProps> = ({
               {/* Project Select */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
-                  Projeto
+                  {t('project')}
                 </label>
                 <select
                   value={selectedId}
@@ -119,7 +121,7 @@ export const UpdateProgressModal: React.FC<UpdateProgressModalProps> = ({
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
-                    Percentual de Conclusão
+                    {t('progress')}
                   </label>
                   <span
                     className="text-2xl font-black tabular-nums transition-all"
@@ -184,7 +186,7 @@ export const UpdateProgressModal: React.FC<UpdateProgressModalProps> = ({
                   onClick={onClose}
                   className="flex-1 py-2.5 border border-[#222222] rounded-lg text-sm font-medium text-[#888888] hover:text-white hover:border-[#333333] transition-all"
                 >
-                  Cancelar
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={() => {
@@ -195,7 +197,7 @@ export const UpdateProgressModal: React.FC<UpdateProgressModalProps> = ({
                   }}
                   className="flex-1 py-2.5 bg-[#C6FF4A] text-black rounded-lg text-sm font-bold hover:opacity-90 active:scale-95 transition-all"
                 >
-                  Salvar Progresso
+                  {t('update')}
                 </button>
               </div>
             </div>

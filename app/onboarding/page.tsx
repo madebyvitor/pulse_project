@@ -1,12 +1,5 @@
-import type { Metadata } from "next";
-import { OnboardingForm } from "@/components/auth/OnboardingForm";
-
-export const metadata: Metadata = {
-  title: "Configurar agência — Progressly",
-  description:
-    "Complete seu cadastro informando o nome da sua agência ou estúdio para acessar o Progressly.",
-};
+import { redirect } from 'next/navigation';
 
 export default function OnboardingPage() {
-  return <OnboardingForm />;
+  redirect('/pt/onboarding');
 }

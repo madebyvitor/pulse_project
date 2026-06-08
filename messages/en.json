@@ -1,0 +1,307 @@
+{
+  "Nav": {
+    "features": "Features",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "login": "Log in",
+    "getStarted": "Get started",
+    "getStartedNow": "Get Started Now"
+  },
+  "Hero": {
+    "badge": "Real-time visibility for your clients",
+    "headline1": "Make your client feel the project is",
+    "headlineHighlight": "alive.",
+    "subheadline": "Transform technical development events into visual updates your client understands — without stopping to code to explain.",
+    "ctaPrimary": "Start for free",
+    "ctaSecondary": "See a demo",
+    "previewStatus": "In progress",
+    "previewProgress": "Overall progress",
+    "previewEvent1": "Login screen completed",
+    "previewEvent1Time": "2h ago",
+    "previewEvent2": "User dashboard in development",
+    "previewEvent2Time": "Now",
+    "previewEvent3": "Payment integration",
+    "previewEvent3Time": "Pending"
+  },
+  "Integrations": {
+    "label": "Integrate with the tools you already use"
+  },
+  "Benefits": {
+    "badge": "Benefits",
+    "headline1": "The invisible work,",
+    "headlineHighlight": "finally visible.",
+    "description": "The developer coded all day, but the client thought nothing had been done. Progressly changes that.",
+    "benefit1Title": "Project visible in real time",
+    "benefit1Desc": "The client opens a link and sees the updated progress, the timeline of events and the completion percentage — without asking you anything.",
+    "benefit2Title": "Zero interruptions to your flow",
+    "benefit2Desc": "Every commit, merge or milestone automatically becomes a comprehensible update for the client. You keep coding.",
+    "benefit3Title": "End of \"How's the project going?\"",
+    "benefit3Desc": "Eliminate status meetings and WhatsApp messages about progress. The client has everything they need, always available."
+  },
+  "FeaturesSplit": {
+    "badge": "How it works",
+    "headline1": "Forget the manual",
+    "headlineHighlight": "status reports",
+    "description": "Every technical event in your workflow — commit, deploy, milestone — automatically becomes a clear update on the client's timeline. No extra effort.",
+    "item1": "Timeline automatically translated into plain language",
+    "item2": "Progress percentage calculated via Milestones",
+    "item3": "Exclusive and dedicated portal for the client",
+    "cta": "See all features",
+    "mockTitle": "E-commerce App — John",
+    "mockSubtitle": "Client portal",
+    "mockStatus": "In progress",
+    "mockProgress": "Progress",
+    "mockUpdates": "Latest updates",
+    "mockEvent1Title": "Registration system completed",
+    "mockEvent1Sub": "Users can now create their accounts",
+    "mockEvent1Time": "2h ago",
+    "mockEvent2Title": "Shopping cart integrated",
+    "mockEvent2Sub": "Adding and removing items working",
+    "mockEvent2Time": "Yesterday",
+    "mockEvent3Title": "Homepage published",
+    "mockEvent3Sub": "Layout approved and live",
+    "mockEvent3Time": "3 days ago",
+    "mockEvent4Title": "Payment integration",
+    "mockEvent4Sub": "Next step",
+    "mockEvent4Time": "Pending"
+  },
+  "Pricing": {
+    "badge": "Pricing",
+    "headline": "Simple and transparent",
+    "description": "Start for free and scale as your agency grows.",
+    "popular": "Most Popular",
+    "perMonth": "/month",
+    "choosePlan": "Choose Plan",
+    "starter": {
+      "name": "Starter",
+      "price": "$9/mo",
+      "description": "Perfect for freelancers starting out.",
+      "f1": "5 active projects",
+      "f2": "10 clients",
+      "f3": "Manual event timeline",
+      "f4": "Exclusive client portal",
+      "f5": "Email support"
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "$19/mo",
+      "description": "For freelancers who want to scale.",
+      "f1": "Unlimited projects",
+      "f2": "Unlimited clients",
+      "f3": "GitHub integration",
+      "f4": "AI for event translation",
+      "f5": "Priority support"
+    },
+    "agency": {
+      "name": "Agency",
+      "price": "$39/mo",
+      "description": "For agencies with larger teams.",
+      "f1": "Everything in Pro",
+      "f2": "Multiple team members",
+      "f3": "White-label (coming soon)",
+      "f4": "Custom domain",
+      "f5": "Dedicated account manager"
+    }
+  },
+  "CTA": {
+    "badge": "Get started today",
+    "headline1": "Ready to make your client",
+    "headlineHighlight": "feel the project alive?",
+    "description": "Join hundreds of developers and agencies who've stopped answering \"How's the project going?\".",
+    "ctaPrimary": "Start for free",
+    "ctaSecondary": "Schedule a Demo"
+  },
+  "Footer": {
+    "tagline": "The platform that makes your client feel the project is alive.",
+    "copyright": "All rights reserved.",
+    "platform": "Platform",
+    "company": "Company",
+    "legal": "Legal",
+    "platformLinks": {
+      "features": "Features",
+      "clientPortal": "Client Portal",
+      "integrations": "Integrations",
+      "api": "API"
+    },
+    "companyLinks": {
+      "about": "About us",
+      "blog": "Blog",
+      "careers": "Careers",
+      "contact": "Contact"
+    },
+    "legalLinks": {
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "security": "Security"
+    }
+  },
+  "Auth": {
+    "features": {
+      "f1": "White-label portal for your clients",
+      "f2": "Automatic project timeline",
+      "f3": "AI-generated reports"
+    },
+    "testimonial": "\"Progressly changed the way we deliver projects. Our clients praise the transparency every day.\"",
+    "badge": "🔒 LGPD Compliant",
+    "heroHeadline": "The platform your clients will love.",
+    "heroSubheadline": "Manage projects, onboarding and approvals in a single professional place.",
+    "projectPreview": "Web Redesign Project",
+    "projectStatus": "Active",
+    "projectPhase": "Phase 3: Development",
+    "projectComplete": "72% Complete",
+    "login": {
+      "title": "Access Progressly",
+      "subtitle": "Sign in to your account to continue",
+      "github": "Continue with GitHub",
+      "google": "Continue with Google",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create account manually",
+      "redirectGithub": "Redirecting to GitHub…",
+      "redirectGoogle": "Redirecting to Google…"
+    },
+    "signup": {
+      "title": "Start for free",
+      "subtitle": "Create your account in seconds. No credit card required.",
+      "namePlaceholder": "Your full name",
+      "nameLabel": "Full name",
+      "emailLabel": "Professional email",
+      "emailPlaceholder": "you@youragency.com",
+      "companyLabel": "Agency or company name",
+      "companyPlaceholder": "E.g.: Studio Aurora",
+      "passwordLabel": "Create a password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Create free account",
+      "terms": "By creating an account you agree to the",
+      "termsLink": "Terms of Use",
+      "and": "and",
+      "privacyLink": "Privacy Policy",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "success": "Account created successfully! Redirecting…",
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "companyRequired": "Agency/company name is required",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters"
+    },
+    "onboarding": {
+      "step1": "Account created",
+      "step2": "Agency name",
+      "step3": "Dashboard",
+      "cardTitle": "What is your agency's name?",
+      "cardSubtitle": "This will be used as your organization name in Progressly. You can change it later.",
+      "fieldLabel": "Agency or studio name",
+      "fieldPlaceholder": "E.g.: Acme Studio",
+      "preview": "Your organization will be created as",
+      "submit": "Complete Registration",
+      "signout": "Sign out and cancel registration",
+      "success": "Organization created! Opening your dashboard…",
+      "nameMin": "Name must be at least 2 characters",
+      "nameMax": "Maximum 80 characters"
+    }
+  },
+  "Dashboard": {
+    "sidebar": {
+      "mainSection": "Main",
+      "systemSection": "System",
+      "dashboard": "Dashboard",
+      "projects": "Projects",
+      "clients": "Clients",
+      "notifications": "Notifications",
+      "settings": "Settings",
+      "newProject": "New Project"
+    },
+    "header": {
+      "searchPlaceholder": "Search projects or clients...",
+      "welcome": "Welcome back! Here's what's happening.",
+      "title": "Dashboard"
+    },
+    "metrics": {
+      "activeProjects": "Active projects",
+      "activeProjectsDesc": "In design and development",
+      "activeClients": "Active clients",
+      "activeClientsDesc": "3 new clients this month",
+      "mrr": "MRR",
+      "mrrDesc": "All-time record",
+      "completed": "Completed",
+      "completedDesc": "Retention rate"
+    },
+    "projects": {
+      "title": "Recent Projects",
+      "viewAll": "View all",
+      "colProject": "Project",
+      "colClient": "Client",
+      "colStatus": "Status",
+      "colProgress": "Progress",
+      "noResults": "No projects found for"
+    },
+    "activities": {
+      "title": "Recent Activities",
+      "viewLog": "View full log"
+    },
+    "team": {
+      "title": "Team Online",
+      "workspace": "Workspace: Digital Agency"
+    },
+    "quickActions": {
+      "newEvent": "New Event",
+      "progress": "Progress",
+      "share": "Share",
+      "newProject": "New Project",
+      "timeline": "Timeline",
+      "settings": "Settings"
+    },
+    "cards": {
+      "nextLaunch": "Next Launch",
+      "nextLaunchDesc": "Mobile App in 3 days",
+      "clientPortal": "Client Portal"
+    },
+    "modals": {
+      "newProject": {
+        "title": "New Project",
+        "projectName": "Project Name",
+        "projectNamePlaceholder": "E.g.: Website Redesign",
+        "description": "Description (optional)",
+        "descriptionPlaceholder": "Brief project description...",
+        "clientName": "Client Name",
+        "clientNamePlaceholder": "E.g.: Acme Corp",
+        "clientEmail": "Client Email",
+        "clientEmailPlaceholder": "client@company.com",
+        "cancel": "Cancel",
+        "create": "Create Project"
+      },
+      "timeline": {
+        "title": "Add Timeline Event",
+        "project": "Project",
+        "selectProject": "Select a project",
+        "eventTitle": "Event Title",
+        "eventTitlePlaceholder": "E.g.: Homepage completed",
+        "description": "Description (optional)",
+        "descriptionPlaceholder": "Event details...",
+        "cancel": "Cancel",
+        "add": "Add Event"
+      },
+      "progress": {
+        "title": "Update Progress",
+        "project": "Project",
+        "selectProject": "Select a project",
+        "progress": "Progress",
+        "cancel": "Cancel",
+        "update": "Update"
+      },
+      "share": {
+        "title": "Share Client Portal",
+        "project": "Project",
+        "selectProject": "Select a project",
+        "link": "Portal Link",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "close": "Close"
+      }
+    }
+  },
+  "LanguageSwitcher": {
+    "label": "Language"
+  }
+}

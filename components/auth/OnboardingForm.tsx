@@ -5,23 +5,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { RefreshCw, Building2, ArrowRight, LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Building2, ArrowRight, LogOut } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/src/i18n/navigation";
 import Image from "next/image";
 import { Toast } from "@/components/auth/Toast";
-
-/* ─── Schema ─── */
-const onboardingSchema = z.object({
-  agencyName: z
-    .string()
-    .min(2, "O nome deve ter pelo menos 2 caracteres")
-    .max(80, "Máximo de 80 caracteres"),
-});
-
-type OnboardingData = z.infer<typeof onboardingSchema>;
-
-/* ─── Steps indicator ─── */
-const STEPS = ["Conta criada", "Nome da agência", "Dashboard"];
 
 function ProgresslyLogo() {
   return (
@@ -33,9 +21,21 @@ function ProgresslyLogo() {
 }
 
 export function OnboardingForm() {
+  const t = useTranslations("Auth.onboarding");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
+
+  const STEPS = [t("step1"), t("step2"), t("step3")];
+
+  const onboardingSchema = z.object({
+    agencyName: z
+      .string()
+      .min(2, t("nameMin"))
+      .max(80, t("nameMax")),
+  });
+
+  type OnboardingData = z.infer<typeof onboardingSchema>;
 
   const {
     register,
@@ -51,7 +51,6 @@ export function OnboardingForm() {
 
   const onSubmit = async (_data: OnboardingData) => {
     setIsLoading(true);
-    // Mock: create Organization record + link to user
     await new Promise((r) => setTimeout(r, 1500));
     setIsLoading(false);
     setShowToast(true);
@@ -59,7 +58,6 @@ export function OnboardingForm() {
   };
 
   const handleSignOut = async () => {
-    // Mock sign out
     router.push("/login");
   };
 
@@ -120,18 +118,17 @@ export function OnboardingForm() {
           >
             <header className="mb-7">
               <h1 className="text-xl font-bold text-white mb-1.5">
-                Qual o nome da sua agência?
+                {t("cardTitle")}
               </h1>
               <p className="text-[#888888] text-sm leading-relaxed">
-                Isso será usado como o nome da sua organização no Progressly. Você
-                pode alterar depois.
+                {t("cardSubtitle")}
               </p>
             </header>
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
               <div className="space-y-1.5 group">
                 <label className="text-xs font-medium text-[#888888] uppercase tracking-wider">
-                  Nome da agência ou estúdio
+                  {t("fieldLabel")}
                 </label>
                 <div className="relative">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[#444444] group-focus-within:text-[#C6FF4A]/50 transition-colors pointer-events-none">
@@ -139,7 +136,7 @@ export function OnboardingForm() {
                   </div>
                   <input
                     type="text"
-                    placeholder="Ex: Acme Studio"
+                    placeholder={t("fieldPlaceholder")}
                     autoFocus
                     {...register("agencyName")}
                     className={[
@@ -164,7 +161,7 @@ export function OnboardingForm() {
                     animate={{ opacity: 1 }}
                     className="text-[11px] text-[#555555] pl-1"
                   >
-                    Sua organização será criada como{" "}
+                    {t("preview")}{" "}
                     <span className="text-[#888888] font-semibold">
                       &ldquo;{agencyName}&rdquo;
                     </span>
@@ -186,7 +183,7 @@ export function OnboardingForm() {
                   <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
                 ) : (
                   <>
-                    Finalizar Cadastro
+                    {t("submit")}
                     <ArrowRight size={16} />
                   </>
                 )}
@@ -194,21 +191,21 @@ export function OnboardingForm() {
             </form>
           </motion.div>
 
-          {/* Sign out link — minimal */}
+          {/* Sign out link */}
           <button
             type="button"
             onClick={handleSignOut}
             className="flex items-center gap-1.5 text-[#444444] hover:text-[#888888] transition-colors text-xs font-medium"
           >
             <LogOut size={13} />
-            Sair e cancelar cadastro
+            {t("signout")}
           </button>
         </div>
       </main>
 
       <Toast
         show={showToast}
-        message="Organização criada! Abrindo seu dashboard…"
+        message={t("success")}
         type="success"
         onClose={() => setShowToast(false)}
       />

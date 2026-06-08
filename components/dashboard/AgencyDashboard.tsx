@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { AgencySidebar } from './AgencySidebar';
 import { MetricCardBase } from './MetricCardBase';
 import { ProgressBar } from './ProgressBar';
@@ -120,6 +121,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
 // --- Main Component ---
 
 export const AgencyDashboard: React.FC = () => {
+  const t = useTranslations('Dashboard');
   const [projects, setProjects] = useState<Project[]>(INITIAL_PROJECTS);
   const [activities, setActivities] = useState<Activity[]>(INITIAL_ACTIVITIES);
   const [searchQuery, setSearchQuery] = useState('');
@@ -252,7 +254,7 @@ export const AgencyDashboard: React.FC = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Pesquisar projetos ou clientes..."
+                  placeholder={t('header.searchPlaceholder')}
                   className="w-full bg-[#111111] border border-[#222222] rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-[#C6FF4A]/30 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all placeholder:text-[#444444]"
                 />
               </div>
@@ -287,7 +289,7 @@ export const AgencyDashboard: React.FC = () => {
                 <div className="h-8 w-[1px] bg-[#222222]" />
                 <div className="flex flex-col items-end">
                   <span className="text-sm font-bold">Alex Director</span>
-                  <span className="text-[10px] text-[#888888]">Fundador @ Agência</span>
+                  <span className="text-[10px] text-[#888888]">Founder @ Agency</span>
                 </div>
                 <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#C6FF4A] to-emerald-500 p-[1px] shrink-0">
                   <div className="w-full h-full rounded-full bg-[#050505] flex items-center justify-center">
@@ -314,7 +316,7 @@ export const AgencyDashboard: React.FC = () => {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Pesquisar projetos ou clientes..."
+                    placeholder={t('header.searchPlaceholder')}
                     autoFocus
                     className="w-full bg-[#111111] border border-[#222222] rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-[#C6FF4A]/30 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all placeholder:text-[#444444]"
                   />
@@ -333,9 +335,9 @@ export const AgencyDashboard: React.FC = () => {
               {/* Page Title + Action Buttons */}
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-6 md:mb-8">
                 <div>
-                  <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1">Dashboard</h1>
+                  <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1">{t('header.title')}</h1>
                   <p className="text-[#888888] text-xs md:text-sm">
-                    Bem-vindo de volta! Aqui está o que está acontecendo.
+                    {t('header.welcome')}
                   </p>
                 </div>
                 {/* Quick Action Buttons — desktop only */}
@@ -345,28 +347,28 @@ export const AgencyDashboard: React.FC = () => {
                     className="bg-[#111111] border border-[#222222] text-white px-3 py-2 rounded-lg text-sm font-medium hover:border-[#333333] transition-all flex items-center gap-2"
                   >
                     <Milestone size={15} className="text-purple-400" />
-                    <span className="hidden md:inline">Novo Evento</span>
+                    <span className="hidden md:inline">{t('quickActions.newEvent')}</span>
                   </button>
                   <button
                     onClick={() => setProgressOpen(true)}
                     className="bg-[#111111] border border-[#222222] text-white px-3 py-2 rounded-lg text-sm font-medium hover:border-[#333333] transition-all flex items-center gap-2"
                   >
                     <SlidersHorizontal size={15} className="text-blue-400" />
-                    <span className="hidden md:inline">Progresso</span>
+                    <span className="hidden md:inline">{t('quickActions.progress')}</span>
                   </button>
                   <button
                     onClick={() => setShareOpen(true)}
                     className="bg-[#111111] border border-[#222222] text-white px-3 py-2 rounded-lg text-sm font-medium hover:border-[#333333] transition-all flex items-center gap-2"
                   >
                     <Link2 size={15} className="text-orange-400" />
-                    <span className="hidden md:inline">Compartilhar</span>
+                    <span className="hidden md:inline">{t('quickActions.share')}</span>
                   </button>
                   <button
                     onClick={() => setNewProjectOpen(true)}
                     className="bg-[#C6FF4A] text-black px-4 py-2 rounded-lg text-sm font-bold hover:opacity-90 active:scale-95 transition-all flex items-center gap-2"
                   >
                     <Plus size={16} />
-                    Novo Projeto
+                    {t('quickActions.newProject')}
                   </button>
                 </div>
               </div>
@@ -374,36 +376,36 @@ export const AgencyDashboard: React.FC = () => {
               {/* Metrics Grid — 2 cols on mobile, 4 on lg */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-10">
                 <MetricCardBase
-                  title="Projetos ativos"
+                  title={t('metrics.activeProjects')}
                   value={projects.filter((p) => p.status !== 'Done').length}
                   change="+2"
                   trend="up"
                   icon={<Briefcase size={18} />}
-                  description="Em design e desenvolvimento"
+                  description={t('metrics.activeProjectsDesc')}
                 />
                 <MetricCardBase
-                  title="Clientes ativos"
+                  title={t('metrics.activeClients')}
                   value="24"
                   change="+5%"
                   trend="up"
                   icon={<UsersIcon size={18} />}
-                  description="3 novos clientes este mês"
+                  description={t('metrics.activeClientsDesc')}
                 />
                 <MetricCardBase
-                  title="MRR"
+                  title={t('metrics.mrr')}
                   value="R$45.2k"
                   change="+12%"
                   trend="up"
                   icon={<DollarSign size={18} />}
-                  description="Recorde histórico"
+                  description={t('metrics.mrrDesc')}
                 />
                 <MetricCardBase
-                  title="Finalizados"
+                  title={t('metrics.completed')}
                   value={projects.filter((p) => p.status === 'Done').length}
                   change="98%"
                   trend="neutral"
                   icon={<CheckCircle size={18} />}
-                  description="Taxa de retenção"
+                  description={t('metrics.completedDesc')}
                 />
               </div>
 
@@ -413,8 +415,8 @@ export const AgencyDashboard: React.FC = () => {
                 <div className="xl:col-span-2 space-y-4 md:space-y-6">
                   <div className="bg-[#111111] border border-[#222222] rounded-2xl overflow-hidden">
                     <div className="px-4 md:px-6 py-4 border-b border-[#222222] flex justify-between items-center bg-[#161616]/50">
-                      <h2 className="font-bold text-base md:text-lg">Projetos Recentes</h2>
-                      <button className="text-xs text-[#C6FF4A] font-bold hover:underline">Ver todos</button>
+                      <h2 className="font-bold text-base md:text-lg">{t('projects.title')}</h2>
+                      <button className="text-xs text-[#C6FF4A] font-bold hover:underline">{t('projects.viewAll')}</button>
                     </div>
 
                     {/* Desktop table */}
@@ -422,10 +424,10 @@ export const AgencyDashboard: React.FC = () => {
                       <table className="w-full text-left border-collapse">
                         <thead>
                           <tr className="text-[#444444] text-[10px] font-black uppercase tracking-widest border-b border-[#222222]">
-                            <th className="px-6 py-4">Projeto</th>
-                            <th className="px-6 py-4">Cliente</th>
-                            <th className="px-6 py-4">Status</th>
-                            <th className="px-6 py-4">Progresso</th>
+                            <th className="px-6 py-4">{t('projects.colProject')}</th>
+                            <th className="px-6 py-4">{t('projects.colClient')}</th>
+                            <th className="px-6 py-4">{t('projects.colStatus')}</th>
+                            <th className="px-6 py-4">{t('projects.colProgress')}</th>
                             <th className="px-6 py-4"></th>
                           </tr>
                         </thead>
@@ -455,7 +457,7 @@ export const AgencyDashboard: React.FC = () => {
                           ) : (
                             <tr>
                               <td colSpan={5} className="px-6 py-10 text-center text-[#444444] text-sm">
-                                Nenhum projeto encontrado para &ldquo;{searchQuery}&rdquo;
+                                {t('projects.noResults')} &ldquo;{searchQuery}&rdquo;
                               </td>
                             </tr>
                           )}
@@ -471,7 +473,7 @@ export const AgencyDashboard: React.FC = () => {
                         ))
                       ) : (
                         <p className="text-center text-[#444444] text-sm py-6">
-                          Nenhum projeto encontrado para &ldquo;{searchQuery}&rdquo;
+                          {t('projects.noResults')} &ldquo;{searchQuery}&rdquo;
                         </p>
                       )}
                     </div>
@@ -487,8 +489,8 @@ export const AgencyDashboard: React.FC = () => {
                         <Rocket size={22} />
                       </div>
                       <div className="min-w-0">
-                        <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">Next Launch</h4>
-                        <p className="text-xs text-[#888888]">Mobile App em 3 dias</p>
+                        <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">{t('cards.nextLaunch')}</h4>
+                        <p className="text-xs text-[#888888]">{t('cards.nextLaunchDesc')}</p>
                       </div>
                       <ChevronRight size={18} className="ml-auto text-[#222222] group-hover:text-[#444444] transition-colors shrink-0" />
                     </button>
@@ -501,7 +503,7 @@ export const AgencyDashboard: React.FC = () => {
                         <ExternalLink size={22} />
                       </div>
                       <div className="min-w-0">
-                        <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">Portal do Cliente</h4>
+                        <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">{t('cards.clientPortal')}</h4>
                         <p className="text-xs text-[#888888] truncate">progressly.app/p/...</p>
                       </div>
                       <ChevronRight size={18} className="ml-auto text-[#222222] group-hover:text-[#444444] transition-colors shrink-0" />
@@ -514,7 +516,7 @@ export const AgencyDashboard: React.FC = () => {
                   {/* Recent Activities Feed */}
                   <div className="bg-[#111111] border border-[#222222] rounded-2xl overflow-hidden">
                     <div className="px-4 md:px-6 py-4 border-b border-[#222222] flex justify-between items-center bg-[#161616]/50">
-                      <h2 className="font-bold text-base md:text-lg">Atividades Recentes</h2>
+                      <h2 className="font-bold text-base md:text-lg">{t('activities.title')}</h2>
                     </div>
                     <div className="p-4 md:p-6">
                       <div className="space-y-6 md:space-y-8 relative">
@@ -535,7 +537,7 @@ export const AgencyDashboard: React.FC = () => {
                         ))}
                       </div>
                       <button className="w-full mt-6 md:mt-8 py-3 bg-[#1a1a1a] border border-[#222222] rounded-xl text-xs font-bold text-[#888888] hover:text-white hover:border-[#333333] transition-all">
-                        Ver log completo
+                        {t('activities.viewLog')}
                       </button>
                     </div>
                   </div>
@@ -543,7 +545,7 @@ export const AgencyDashboard: React.FC = () => {
                   {/* Team Card */}
                   <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#222222] p-4 md:p-6 rounded-2xl">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-bold text-sm md:text-base">Equipe Online</h3>
+                      <h3 className="font-bold text-sm md:text-base">{t('team.title')}</h3>
                       <span className="flex h-2 w-2 rounded-full bg-[#C6FF4A]" />
                     </div>
                     <div className="flex -space-x-2">
@@ -557,7 +559,7 @@ export const AgencyDashboard: React.FC = () => {
                       </div>
                     </div>
                     <p className="text-[10px] text-[#444444] mt-4 font-bold uppercase tracking-widest">
-                      Workspace: Agência Digital
+                      {t('team.workspace')}
                     </p>
                   </div>
                 </div>
@@ -572,14 +574,14 @@ export const AgencyDashboard: React.FC = () => {
         <div className="flex items-center justify-around px-2 py-3">
           <button className="flex flex-col items-center gap-1 px-3 py-1 rounded-xl text-[#C6FF4A]">
             <LayoutDashboard size={20} />
-            <span className="text-[9px] font-bold uppercase tracking-wider">Dashboard</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider">{t('sidebar.dashboard')}</span>
           </button>
           <button
             onClick={() => setNewProjectOpen(true)}
             className="flex flex-col items-center gap-1 px-3 py-1 rounded-xl text-[#888888] hover:text-white transition-colors"
           >
             <FolderKanban size={20} />
-            <span className="text-[9px] font-semibold uppercase tracking-wider">Projetos</span>
+            <span className="text-[9px] font-semibold uppercase tracking-wider">{t('sidebar.projects')}</span>
           </button>
           {/* Center FAB */}
           <button
@@ -593,11 +595,11 @@ export const AgencyDashboard: React.FC = () => {
             className="flex flex-col items-center gap-1 px-3 py-1 rounded-xl text-[#888888] hover:text-white transition-colors"
           >
             <Milestone size={20} />
-            <span className="text-[9px] font-semibold uppercase tracking-wider">Timeline</span>
+            <span className="text-[9px] font-semibold uppercase tracking-wider">{t('quickActions.timeline')}</span>
           </button>
           <button className="flex flex-col items-center gap-1 px-3 py-1 rounded-xl text-[#888888] hover:text-white transition-colors">
             <Settings size={20} />
-            <span className="text-[9px] font-semibold uppercase tracking-wider">Config</span>
+            <span className="text-[9px] font-semibold uppercase tracking-wider">{t('quickActions.settings')}</span>
           </button>
         </div>
       </nav>

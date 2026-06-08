@@ -1,0 +1,307 @@
+{
+  "Nav": {
+    "features": "Funcionalidades",
+    "howItWorks": "Como funciona",
+    "pricing": "Preços",
+    "login": "Entrar",
+    "getStarted": "Começar",
+    "getStartedNow": "Começar Agora"
+  },
+  "Hero": {
+    "badge": "Visibilidade em tempo real para o cliente",
+    "headline1": "Faça o seu cliente sentir que o projeto está",
+    "headlineHighlight": "vivo.",
+    "subheadline": "Transforme eventos técnicos do desenvolvimento em atualizações visuais que o seu cliente entende — sem parar de codar para explicar.",
+    "ctaPrimary": "Começar gratuitamente",
+    "ctaSecondary": "Ver demonstração",
+    "previewStatus": "Em progresso",
+    "previewProgress": "Progresso geral",
+    "previewEvent1": "Tela de login finalizada",
+    "previewEvent1Time": "2h atrás",
+    "previewEvent2": "Dashboard do usuário em desenvolvimento",
+    "previewEvent2Time": "Agora",
+    "previewEvent3": "Integração com pagamentos",
+    "previewEvent3Time": "Pendente"
+  },
+  "Integrations": {
+    "label": "Integre com as ferramentas que você já usa"
+  },
+  "Benefits": {
+    "badge": "Benefícios",
+    "headline1": "O trabalho invisível,",
+    "headlineHighlight": "finalmente visível.",
+    "description": "O desenvolvedor codava o dia todo, mas o cliente achava que nada havia sido feito. O Progressly muda isso.",
+    "benefit1Title": "Projeto visível em tempo real",
+    "benefit1Desc": "O cliente abre um link e vê o progresso atualizado, a timeline de eventos e o percentual concluído — sem te perguntar nada.",
+    "benefit2Title": "Zero interrupções no seu fluxo",
+    "benefit2Desc": "Cada commit, merge ou milestone vira automaticamente uma atualização compreensível para o cliente. Você continua codando.",
+    "benefit3Title": "Fim dos \"Como está o projeto?\"",
+    "benefit3Desc": "Elimine reuniões de status e mensagens de WhatsApp sobre o andamento. O cliente tem tudo que precisa, sempre disponível."
+  },
+  "FeaturesSplit": {
+    "badge": "Como funciona",
+    "headline1": "Esqueça os relatórios manuais",
+    "headlineHighlight": "de status",
+    "description": "Cada evento técnico do seu fluxo de trabalho — commit, deploy, milestone — vira automaticamente uma atualização clara na timeline do cliente. Sem esforço extra.",
+    "item1": "Timeline traduzida automaticamente para linguagem leiga",
+    "item2": "Percentual de progresso calculado via Milestones",
+    "item3": "Portal exclusivo e dedicado para o cliente",
+    "cta": "Ver todas as funcionalidades",
+    "mockTitle": "App E-commerce — João",
+    "mockSubtitle": "Portal do cliente",
+    "mockStatus": "Em progresso",
+    "mockProgress": "Progresso",
+    "mockUpdates": "Últimas atualizações",
+    "mockEvent1Title": "Sistema de cadastro finalizado",
+    "mockEvent1Sub": "Usuários já conseguem criar suas contas",
+    "mockEvent1Time": "2h atrás",
+    "mockEvent2Title": "Carrinho de compras integrado",
+    "mockEvent2Sub": "Adição e remoção de itens funcionando",
+    "mockEvent2Time": "Ontem",
+    "mockEvent3Title": "Página inicial publicada",
+    "mockEvent3Sub": "Layout aprovado e no ar",
+    "mockEvent3Time": "3 dias atrás",
+    "mockEvent4Title": "Integração com pagamentos",
+    "mockEvent4Sub": "Próximo passo",
+    "mockEvent4Time": "Pendente"
+  },
+  "Pricing": {
+    "badge": "Preços",
+    "headline": "Simples e transparente",
+    "description": "Comece gratuitamente e evolua conforme sua agência cresce.",
+    "popular": "Mais Popular",
+    "perMonth": "/mês",
+    "choosePlan": "Escolher Plano",
+    "starter": {
+      "name": "Starter",
+      "price": "R$ 34,90",
+      "description": "Perfeito para freelancers começando.",
+      "f1": "5 projetos ativos",
+      "f2": "10 clientes",
+      "f3": "Timeline manual de eventos",
+      "f4": "Portal exclusivo do cliente",
+      "f5": "Suporte por e-mail"
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "R$ 75,00",
+      "description": "Para freelancers que querem escalar.",
+      "f1": "Projetos ilimitados",
+      "f2": "Clientes ilimitados",
+      "f3": "Integração com GitHub",
+      "f4": "IA para tradução de eventos",
+      "f5": "Suporte prioritário"
+    },
+    "agency": {
+      "name": "Agency",
+      "price": "R$ 130,00",
+      "description": "Para agências com times maiores.",
+      "f1": "Tudo no plano Pro",
+      "f2": "Múltiplos membros de equipe",
+      "f3": "White-label (em breve)",
+      "f4": "Domínio personalizado",
+      "f5": "Gestor de conta dedicado"
+    }
+  },
+  "CTA": {
+    "badge": "Comece hoje mesmo",
+    "headline1": "Pronto para fazer o cliente",
+    "headlineHighlight": "sentir o projeto vivo?",
+    "description": "Junte-se a centenas de desenvolvedores e agências que já pararam de responder \"Como está o projeto?\".",
+    "ctaPrimary": "Começar gratuitamente",
+    "ctaSecondary": "Agendar uma Demo"
+  },
+  "Footer": {
+    "tagline": "A plataforma que faz o cliente sentir que o projeto está vivo.",
+    "copyright": "Todos os direitos reservados.",
+    "platform": "Plataforma",
+    "company": "Empresa",
+    "legal": "Legal",
+    "platformLinks": {
+      "features": "Funcionalidades",
+      "clientPortal": "Portal do Cliente",
+      "integrations": "Integrações",
+      "api": "API"
+    },
+    "companyLinks": {
+      "about": "Sobre nós",
+      "blog": "Blog",
+      "careers": "Carreiras",
+      "contact": "Contato"
+    },
+    "legalLinks": {
+      "terms": "Termos",
+      "privacy": "Privacidade",
+      "security": "Segurança"
+    }
+  },
+  "Auth": {
+    "features": {
+      "f1": "Portal white-label para seus clientes",
+      "f2": "Timeline automática de projetos",
+      "f3": "Relatórios gerados por IA"
+    },
+    "testimonial": "\"O Progressly mudou a forma como entregamos projetos. Nossos clientes elogiam a transparência todos os dias.\"",
+    "badge": "🔒 LGPD Compliant",
+    "heroHeadline": "A plataforma que seus clientes vão amar.",
+    "heroSubheadline": "Gerencie projetos, onboarding e aprovações em um único lugar profissional.",
+    "projectPreview": "Projeto de Redesign",
+    "projectStatus": "Ativo",
+    "projectPhase": "Fase 3: Desenvolvimento",
+    "projectComplete": "72% Concluído",
+    "login": {
+      "title": "Acesse o Progressly",
+      "subtitle": "Entre com sua conta para continuar",
+      "github": "Continuar com GitHub",
+      "google": "Continuar com Google",
+      "noAccount": "Não tem uma conta?",
+      "createAccount": "Criar conta manualmente",
+      "redirectGithub": "Redirecionando para o GitHub…",
+      "redirectGoogle": "Redirecionando para o Google…"
+    },
+    "signup": {
+      "title": "Comece gratuitamente",
+      "subtitle": "Crie sua conta em segundos. Sem cartão de crédito.",
+      "namePlaceholder": "Seu nome completo",
+      "nameLabel": "Nome completo",
+      "emailLabel": "E-mail profissional",
+      "emailPlaceholder": "voce@suaagencia.com",
+      "companyLabel": "Nome da agência ou empresa",
+      "companyPlaceholder": "Ex: Studio Aurora",
+      "passwordLabel": "Crie uma senha",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Criar conta grátis",
+      "terms": "Ao criar uma conta você concorda com os",
+      "termsLink": "Termos de Uso",
+      "and": "e",
+      "privacyLink": "Política de Privacidade",
+      "hasAccount": "Já tem uma conta?",
+      "loginLink": "Entrar",
+      "success": "Conta criada com sucesso! Redirecionando…",
+      "nameRequired": "Nome é obrigatório",
+      "emailRequired": "E-mail é obrigatório",
+      "emailInvalid": "Informe um e-mail válido",
+      "companyRequired": "Nome da agência/empresa é obrigatório",
+      "passwordRequired": "Senha é obrigatória",
+      "passwordMin": "A senha deve ter no mínimo 8 caracteres"
+    },
+    "onboarding": {
+      "step1": "Conta criada",
+      "step2": "Nome da agência",
+      "step3": "Dashboard",
+      "cardTitle": "Qual o nome da sua agência?",
+      "cardSubtitle": "Isso será usado como o nome da sua organização no Progressly. Você pode alterar depois.",
+      "fieldLabel": "Nome da agência ou estúdio",
+      "fieldPlaceholder": "Ex: Acme Studio",
+      "preview": "Sua organização será criada como",
+      "submit": "Finalizar Cadastro",
+      "signout": "Sair e cancelar cadastro",
+      "success": "Organização criada! Abrindo seu dashboard…",
+      "nameMin": "O nome deve ter pelo menos 2 caracteres",
+      "nameMax": "Máximo de 80 caracteres"
+    }
+  },
+  "Dashboard": {
+    "sidebar": {
+      "mainSection": "Main",
+      "systemSection": "Sistema",
+      "dashboard": "Dashboard",
+      "projects": "Projetos",
+      "clients": "Clientes",
+      "notifications": "Notificações",
+      "settings": "Configurações",
+      "newProject": "Novo Projeto"
+    },
+    "header": {
+      "searchPlaceholder": "Pesquisar projetos ou clientes...",
+      "welcome": "Bem-vindo de volta! Aqui está o que está acontecendo.",
+      "title": "Dashboard"
+    },
+    "metrics": {
+      "activeProjects": "Projetos ativos",
+      "activeProjectsDesc": "Em design e desenvolvimento",
+      "activeClients": "Clientes ativos",
+      "activeClientsDesc": "3 novos clientes este mês",
+      "mrr": "MRR",
+      "mrrDesc": "Recorde histórico",
+      "completed": "Finalizados",
+      "completedDesc": "Taxa de retenção"
+    },
+    "projects": {
+      "title": "Projetos Recentes",
+      "viewAll": "Ver todos",
+      "colProject": "Projeto",
+      "colClient": "Cliente",
+      "colStatus": "Status",
+      "colProgress": "Progresso",
+      "noResults": "Nenhum projeto encontrado para"
+    },
+    "activities": {
+      "title": "Atividades Recentes",
+      "viewLog": "Ver log completo"
+    },
+    "team": {
+      "title": "Equipe Online",
+      "workspace": "Workspace: Agência Digital"
+    },
+    "quickActions": {
+      "newEvent": "Novo Evento",
+      "progress": "Progresso",
+      "share": "Compartilhar",
+      "newProject": "Novo Projeto",
+      "timeline": "Timeline",
+      "settings": "Config"
+    },
+    "cards": {
+      "nextLaunch": "Next Launch",
+      "nextLaunchDesc": "Mobile App em 3 dias",
+      "clientPortal": "Portal do Cliente"
+    },
+    "modals": {
+      "newProject": {
+        "title": "Novo Projeto",
+        "projectName": "Nome do Projeto",
+        "projectNamePlaceholder": "Ex: Redesign Site",
+        "description": "Descrição (opcional)",
+        "descriptionPlaceholder": "Breve descrição do projeto...",
+        "clientName": "Nome do Cliente",
+        "clientNamePlaceholder": "Ex: Acme Corp",
+        "clientEmail": "E-mail do Cliente",
+        "clientEmailPlaceholder": "cliente@empresa.com",
+        "cancel": "Cancelar",
+        "create": "Criar Projeto"
+      },
+      "timeline": {
+        "title": "Adicionar Evento à Timeline",
+        "project": "Projeto",
+        "selectProject": "Selecione um projeto",
+        "eventTitle": "Título do Evento",
+        "eventTitlePlaceholder": "Ex: Homepage finalizada",
+        "description": "Descrição (opcional)",
+        "descriptionPlaceholder": "Detalhes do evento...",
+        "cancel": "Cancelar",
+        "add": "Adicionar Evento"
+      },
+      "progress": {
+        "title": "Atualizar Progresso",
+        "project": "Projeto",
+        "selectProject": "Selecione um projeto",
+        "progress": "Progresso",
+        "cancel": "Cancelar",
+        "update": "Atualizar"
+      },
+      "share": {
+        "title": "Compartilhar Portal do Cliente",
+        "project": "Projeto",
+        "selectProject": "Selecione um projeto",
+        "link": "Link do Portal",
+        "copy": "Copiar",
+        "copied": "Copiado!",
+        "close": "Fechar"
+      }
+    }
+  },
+  "LanguageSwitcher": {
+    "label": "Idioma"
+  }
+}

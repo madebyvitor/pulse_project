@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Link2, Copy, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface Project {
   id: string;
@@ -33,6 +34,7 @@ export const ShareLinkModal: React.FC<ShareLinkModalProps> = ({
   projects,
   preSelectedProjectId,
 }) => {
+  const t = useTranslations('Dashboard.modals.share');
   const [selectedId, setSelectedId] = useState(preSelectedProjectId ?? projects[0]?.id ?? '');
   const [copied, setCopied] = useState(false);
 
@@ -91,7 +93,7 @@ export const ShareLinkModal: React.FC<ShareLinkModalProps> = ({
                 <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400">
                   <Link2 size={16} />
                 </div>
-                <h2 className="text-base font-bold">Compartilhar Acesso ao Cliente</h2>
+                <h2 className="text-base font-bold">{t('title')}</h2>
               </div>
               <button
                 onClick={onClose}
@@ -105,7 +107,7 @@ export const ShareLinkModal: React.FC<ShareLinkModalProps> = ({
               {/* Project Select */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
-                  Projeto
+                  {t('project')}
                 </label>
                 <select
                   value={selectedId}
@@ -124,7 +126,7 @@ export const ShareLinkModal: React.FC<ShareLinkModalProps> = ({
               {selectedProject && (
                 <div className="space-y-2">
                   <p className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
-                    Link do Portal
+                    {t('link')}
                   </p>
                   <div className="bg-[#0d0d0d] border border-[#222222] rounded-xl p-4 flex items-center gap-3">
                     <div className="flex-1 min-w-0">
@@ -153,7 +155,7 @@ export const ShareLinkModal: React.FC<ShareLinkModalProps> = ({
                       className="text-xs text-[#C6FF4A] font-medium flex items-center gap-1.5"
                     >
                       <Check size={12} />
-                      Link copiado para a área de transferência!
+                      {t('copied')}
                     </motion.p>
                   )}
                 </div>
@@ -173,7 +175,7 @@ export const ShareLinkModal: React.FC<ShareLinkModalProps> = ({
                 onClick={onClose}
                 className="w-full py-2.5 border border-[#222222] rounded-lg text-sm font-medium text-[#888888] hover:text-white hover:border-[#333333] transition-all"
               >
-                Fechar
+                {t('close')}
               </button>
             </div>
           </motion.div>

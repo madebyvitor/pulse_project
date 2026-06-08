@@ -6,12 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { X, Milestone, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 const schema = z.object({
-  projectId: z.string().min(1, 'Selecione um projeto'),
-  title: z.string().min(3, 'Título deve ter ao menos 3 caracteres'),
+  projectId: z.string().min(1),
+  title: z.string().min(3),
   description: z.string().optional(),
 });
+
 
 type FormValues = z.infer<typeof schema>;
 
@@ -36,6 +38,7 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
   projects,
   preSelectedProjectId,
 }) => {
+  const t = useTranslations('Dashboard.modals.timeline');
   const {
     register,
     handleSubmit,
@@ -89,7 +92,7 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
                 <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
                   <Milestone size={16} />
                 </div>
-                <h2 className="text-base font-bold">Adicionar Evento na Timeline</h2>
+                <h2 className="text-base font-bold">{t('title')}</h2>
               </div>
               <button
                 onClick={onClose}
@@ -104,13 +107,13 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
               {/* Project Select */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
-                  Projeto <span className="text-[#C6FF4A]">*</span>
+                  {t('project')} <span className="text-[#C6FF4A]">*</span>
                 </label>
                 <select
                   {...register('projectId')}
                   className="w-full bg-[#1a1a1a] border border-[#222222] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6FF4A]/40 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all text-white appearance-none cursor-pointer"
                 >
-                  <option value="" className="bg-[#111111]">Selecione um projeto...</option>
+                  <option value="" className="bg-[#111111]">{t('selectProject')}</option>
                   {projects.map((p) => (
                     <option key={p.id} value={p.id} className="bg-[#111111]">
                       {p.name} — {p.client}
@@ -125,11 +128,11 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
               {/* Event Title */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
-                  Título do Evento <span className="text-[#C6FF4A]">*</span>
+                  {t('eventTitle')} <span className="text-[#C6FF4A]">*</span>
                 </label>
                 <input
                   {...register('title')}
-                  placeholder="Ex: Sistema de Login Finalizado"
+                  placeholder={t('eventTitlePlaceholder')}
                   className="w-full bg-[#1a1a1a] border border-[#222222] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6FF4A]/40 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all placeholder:text-[#444444]"
                 />
                 {errors.title && (
@@ -140,12 +143,11 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
               {/* Description (optional) */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
-                  Descrição{' '}
-                  <span className="text-[#444444] normal-case font-normal">(opcional)</span>
+                  {t('description')}
                 </label>
                 <textarea
                   {...register('description')}
-                  placeholder="Detalhes adicionais sobre o evento..."
+                  placeholder={t('descriptionPlaceholder')}
                   rows={3}
                   className="w-full bg-[#1a1a1a] border border-[#222222] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6FF4A]/40 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all placeholder:text-[#444444] resize-none"
                 />
@@ -167,14 +169,14 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
                   onClick={onClose}
                   className="flex-1 py-2.5 border border-[#222222] rounded-lg text-sm font-medium text-[#888888] hover:text-white hover:border-[#333333] transition-all"
                 >
-                  Cancelar
+                  {t('cancel')}
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="flex-1 py-2.5 bg-[#C6FF4A] text-black rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-50 active:scale-95 transition-all"
                 >
-                  {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : 'Adicionar Evento'}
+                  {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : t('add')}
                 </button>
               </div>
             </form>

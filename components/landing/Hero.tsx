@@ -1,10 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, GitCommit, Layers, Zap } from "lucide-react";
 import { PrimaryButtonBase } from "@/components/ui/PrimaryButtonBase";
 
 export function Hero() {
+  const t = useTranslations("Hero");
+
   return (
     <section className="relative pt-32 pb-20 overflow-hidden md:pt-48 md:pb-32">
       {/* Background Glow */}
@@ -20,26 +23,24 @@ export function Hero() {
           {/* Badge */}
           <span className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-400 bg-zinc-900/50">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF4A] animate-pulse" />
-            Visibilidade em tempo real para o cliente
+            {t("badge")}
           </span>
 
           {/* Headline */}
           <h1 className="max-w-4xl mx-auto mb-6 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight">
-            Faça o seu cliente sentir que o projeto está{" "}
-            <span className="text-[#C6FF4A]">vivo.</span>
+            {t("headline1")}{" "}
+            <span className="text-[#C6FF4A]">{t("headlineHighlight")}</span>
           </h1>
 
           {/* Sub-headline */}
           <p className="max-w-2xl mx-auto mb-10 text-lg leading-relaxed text-zinc-400 md:text-xl">
-            Transforme eventos técnicos do desenvolvimento em atualizações
-            visuais que o seu cliente entende — sem parar de codar para
-            explicar.
+            {t("subheadline")}
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <PrimaryButtonBase size="lg" className="w-full sm:w-auto">
-              Começar gratuitamente
+              {t("ctaPrimary")}
             </PrimaryButtonBase>
             <PrimaryButtonBase
               variant="outline"
@@ -47,7 +48,7 @@ export function Hero() {
               className="w-full sm:w-auto"
               rightIcon={<ArrowRight className="w-4 h-4" />}
             >
-              Ver demonstração
+              {t("ctaSecondary")}
             </PrimaryButtonBase>
           </div>
         </motion.div>
@@ -117,7 +118,7 @@ export function Hero() {
                   <div className="flex items-center gap-2 px-3 py-1.5 bg-[#C6FF4A]/10 border border-[#C6FF4A]/20 rounded-lg">
                     <div className="w-2 h-2 rounded-full bg-[#C6FF4A] animate-pulse" />
                     <span className="text-[10px] font-medium text-[#C6FF4A]">
-                      Em progresso
+                      {t("previewStatus")}
                     </span>
                   </div>
                 </div>
@@ -125,7 +126,7 @@ export function Hero() {
                 {/* Progress bar */}
                 <div>
                   <div className="flex justify-between text-[10px] text-zinc-600 mb-1">
-                    <span>Progresso geral</span>
+                    <span>{t("previewProgress")}</span>
                     <span className="text-[#C6FF4A]">67%</span>
                   </div>
                   <div className="h-1.5 bg-zinc-900 rounded-full overflow-hidden">
@@ -141,20 +142,20 @@ export function Hero() {
                   {[
                     {
                       icon: <CheckCircle2 className="w-3 h-3 text-[#C6FF4A]" />,
-                      text: "Tela de login finalizada",
-                      time: "2h atrás",
+                      text: t("previewEvent1"),
+                      time: t("previewEvent1Time"),
                       done: true,
                     },
                     {
                       icon: <GitCommit className="w-3 h-3 text-blue-400" />,
-                      text: "Dashboard do usuário em desenvolvimento",
-                      time: "Agora",
+                      text: t("previewEvent2"),
+                      time: t("previewEvent2Time"),
                       done: false,
                     },
                     {
                       icon: <Layers className="w-3 h-3 text-zinc-600" />,
-                      text: "Integração com pagamentos",
-                      time: "Pendente",
+                      text: t("previewEvent3"),
+                      time: t("previewEvent3Time"),
                       done: false,
                     },
                   ].map((event, i) => (

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { PrimaryButtonBase } from "@/components/ui/PrimaryButtonBase";
 
@@ -9,7 +10,9 @@ interface PricingTierProps {
   description: string;
   features: string[];
   isPopular?: boolean;
-  buttonText?: string;
+  buttonText: string;
+  popularLabel: string;
+  perMonth: string;
 }
 
 function PricingTier({
@@ -18,8 +21,12 @@ function PricingTier({
   description,
   features,
   isPopular = false,
-  buttonText = "Escolher Plano",
+  buttonText,
+  popularLabel,
+  perMonth,
 }: PricingTierProps) {
+  const isFreeLabel = price === "Grátis" || price === "Free";
+
   return (
     <div
       className={`relative p-6 md:p-8 rounded-2xl border transition-all duration-300 flex flex-col ${
@@ -30,7 +37,7 @@ function PricingTier({
     >
       {isPopular && (
         <span className="absolute top-0 right-8 -translate-y-1/2 px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-[#C6FF4A] text-black rounded-full">
-          Mais Popular
+          {popularLabel}
         </span>
       )}
 
@@ -42,8 +49,8 @@ function PricingTier({
       <div className="mb-8">
         <div className="flex items-end gap-1">
           <span className="text-4xl font-bold text-white">{price}</span>
-          {price !== "Grátis" && (
-            <span className="text-zinc-500 mb-1">/mês</span>
+          {!isFreeLabel && (
+            <span className="text-zinc-500 mb-1">{perMonth}</span>
           )}
         </div>
       </div>
@@ -70,59 +77,71 @@ function PricingTier({
 }
 
 export function Pricing() {
+  const t = useTranslations("Pricing");
+
+  const tiers = [
+    {
+      name: t("starter.name"),
+      price: t("starter.price"),
+      description: t("starter.description"),
+      features: [
+        t("starter.f1"),
+        t("starter.f2"),
+        t("starter.f3"),
+        t("starter.f4"),
+        t("starter.f5"),
+      ],
+    },
+    {
+      name: t("pro.name"),
+      price: t("pro.price"),
+      description: t("pro.description"),
+      isPopular: true,
+      features: [
+        t("pro.f1"),
+        t("pro.f2"),
+        t("pro.f3"),
+        t("pro.f4"),
+        t("pro.f5"),
+      ],
+    },
+    {
+      name: t("agency.name"),
+      price: t("agency.price"),
+      description: t("agency.description"),
+      features: [
+        t("agency.f1"),
+        t("agency.f2"),
+        t("agency.f3"),
+        t("agency.f4"),
+        t("agency.f5"),
+      ],
+    },
+  ];
+
   return (
     <section id="pricing" className="py-16 md:py-24 bg-[#050505]">
       <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
         <div className="max-w-2xl mx-auto mb-16 text-center">
           <span className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-500 bg-zinc-900/50">
-            Preços
+            {t("badge")}
           </span>
           <h2 className="mb-4 text-3xl sm:text-4xl font-bold text-white md:text-5xl leading-tight">
-            Simples e transparente
+            {t("headline")}
           </h2>
-          <p className="text-zinc-400 text-lg">
-            Comece gratuitamente e evolua conforme sua agência cresce.
-          </p>
+          <p className="text-zinc-400 text-lg">{t("description")}</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          <PricingTier
-            name="Starter"
-            price="R$ 34,90"
-            description="Perfeito para freelancers começando."
-            features={[
-              "5 projetos ativos",
-              "10 clientes",
-              "Timeline manual de eventos",
-              "Portal exclusivo do cliente",
-              "Suporte por e-mail",
-            ]}
-          />
-          <PricingTier
-            name="Pro"
-            price="R$ 75,00"
-            description="Para freelancers que querem escalar."
-            isPopular
-            features={[
-              "Projetos ilimitados",
-              "Clientes ilimitados",
-              "Integração com GitHub",
-              "IA para tradução de eventos",
-              "Suporte prioritário",
-            ]}
-          />
-          <PricingTier
-            name="Agency"
-            price="R$ 130,00"
-            description="Para agências com times maiores."
-            features={[
-              "Tudo no plano Pro",
-              "Múltiplos membros de equipe",
-              "White-label (em breve)",
-              "Domínio personalizado",
-              "Gestor de conta dedicado",
-            ]}
-          />
+          {tiers.map((tier) => (
+            <PricingTier
+              key={tier.name}
+              {...tier}
+              buttonText={t("choosePlan")}
+              popularLabel={t("popular")}
+              perMonth={t("perMonth")}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -1,45 +1,42 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Eye, MessageSquareOff, Zap } from "lucide-react";
 
-const benefits = [
-  {
-    title: "Projeto visível em tempo real",
-    description:
-      "O cliente abre um link e vê o progresso atualizado, a timeline de eventos e o percentual concluído — sem te perguntar nada.",
-    icon: <Eye className="w-6 h-6 text-[#C6FF4A]" />,
-  },
-  {
-    title: "Zero interrupções no seu fluxo",
-    description:
-      "Cada commit, merge ou milestone vira automaticamente uma atualização compreensível para o cliente. Você continua codando.",
-    icon: <Zap className="w-6 h-6 text-[#C6FF4A]" />,
-  },
-  {
-    title: "Fim dos \"Como está o projeto?\"",
-    description:
-      "Elimine reuniões de status e mensagens de WhatsApp sobre o andamento. O cliente tem tudo que precisa, sempre disponível.",
-    icon: <MessageSquareOff className="w-6 h-6 text-[#C6FF4A]" />,
-  },
-];
-
 export function Benefits() {
+  const t = useTranslations("Benefits");
+
+  const benefits = [
+    {
+      title: t("benefit1Title"),
+      description: t("benefit1Desc"),
+      icon: <Eye className="w-6 h-6 text-[#C6FF4A]" />,
+    },
+    {
+      title: t("benefit2Title"),
+      description: t("benefit2Desc"),
+      icon: <Zap className="w-6 h-6 text-[#C6FF4A]" />,
+    },
+    {
+      title: t("benefit3Title"),
+      description: t("benefit3Desc"),
+      icon: <MessageSquareOff className="w-6 h-6 text-[#C6FF4A]" />,
+    },
+  ];
+
   return (
     <section id="features" className="py-16 md:py-24 bg-[#050505]">
       <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
         {/* Section header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
           <span className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-500 bg-zinc-900/50">
-            Benefícios
+            {t("badge")}
           </span>
           <h2 className="text-3xl font-bold text-white md:text-5xl mb-4">
-            O trabalho invisível,{" "}
-            <span className="text-[#C6FF4A]">finalmente visível.</span>
+            {t("headline1")}{" "}
+            <span className="text-[#C6FF4A]">{t("headlineHighlight")}</span>
           </h2>
-          <p className="text-zinc-400 text-lg">
-            O desenvolvedor codava o dia todo, mas o cliente achava que nada
-            havia sido feito. O Progressly muda isso.
-          </p>
+          <p className="text-zinc-400 text-lg">{t("description")}</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">

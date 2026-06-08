@@ -6,25 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { User, Mail, Building2, Lock } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/src/i18n/navigation";
 import { InputField } from "./InputField";
 import { PrimaryButton } from "./PrimaryButton";
 import { Toast } from "./Toast";
-
-const signupSchema = z.object({
-  nome: z.string().min(1, "Nome é obrigatório"),
-  email: z
-    .string()
-    .min(1, "E-mail é obrigatório")
-    .email("Informe um e-mail válido"),
-  empresa: z.string().min(1, "Nome da agência/empresa é obrigatório"),
-  senha: z
-    .string()
-    .min(1, "Senha é obrigatória")
-    .min(8, "A senha deve ter no mínimo 8 caracteres"),
-});
-
-type SignupData = z.infer<typeof signupSchema>;
 
 /** Calculates password strength 0–3 */
 function passwordStrength(value: string): number {
@@ -47,10 +33,26 @@ interface SignupFormProps {
 }
 
 export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
+  const t = useTranslations("Auth.signup");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [passwordValue, setPasswordValue] = useState("");
+
+  const signupSchema = z.object({
+    nome: z.string().min(1, t("nameRequired")),
+    email: z
+      .string()
+      .min(1, t("emailRequired"))
+      .email(t("emailInvalid")),
+    empresa: z.string().min(1, t("companyRequired")),
+    senha: z
+      .string()
+      .min(1, t("passwordRequired"))
+      .min(8, t("passwordMin")),
+  });
+
+  type SignupData = z.infer<typeof signupSchema>;
 
   const {
     register,
@@ -83,33 +85,29 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
         className="space-y-6"
       >
         <header>
-          <h2 className="text-2xl font-bold text-white mb-1">
-            Comece gratuitamente
-          </h2>
-          <p className="text-[#888888] text-sm">
-            Crie sua conta em segundos. Sem cartão de crédito.
-          </p>
+          <h2 className="text-2xl font-bold text-white mb-1">{t("title")}</h2>
+          <p className="text-[#888888] text-sm">{t("subtitle")}</p>
         </header>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
           <InputField
-            label="Nome completo"
-            placeholder="Seu nome completo"
+            label={t("nameLabel")}
+            placeholder={t("namePlaceholder")}
             icon={User}
             registration={register("nome")}
             error={errors.nome?.message}
           />
           <InputField
-            label="E-mail profissional"
-            placeholder="voce@suaagencia.com"
+            label={t("emailLabel")}
+            placeholder={t("emailPlaceholder")}
             type="email"
             icon={Mail}
             registration={register("email")}
             error={errors.email?.message}
           />
           <InputField
-            label="Nome da agência ou empresa"
-            placeholder="Ex: Studio Aurora"
+            label={t("companyLabel")}
+            placeholder={t("companyPlaceholder")}
             icon={Building2}
             registration={register("empresa")}
             error={errors.empresa?.message}
@@ -118,8 +116,8 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
           {/* Password + strength meter */}
           <div className="space-y-2">
             <InputField
-              label="Crie uma senha"
-              placeholder="••••••••"
+              label={t("passwordLabel")}
+              placeholder={t("passwordPlaceholder")}
               showPasswordToggle
               icon={Lock}
               registration={{
@@ -135,9 +133,7 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
                 <div
                   key={i}
                   className={`flex-1 rounded-full transition-all duration-300 ${
-                    strength > i
-                      ? strengthColors[strength]
-                      : "bg-[#222222]"
+                    strength > i ? strengthColors[strength] : "bg-[#222222]"
                   }`}
                 />
               ))}
@@ -145,31 +141,31 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
           </div>
 
           <PrimaryButton type="submit" isLoading={isLoading}>
-            Criar conta grátis
+            {t("submit")}
           </PrimaryButton>
         </form>
 
         <p className="text-[10px] text-[#444444] text-center leading-relaxed">
-          Ao criar uma conta você concorda com os{" "}
+          {t("terms")}{" "}
           <span className="text-[#888888] underline cursor-pointer hover:text-white transition-colors">
-            Termos de Uso
+            {t("termsLink")}
           </span>{" "}
-          e{" "}
+          {t("and")}{" "}
           <span className="text-[#888888] underline cursor-pointer hover:text-white transition-colors">
-            Política de Privacidade
+            {t("privacyLink")}
           </span>
           .
         </p>
 
         <div className="pt-2 text-center">
           <p className="text-sm text-[#888888]">
-            Já tem uma conta?{" "}
+            {t("hasAccount")}{" "}
             <button
               type="button"
               onClick={onSwitchToLogin}
               className="text-[#C6FF4A] font-semibold hover:underline"
             >
-              Entrar
+              {t("loginLink")}
             </button>
           </p>
         </div>
@@ -177,7 +173,7 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
 
       <Toast
         show={showToast}
-        message="Conta criada com sucesso! Redirecionando…"
+        message={t("success")}
         type="success"
         onClose={() => setShowToast(false)}
       />

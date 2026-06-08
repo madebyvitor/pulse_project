@@ -1,16 +1,33 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Globe } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import Image from "next/image";
 
-const footerLinks = {
-  Plataforma: ["Funcionalidades", "Portal do Cliente", "Integrações", "API"],
-  Empresa: ["Sobre nós", "Blog", "Carreiras", "Contato"],
-  Legal: ["Termos", "Privacidade", "Segurança"],
-};
-
 export function Footer() {
+  const t = useTranslations("Footer");
+
+  const footerLinks = {
+    [t("platform")]: [
+      t("platformLinks.features"),
+      t("platformLinks.clientPortal"),
+      t("platformLinks.integrations"),
+      t("platformLinks.api"),
+    ],
+    [t("company")]: [
+      t("companyLinks.about"),
+      t("companyLinks.blog"),
+      t("companyLinks.careers"),
+      t("companyLinks.contact"),
+    ],
+    [t("legal")]: [
+      t("legalLinks.terms"),
+      t("legalLinks.privacy"),
+      t("legalLinks.security"),
+    ],
+  };
+
   return (
     <footer className="py-12 md:py-20 border-t border-zinc-900 bg-[#050505]">
       <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
@@ -24,7 +41,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">
-              A plataforma que faz o cliente sentir que o projeto está vivo.
+              {t("tagline")}
             </p>
           </div>
 
@@ -38,7 +55,7 @@ export function Footer() {
                 {links.map((link) => (
                   <li key={link}>
                     <Link
-                      href="#"
+                      href="/"
                       className="text-sm text-zinc-500 hover:text-white transition-colors"
                     >
                       {link}
@@ -53,19 +70,18 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 md:pt-12 mt-8 md:mt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <p className="text-xs text-zinc-600">
-            © {new Date().getFullYear()} Progressly Technologies. Todos os direitos
-            reservados.
+            © {new Date().getFullYear()} Progressly Technologies. {t("copyright")}
           </p>
           <div className="flex gap-4">
             <Link
-              href="#"
+              href="/"
               className="text-zinc-600 hover:text-white transition-colors"
               aria-label="Website"
             >
               <Globe className="w-5 h-5" />
             </Link>
             <Link
-              href="#"
+              href="/"
               className="text-zinc-600 hover:text-white transition-colors"
               aria-label="GitHub"
             >

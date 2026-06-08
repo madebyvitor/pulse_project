@@ -1,9 +1,12 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ArrowRight, Check, CheckCircle2, Clock, GitCommit, GitMerge } from "lucide-react";
 import { PrimaryButtonBase } from "@/components/ui/PrimaryButtonBase";
 
 export function FeaturesSplit() {
+  const t = useTranslations("FeaturesSplit");
+
   return (
     <section id="how-it-works" className="py-16 md:py-24 border-b border-zinc-900">
       <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
@@ -11,23 +14,17 @@ export function FeaturesSplit() {
           {/* Text content */}
           <div>
             <span className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-500 bg-zinc-900/50">
-              Como funciona
+              {t("badge")}
             </span>
             <h2 className="mb-6 text-3xl sm:text-4xl font-bold md:text-5xl leading-tight">
-              Esqueça os relatórios manuais{" "}
-              <span className="text-[#C6FF4A]">de status</span>
+              {t("headline1")}{" "}
+              <span className="text-[#C6FF4A]">{t("headlineHighlight")}</span>
             </h2>
             <p className="mb-8 text-lg text-zinc-400 leading-relaxed">
-              Cada evento técnico do seu fluxo de trabalho — commit, deploy,
-              milestone — vira automaticamente uma atualização clara na timeline
-              do cliente. Sem esforço extra.
+              {t("description")}
             </p>
             <ul className="space-y-4 mb-10">
-              {[
-                "Timeline traduzida automaticamente para linguagem leiga",
-                "Percentual de progresso calculado via Milestones",
-                "Portal exclusivo e dedicado para o cliente",
-              ].map((item) => (
+              {([t("item1"), t("item2"), t("item3")] as string[]).map((item) => (
                 <li key={item} className="flex items-center gap-3 text-zinc-300">
                   <div className="w-5 h-5 rounded-full bg-[#C6FF4A]/20 flex items-center justify-center shrink-0">
                     <Check className="w-3 h-3 text-[#C6FF4A]" />
@@ -37,7 +34,7 @@ export function FeaturesSplit() {
               ))}
             </ul>
             <PrimaryButtonBase rightIcon={<ArrowRight className="w-4 h-4" />}>
-              Ver todas as funcionalidades
+              {t("cta")}
             </PrimaryButtonBase>
           </div>
 
@@ -49,14 +46,14 @@ export function FeaturesSplit() {
               <div className="flex flex-wrap items-start sm:items-center justify-between gap-3 mb-5">
                 <div>
                   <p className="text-sm font-semibold text-white">
-                    App E-commerce — João
+                    {t("mockTitle")}
                   </p>
-                  <p className="text-xs text-zinc-500 mt-0.5">Portal do cliente</p>
+                  <p className="text-xs text-zinc-500 mt-0.5">{t("mockSubtitle")}</p>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#C6FF4A]/10 border border-[#C6FF4A]/20 rounded-full">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#C6FF4A] animate-pulse" />
                   <span className="text-[10px] font-semibold text-[#C6FF4A]">
-                    Em progresso
+                    {t("mockStatus")}
                   </span>
                 </div>
               </div>
@@ -64,7 +61,7 @@ export function FeaturesSplit() {
               {/* Progress */}
               <div className="mb-5">
                 <div className="flex justify-between text-xs text-zinc-500 mb-1.5">
-                  <span>Progresso</span>
+                  <span>{t("mockProgress")}</span>
                   <span className="text-[#C6FF4A] font-semibold">50%</span>
                 </div>
                 <div className="h-2 bg-zinc-900 rounded-full overflow-hidden">
@@ -75,37 +72,35 @@ export function FeaturesSplit() {
               {/* Timeline events */}
               <div className="space-y-3">
                 <p className="text-[10px] uppercase tracking-widest text-zinc-600 font-medium">
-                  Últimas atualizações
+                  {t("mockUpdates")}
                 </p>
                 {[
                   {
-                    icon: (
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C6FF4A]" />
-                    ),
-                    title: "Sistema de cadastro finalizado",
-                    sub: "Usuários já conseguem criar suas contas",
-                    time: "2h atrás",
+                    icon: <CheckCircle2 className="w-3.5 h-3.5 text-[#C6FF4A]" />,
+                    title: t("mockEvent1Title"),
+                    sub: t("mockEvent1Sub"),
+                    time: t("mockEvent1Time"),
                     color: "bg-[#C6FF4A]/10 border-[#C6FF4A]/20",
                   },
                   {
                     icon: <GitMerge className="w-3.5 h-3.5 text-blue-400" />,
-                    title: "Carrinho de compras integrado",
-                    sub: "Adição e remoção de itens funcionando",
-                    time: "Ontem",
+                    title: t("mockEvent2Title"),
+                    sub: t("mockEvent2Sub"),
+                    time: t("mockEvent2Time"),
                     color: "bg-blue-500/5 border-blue-500/20",
                   },
                   {
                     icon: <GitCommit className="w-3.5 h-3.5 text-zinc-500" />,
-                    title: "Página inicial publicada",
-                    sub: "Layout aprovado e no ar",
-                    time: "3 dias atrás",
+                    title: t("mockEvent3Title"),
+                    sub: t("mockEvent3Sub"),
+                    time: t("mockEvent3Time"),
                     color: "bg-zinc-900/50 border-zinc-800",
                   },
                   {
                     icon: <Clock className="w-3.5 h-3.5 text-zinc-600" />,
-                    title: "Integração com pagamentos",
-                    sub: "Próximo passo",
-                    time: "Pendente",
+                    title: t("mockEvent4Title"),
+                    sub: t("mockEvent4Sub"),
+                    time: t("mockEvent4Time"),
                     color: "bg-zinc-900/30 border-zinc-900 opacity-50",
                   },
                 ].map((event, i) => (

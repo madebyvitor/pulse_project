@@ -1,9 +1,12 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import { PrimaryButtonBase } from "@/components/ui/PrimaryButtonBase";
 
 export function CTA() {
+  const t = useTranslations("CTA");
+
   return (
     <section className="py-16 md:py-24">
       <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
@@ -15,27 +18,26 @@ export function CTA() {
           <div className="relative z-10">
             <span className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-medium tracking-wide uppercase border rounded-full border-zinc-800 text-zinc-500 bg-zinc-900/50">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF4A] animate-pulse" />
-              Comece hoje mesmo
+              {t("badge")}
             </span>
             <h2 className="mb-6 text-3xl sm:text-4xl font-bold md:text-6xl text-white leading-tight">
-              Pronto para fazer o cliente
+              {t("headline1")}
               <br />
-              <span className="text-[#C6FF4A]">sentir o projeto vivo?</span>
+              <span className="text-[#C6FF4A]">{t("headlineHighlight")}</span>
             </h2>
             <p className="max-w-xl mx-auto mb-10 text-lg text-zinc-400">
-              Junte-se a centenas de desenvolvedores e agências que já pararam
-              de responder "Como está o projeto?".
+              {t("description")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <PrimaryButtonBase size="lg" className="px-12">
-                Começar gratuitamente
+                {t("ctaPrimary")}
               </PrimaryButtonBase>
               <PrimaryButtonBase
                 variant="outline"
                 size="lg"
                 rightIcon={<ArrowRight className="w-4 h-4" />}
               >
-                Agendar uma Demo
+                {t("ctaSecondary")}
               </PrimaryButtonBase>
             </div>
           </div>
