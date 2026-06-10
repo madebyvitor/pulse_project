@@ -2,9 +2,13 @@ import { setRequestLocale } from "next-intl/server";
 import { Nav } from "@/components/landing/Nav";
 import { Hero } from "@/components/landing/Hero";
 import { Integrations } from "@/components/landing/Integrations";
-import { Benefits } from "@/components/landing/Benefits";
-import { FeaturesSplit } from "@/components/landing/FeaturesSplit";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { ClientTimelineFeature } from "@/components/landing/ClientTimelineFeature";
+import { ProjectFeedFeature } from "@/components/landing/ProjectFeedFeature";
+import { GithubIntegrationSpotlight } from "@/components/landing/GithubIntegrationSpotlight";
+import { Testimonials } from "@/components/landing/Testimonials";
 import { Pricing } from "@/components/landing/Pricing";
+import { FAQ } from "@/components/landing/FAQ";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
 
@@ -22,9 +26,13 @@ export default async function LandingPage({
       <main>
         <Hero />
         <Integrations />
-        <Benefits />
-        <FeaturesSplit />
+        <HowItWorks />
+        <ClientTimelineFeature />
+        <ProjectFeedFeature />
+        <GithubIntegrationSpotlight />
+        <Testimonials />
         <Pricing />
+        <FAQ />
         <CTA />
       </main>
       <Footer />

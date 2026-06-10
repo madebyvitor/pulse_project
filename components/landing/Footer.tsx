@@ -1,63 +1,76 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Globe } from "lucide-react";
-import { Link } from "@/src/i18n/navigation";
 import Image from "next/image";
+import { Link } from "@/src/i18n/navigation";
 
 export function Footer() {
   const t = useTranslations("Footer");
 
-  const footerLinks = {
-    [t("platform")]: [
-      t("platformLinks.features"),
-      t("platformLinks.clientPortal"),
-      t("platformLinks.integrations"),
-      t("platformLinks.api"),
-    ],
-    [t("company")]: [
-      t("companyLinks.about"),
-      t("companyLinks.blog"),
-      t("companyLinks.careers"),
-      t("companyLinks.contact"),
-    ],
-    [t("legal")]: [
-      t("legalLinks.terms"),
-      t("legalLinks.privacy"),
-      t("legalLinks.security"),
-    ],
-  };
+  const columns = [
+    {
+      title: t("platform"),
+      links: [
+        t("platformLinks.features"),
+        t("platformLinks.integrations"),
+        t("platformLinks.clientPortal"),
+        t("platformLinks.api"),
+      ],
+    },
+    {
+      title: t("company"),
+      links: [
+        t("companyLinks.about"),
+        t("companyLinks.blog"),
+        t("companyLinks.careers"),
+        t("companyLinks.contact"),
+      ],
+    },
+    {
+      title: t("legal"),
+      links: [
+        t("legalLinks.privacy"),
+        t("legalLinks.terms"),
+        t("legalLinks.security"),
+      ],
+    },
+    {
+      title: t("social"),
+      links: [
+        t("socialLinks.twitter"),
+        t("socialLinks.github"),
+        t("socialLinks.linkedin"),
+      ],
+    },
+  ];
 
   return (
-    <footer className="py-12 md:py-20 border-t border-zinc-900 bg-[#050505]">
-      <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
-          {/* Brand */}
-          <div className="col-span-1">
-            <div className="flex items-center gap-2 mb-5">
-              <Image src="/logotipo.svg" alt="Progressly Logo" width={32} height={32} className="w-8 h-8" />
-              <span className="text-xl font-bold tracking-tight text-white">
+    <footer className="py-20 px-6 border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-20">
+          <div className="col-span-2">
+            <Link href="/" className="flex items-center gap-2 mb-6">
+              <Image
+                src="/logotipo.svg"
+                alt="Progressly Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+              <span className="text-2xl font-bold text-white tracking-tight">
                 Progressly
               </span>
-            </div>
-            <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">
-              {t("tagline")}
-            </p>
+            </Link>
+            <p className="text-gray-500 max-w-xs leading-relaxed">{t("tagline")}</p>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="mb-5 text-xs font-bold text-white uppercase tracking-widest">
-                {category}
-              </h4>
-              <ul className="space-y-3">
-                {links.map((link) => (
+          {columns.map((column) => (
+            <div key={column.title}>
+              <h4 className="text-white font-bold mb-6">{column.title}</h4>
+              <ul className="space-y-4 text-sm text-gray-500">
+                {column.links.map((link) => (
                   <li key={link}>
-                    <Link
-                      href="/"
-                      className="text-sm text-zinc-500 hover:text-white transition-colors"
-                    >
+                    <Link href="/" className="hover:text-white transition-colors">
                       {link}
                     </Link>
                   </li>
@@ -67,39 +80,10 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 md:pt-12 mt-8 md:mt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-          <p className="text-xs text-zinc-600">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-10 gap-6 border-t border-white/5">
+          <p className="text-sm text-gray-600">
             © {new Date().getFullYear()} Progressly Technologies. {t("copyright")}
           </p>
-          <div className="flex gap-4">
-            <Link
-              href="/"
-              className="text-zinc-600 hover:text-white transition-colors"
-              aria-label="Website"
-            >
-              <Globe className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/"
-              className="text-zinc-600 hover:text-white transition-colors"
-              aria-label="GitHub"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-5 h-5"
-              >
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                <path d="M9 18c-4.51 2-5-2-7-2" />
-              </svg>
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

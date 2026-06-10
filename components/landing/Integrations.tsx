@@ -54,16 +54,16 @@ export function Integrations() {
   const t = useTranslations("Integrations");
 
   return (
-    <section className="py-12 md:py-20 border-y border-zinc-900">
-      <div className="container px-4 sm:px-6 mx-auto max-w-7xl">
-        <p className="mb-12 text-sm font-medium text-center uppercase tracking-widest text-zinc-600">
+    <section className="py-20 border-y border-white/5 bg-black/20">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-10">
+        <p className="text-[10px] uppercase tracking-widest font-bold text-white/30 text-center">
           {t("label")}
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 md:grid-cols-5 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-8 w-full opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
           {logos.map((logo) => (
             <div
               key={logo.name}
-              className="flex items-center justify-center gap-3 text-white cursor-default group"
+              className="flex items-center justify-center gap-3 text-white cursor-default"
             >
               {logo.icon}
               <span className="font-semibold tracking-tight text-sm hidden sm:block">
