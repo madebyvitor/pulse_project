@@ -80,11 +80,15 @@ function ShareLinkModalContent({
           <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {t('project')}
           </Label>
-          <Select value={selectedId} onValueChange={(value) => value && setSelectedId(value)}>
+          <Select
+            modal={false}
+            value={selectedId}
+            onValueChange={(value) => value && setSelectedId(value)}
+          >
             <SelectTrigger className="w-full max-w-full overflow-hidden bg-input border-border">
               <SelectValue placeholder={t('selectProject')} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent alignItemWithTrigger={false}>
               {projects.map((p) => (
                 <SelectItem key={p.id} value={p.id}>
                   {p.name} — {p.client}
