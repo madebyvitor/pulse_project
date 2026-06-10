@@ -5,14 +5,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { User, Mail, Building2, Lock } from "lucide-react";
+import { User, Mail, Building2, Lock, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/src/i18n/navigation";
-import { InputField } from "./InputField";
-import { PrimaryButton } from "./PrimaryButton";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Toast } from "./Toast";
 
-/** Calculates password strength 0–3 */
 function passwordStrength(value: string): number {
   let score = 0;
   if (value.length >= 8) score++;
@@ -25,7 +25,7 @@ const strengthColors = [
   "bg-red-500",
   "bg-orange-400",
   "bg-yellow-400",
-  "bg-[#C6FF4A]",
+  "bg-primary",
 ];
 
 interface SignupFormProps {
@@ -41,15 +41,9 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
 
   const signupSchema = z.object({
     nome: z.string().min(1, t("nameRequired")),
-    email: z
-      .string()
-      .min(1, t("emailRequired"))
-      .email(t("emailInvalid")),
+    email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
     empresa: z.string().min(1, t("companyRequired")),
-    senha: z
-      .string()
-      .min(1, t("passwordRequired"))
-      .min(8, t("passwordMin")),
+    senha: z.string().min(1, t("passwordRequired")).min(8, t("passwordMin")),
   });
 
   type SignupData = z.infer<typeof signupSchema>;
@@ -68,7 +62,7 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
     setIsLoading(false);
     setShowToast(true);
     setTimeout(() => {
-      router.push("/dashboard");
+      router.push("/onboarding");
     }, 1200);
   };
 
@@ -90,44 +84,72 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
         </header>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-          <InputField
-            label={t("nameLabel")}
-            placeholder={t("namePlaceholder")}
-            icon={User}
-            registration={register("nome")}
-            error={errors.nome?.message}
-          />
-          <InputField
-            label={t("emailLabel")}
-            placeholder={t("emailPlaceholder")}
-            type="email"
-            icon={Mail}
-            registration={register("email")}
-            error={errors.email?.message}
-          />
-          <InputField
-            label={t("companyLabel")}
-            placeholder={t("companyPlaceholder")}
-            icon={Building2}
-            registration={register("empresa")}
-            error={errors.empresa?.message}
-          />
+          <div className="space-y-1.5">
+            <Label htmlFor="signup-name" className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t("nameLabel")}
+            </Label>
+            <div className="relative">
+              <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <Input
+                id="signup-name"
+                placeholder={t("namePlaceholder")}
+                className="pl-10 bg-input border-border"
+                {...register("nome")}
+              />
+            </div>
+            {errors.nome && <p className="text-xs text-destructive">{errors.nome.message}</p>}
+          </div>
 
-          {/* Password + strength meter */}
+          <div className="space-y-1.5">
+            <Label htmlFor="signup-email" className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t("emailLabel")}
+            </Label>
+            <div className="relative">
+              <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <Input
+                id="signup-email"
+                type="email"
+                placeholder={t("emailPlaceholder")}
+                className="pl-10 bg-input border-border"
+                {...register("email")}
+              />
+            </div>
+            {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="signup-company" className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t("companyLabel")}
+            </Label>
+            <div className="relative">
+              <Building2 size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <Input
+                id="signup-company"
+                placeholder={t("companyPlaceholder")}
+                className="pl-10 bg-input border-border"
+                {...register("empresa")}
+              />
+            </div>
+            {errors.empresa && <p className="text-xs text-destructive">{errors.empresa.message}</p>}
+          </div>
+
           <div className="space-y-2">
-            <InputField
-              label={t("passwordLabel")}
-              placeholder={t("passwordPlaceholder")}
-              showPasswordToggle
-              icon={Lock}
-              registration={{
-                ...register("senha", {
+            <Label htmlFor="signup-password" className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t("passwordLabel")}
+            </Label>
+            <div className="relative">
+              <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <Input
+                id="signup-password"
+                type="password"
+                placeholder={t("passwordPlaceholder")}
+                className="pl-10 bg-input border-border"
+                {...register("senha", {
                   onChange: (e) => setPasswordValue(e.target.value),
-                }),
-              }}
-              error={errors.senha?.message}
-            />
-            {/* Strength bar */}
+                })}
+              />
+            </div>
+            {errors.senha && <p className="text-xs text-destructive">{errors.senha.message}</p>}
             <div className="flex gap-1 h-1 px-1">
               {[0, 1, 2].map((i) => (
                 <div
@@ -140,9 +162,9 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
             </div>
           </div>
 
-          <PrimaryButton type="submit" isLoading={isLoading}>
-            {t("submit")}
-          </PrimaryButton>
+          <Button type="submit" disabled={isLoading} className="w-full font-bold h-11">
+            {isLoading ? <Loader2 size={16} className="animate-spin" /> : t("submit")}
+          </Button>
         </form>
 
         <p className="text-[10px] text-[#444444] text-center leading-relaxed">

@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { motion } from "framer-motion";
-import { Globe } from "lucide-react";
+import { Globe, Mail, Lock, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { PrimaryButton } from "./PrimaryButton";
+import { useRouter } from "@/src/i18n/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { Toast } from "./Toast";
 
-/* ─── GitHub SVG Icon ─── */
 function GitHubIcon() {
   return (
     <svg
@@ -28,12 +34,32 @@ interface LoginFormProps {
 
 export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
   const t = useTranslations("Auth.login");
+  const router = useRouter();
   const [isGithubLoading, setIsGithubLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  /* ── Mock handlers ── */
+  const loginSchema = z.object({
+    email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
+    password: z.string().min(1, t("passwordRequired")),
+  });
+
+  type LoginData = z.infer<typeof loginSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (_data: LoginData) => {
+    await new Promise((r) => setTimeout(r, 1000));
+    router.push("/dashboard");
+  };
+
   const handleGitHub = async () => {
     setIsGithubLoading(true);
     await new Promise((r) => setTimeout(r, 1500));
@@ -64,36 +90,94 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
           <p className="text-[#888888] text-sm">{t("subtitle")}</p>
         </header>
 
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+          <div className="space-y-1.5">
+            <Label htmlFor="login-email" className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t("emailLabel")}
+            </Label>
+            <div className="relative">
+              <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <Input
+                id="login-email"
+                type="email"
+                placeholder={t("emailPlaceholder")}
+                className="pl-10 bg-input border-border"
+                {...register("email")}
+              />
+            </div>
+            {errors.email && (
+              <p className="text-xs text-destructive">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="login-password" className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t("passwordLabel")}
+            </Label>
+            <div className="relative">
+              <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <Input
+                id="login-password"
+                type="password"
+                placeholder={t("passwordPlaceholder")}
+                className="pl-10 bg-input border-border"
+                {...register("password")}
+              />
+            </div>
+            {errors.password && (
+              <p className="text-xs text-destructive">{errors.password.message}</p>
+            )}
+          </div>
+
+          <Button type="submit" disabled={isSubmitting} className="w-full font-bold h-11">
+            {isSubmitting ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                {t("submitting")}
+              </>
+            ) : (
+              t("submit")
+            )}
+          </Button>
+        </form>
+
+        <div className="flex items-center gap-3">
+          <Separator className="flex-1" />
+          <span className="text-xs text-muted-foreground whitespace-nowrap">{t("divider")}</span>
+          <Separator className="flex-1" />
+        </div>
+
         <div className="space-y-3">
-          {/* ── Primary: GitHub ── */}
-          <PrimaryButton
+          <Button
             type="button"
             onClick={handleGitHub}
-            isLoading={isGithubLoading}
-            disabled={isGoogleLoading}
-            className="flex items-center justify-center gap-3"
+            disabled={isGoogleLoading || isSubmitting}
+            className="w-full h-11 font-bold"
           >
-            {!isGithubLoading && <GitHubIcon />}
+            {isGithubLoading ? (
+              <Loader2 size={16} className="animate-spin" />
+            ) : (
+              <GitHubIcon />
+            )}
             {t("github")}
-          </PrimaryButton>
+          </Button>
 
-          {/* ── Secondary: Google ── */}
-          <button
+          <Button
             type="button"
+            variant="outline"
             onClick={handleGoogle}
-            disabled={isGoogleLoading || isGithubLoading}
-            className="flex items-center justify-center gap-3 w-full bg-transparent border border-[#333333] text-white py-3 rounded-lg hover:bg-[#161616] hover:border-[#444444] transition-all disabled:opacity-50"
+            disabled={isGithubLoading || isSubmitting}
+            className="w-full h-11"
           >
             {isGoogleLoading ? (
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <Loader2 size={16} className="animate-spin" />
             ) : (
               <Globe size={18} />
             )}
-            <span className="text-sm font-medium">{t("google")}</span>
-          </button>
+            {t("google")}
+          </Button>
         </div>
 
-        {/* ── Footer link ── */}
         <p className="text-center text-sm text-[#888888] pt-1">
           {t("noAccount")}{" "}
           <button

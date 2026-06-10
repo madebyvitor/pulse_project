@@ -152,6 +152,16 @@
     "login": {
       "title": "Access Progressly",
       "subtitle": "Sign in to your account to continue",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@youragency.com",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "passwordRequired": "Password is required",
+      "submit": "Log in",
+      "submitting": "Signing in…",
+      "divider": "or continue with",
       "github": "Continue with GitHub",
       "google": "Continue with Google",
       "noAccount": "Don't have an account?",
@@ -246,7 +256,7 @@
     },
     "quickActions": {
       "newEvent": "New Event",
-      "progress": "Progress",
+      "milestones": "Milestones",
       "share": "Share",
       "newProject": "New Project",
       "timeline": "Timeline",
@@ -282,26 +292,67 @@
         "cancel": "Cancel",
         "add": "Add Event"
       },
-      "progress": {
-        "title": "Update Progress",
+      "milestones": {
+        "title": "Manage Milestones",
         "project": "Project",
         "selectProject": "Select a project",
-        "progress": "Progress",
-        "cancel": "Cancel",
-        "update": "Update"
+        "progress": "Calculated progress",
+        "progressHint": "{completed} of {total} milestones completed",
+        "listTitle": "Milestones",
+        "addNew": "Add",
+        "cancelAdd": "Cancel",
+        "milestoneTitle": "Milestone Title",
+        "milestoneTitlePlaceholder": "E.g.: Homepage completed",
+        "description": "Description (optional)",
+        "descriptionPlaceholder": "Milestone details...",
+        "add": "Add Milestone",
+        "empty": "No milestones yet. Add the first one to calculate progress.",
+        "close": "Close"
       },
       "share": {
         "title": "Share Client Portal",
         "project": "Project",
         "selectProject": "Select a project",
-        "link": "Portal Link",
+        "link": "Portal Magic Link",
         "copy": "Copy",
         "copied": "Copied!",
+        "howItWorks": "How does it work?",
+        "howItWorksDesc": "Share this link via WhatsApp or email. The client accesses the portal directly — no login or registration required.",
         "close": "Close"
       }
     }
   },
   "LanguageSwitcher": {
     "label": "Language"
+  },
+  "ClientPortal": {
+    "badge": "Client Area",
+    "greeting": "Hello, {name}",
+    "subtitle": "Track your project progress in real time",
+    "progressLabel": "Overall Project Status",
+    "activeStatus": "Active development",
+    "nextDelivery": {
+      "badge": "Next Delivery",
+      "deadline": "Deadline",
+      "approve": "Approve Delivery",
+      "details": "View Details"
+    },
+    "timeline": {
+      "title": "Timeline",
+      "empty": "No events recorded yet."
+    },
+    "sidebar": {
+      "title": "Resources",
+      "documents": "Documents",
+      "documentsDesc": "Shared project files",
+      "messages": "Messages",
+      "messagesDesc": "Communication with the agency"
+    },
+    "comingSoon": {
+      "title": "Coming soon",
+      "description": "This feature will be available in a future release.",
+      "descriptionWithFeature": "{feature} will be available in a future release.",
+      "close": "Got it"
+    }
   }
 }

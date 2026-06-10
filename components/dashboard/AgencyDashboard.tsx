@@ -14,7 +14,6 @@ import {
   Rocket,
   Plus,
   Milestone,
-  SlidersHorizontal,
   Link2,
   LayoutDashboard,
   FolderKanban,
@@ -31,44 +30,17 @@ import { MetricCardBase } from './MetricCardBase';
 import { ProgressBar } from './ProgressBar';
 import { NewProjectModal } from './NewProjectModal';
 import { AddTimelineEventModal } from './AddTimelineEventModal';
-import { UpdateProgressModal } from './UpdateProgressModal';
+import { ManageMilestonesModal } from './ManageMilestonesModal';
 import { ShareLinkModal } from './ShareLinkModal';
-
-// --- Types ---
-
-interface Project {
-  id: string;
-  name: string;
-  client: string;
-  status: 'Design' | 'Dev' | 'Done';
-  progress: number;
-  lastUpdate: string;
-}
-
-interface Activity {
-  id: string;
-  type: 'file' | 'deploy' | 'client' | 'message';
-  content: string;
-  time: string;
-}
-
-// --- Mock Data ---
-
-const INITIAL_PROJECTS: Project[] = [
-  { id: '1', name: 'Rebranding 2024', client: 'Acme Corp', status: 'Design', progress: 65, lastUpdate: '2h atrás' },
-  { id: '2', name: 'E-commerce Platform', client: 'Globex Inc', status: 'Dev', progress: 40, lastUpdate: '5h atrás' },
-  { id: '3', name: 'Mobile App Revamp', client: 'Stark Ind', status: 'Done', progress: 100, lastUpdate: 'Ontem' },
-  { id: '4', name: 'SEO Campaign', client: 'Wayne Ent', status: 'Dev', progress: 85, lastUpdate: '2 dias atrás' },
-  { id: '5', name: 'User Research', client: 'Umbrella Corp', status: 'Design', progress: 15, lastUpdate: '3 dias atrás' },
-];
-
-const INITIAL_ACTIVITIES: Activity[] = [
-  { id: 'a1', type: 'file', content: 'Cliente Acme Corp enviou documento de identidade visual', time: 'Há 10 minutos' },
-  { id: 'a2', type: 'deploy', content: 'Deploy realizado em E-commerce Platform (Staging)', time: 'Há 2 horas' },
-  { id: 'a3', type: 'client', content: 'Novo cliente Globex Inc onboarded com sucesso', time: 'Há 5 horas' },
-  { id: 'a4', type: 'message', content: 'Stark Ind aprovou a fase de design do Mobile App', time: 'Ontem' },
-  { id: 'a5', type: 'file', content: 'Wayne Ent enviou o briefing para a campanha de SEO', time: '2 dias atrás' },
-];
+import {
+  INITIAL_PROJECTS,
+  INITIAL_MILESTONES,
+  INITIAL_ACTIVITIES,
+  generatePortalToken,
+  type Project,
+  type Activity,
+} from '@/lib/mock/data';
+import { calculateProgress, type Milestone as MilestoneType } from '@/lib/milestones';
 
 // --- Sub-components ---
 
@@ -91,12 +63,13 @@ const ActivityIcon: React.FC<{ type: Activity['type'] }> = ({ type }) => {
     case 'deploy': return <Rocket size={14} className="text-[#C6FF4A] shrink-0" />;
     case 'client': return <UsersIcon size={14} className="text-orange-400 shrink-0" />;
     case 'message': return <Bell size={14} className="text-purple-400 shrink-0" />;
+    case 'milestone': return <Milestone size={14} className="text-blue-400 shrink-0" />;
     default: return null;
   }
 };
 
 // Mobile project card (replaces table on small screens)
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
+const ProjectCard: React.FC<{ project: Project; progress: number }> = ({ project, progress }) => (
   <div className="bg-[#111111] border border-[#222222] rounded-xl p-4 hover:border-[#333333] transition-all">
     <div className="flex items-start justify-between gap-2 mb-3">
       <div className="min-w-0">
@@ -110,10 +83,10 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
         </button>
       </div>
     </div>
-    <ProgressBar progress={project.progress} showPercentage={false} size="sm" animated={false} />
+    <ProgressBar progress={progress} showPercentage={false} size="sm" animated={false} />
     <div className="flex justify-between items-center mt-1.5">
       <span className="text-[10px] text-[#444444]">{project.lastUpdate}</span>
-      <span className="text-[10px] text-[#C6FF4A] font-bold">{project.progress}%</span>
+      <span className="text-[10px] text-[#C6FF4A] font-bold">{progress}%</span>
     </div>
   </div>
 );
@@ -123,6 +96,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
 export const AgencyDashboard: React.FC = () => {
   const t = useTranslations('Dashboard');
   const [projects, setProjects] = useState<Project[]>(INITIAL_PROJECTS);
+  const [milestones, setMilestones] = useState<MilestoneType[]>(INITIAL_MILESTONES);
   const [activities, setActivities] = useState<Activity[]>(INITIAL_ACTIVITIES);
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -131,7 +105,7 @@ export const AgencyDashboard: React.FC = () => {
   // Modal states
   const [newProjectOpen, setNewProjectOpen] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
-  const [progressOpen, setProgressOpen] = useState(false);
+  const [milestonesOpen, setMilestonesOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
 
   const filteredProjects = projects.filter(
@@ -142,14 +116,18 @@ export const AgencyDashboard: React.FC = () => {
 
   // Handlers
   const handleNewProject = (data: { projectName: string; description?: string; clientName: string; clientEmail: string }) => {
+    const newId = String(Date.now());
     const newProject: Project = {
-      id: String(Date.now()),
+      id: newId,
       name: data.projectName,
+      description: data.description,
       client: data.clientName,
+      clientEmail: data.clientEmail,
       status: 'Design',
-      progress: 0,
       lastUpdate: 'Agora',
+      agencyName: 'Progressly Agency',
     };
+    generatePortalToken(newId);
     setProjects((prev) => [newProject, ...prev]);
     setActivities((prev) => [{
       id: `a${Date.now()}`,
@@ -170,22 +148,85 @@ export const AgencyDashboard: React.FC = () => {
     }, ...prev]);
   };
 
-  const handleUpdateProgress = (projectId: string, progress: number) => {
+  const handleAddMilestone = (data: { projectId: string; title: string; description?: string }) => {
+    const project = projects.find((p) => p.id === data.projectId);
+    if (!project) return;
+
+    const newMilestone: MilestoneType = {
+      id: `m${Date.now()}`,
+      projectId: data.projectId,
+      title: data.title,
+      description: data.description,
+      completed: false,
+    };
+
+    setMilestones((prev) => [...prev, newMilestone]);
     setProjects((prev) =>
-      prev.map((p) =>
-        p.id === projectId
-          ? { ...p, progress, status: progress === 100 ? 'Done' : p.status, lastUpdate: 'Agora' }
-          : p
-      )
+      prev.map((p) => (p.id === data.projectId ? { ...p, lastUpdate: 'Agora' } : p))
     );
+    setActivities((prev) => [{
+      id: `a${Date.now()}`,
+      type: 'milestone',
+      content: `[${project.name}] Novo milestone: ${data.title}`,
+      time: 'Agora',
+    }, ...prev]);
   };
+
+  const handleToggleMilestone = (milestoneId: string) => {
+    const milestone = milestones.find((m) => m.id === milestoneId);
+    if (!milestone) return;
+
+    const project = projects.find((p) => p.id === milestone.projectId);
+    const willComplete = !milestone.completed;
+
+    setMilestones((prev) =>
+      prev.map((m) => (m.id === milestoneId ? { ...m, completed: willComplete } : m))
+    );
+
+    if (project) {
+      const updatedMilestones = milestones.map((m) =>
+        m.id === milestoneId ? { ...m, completed: willComplete } : m
+      );
+      const progress = calculateProgress(updatedMilestones, milestone.projectId);
+
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === milestone.projectId
+            ? {
+                ...p,
+                lastUpdate: 'Agora',
+                status: progress === 100 ? 'Done' : p.status === 'Done' && progress < 100 ? 'Dev' : p.status,
+              }
+            : p
+        )
+      );
+
+      if (willComplete) {
+        setActivities((prev) => [{
+          id: `a${Date.now()}`,
+          type: 'milestone',
+          content: `[${project.name}] Milestone concluído: ${milestone.title}`,
+          time: 'Agora',
+        }, ...prev]);
+      }
+    }
+  };
+
+  const getProjectProgress = (projectId: string) => calculateProgress(milestones, projectId);
 
   return (
     <>
       {/* Modals */}
       <NewProjectModal open={newProjectOpen} onClose={() => setNewProjectOpen(false)} onSave={handleNewProject} />
       <AddTimelineEventModal open={timelineOpen} onClose={() => setTimelineOpen(false)} onSave={handleTimelineEvent} projects={projects} />
-      <UpdateProgressModal open={progressOpen} onClose={() => setProgressOpen(false)} onSave={handleUpdateProgress} projects={projects} />
+      <ManageMilestonesModal
+        open={milestonesOpen}
+        onClose={() => setMilestonesOpen(false)}
+        projects={projects}
+        milestones={milestones}
+        onAddMilestone={handleAddMilestone}
+        onToggleMilestone={handleToggleMilestone}
+      />
       <ShareLinkModal open={shareOpen} onClose={() => setShareOpen(false)} projects={projects} />
 
       {/* Mobile Sidebar Drawer */}
@@ -350,11 +391,11 @@ export const AgencyDashboard: React.FC = () => {
                     <span className="hidden md:inline">{t('quickActions.newEvent')}</span>
                   </button>
                   <button
-                    onClick={() => setProgressOpen(true)}
+                    onClick={() => setMilestonesOpen(true)}
                     className="bg-[#111111] border border-[#222222] text-white px-3 py-2 rounded-lg text-sm font-medium hover:border-[#333333] transition-all flex items-center gap-2"
                   >
-                    <SlidersHorizontal size={15} className="text-blue-400" />
-                    <span className="hidden md:inline">{t('quickActions.progress')}</span>
+                    <Milestone size={15} className="text-blue-400" />
+                    <span className="hidden md:inline">{t('quickActions.milestones')}</span>
                   </button>
                   <button
                     onClick={() => setShareOpen(true)}
@@ -433,7 +474,9 @@ export const AgencyDashboard: React.FC = () => {
                         </thead>
                         <tbody className="text-sm">
                           {filteredProjects.length > 0 ? (
-                            filteredProjects.map((project) => (
+                            filteredProjects.map((project) => {
+                              const progress = getProjectProgress(project.id);
+                              return (
                               <tr key={project.id} className="border-b border-[#222222]/50 hover:bg-white/[0.02] transition-colors group">
                                 <td className="px-6 py-4">
                                   <div className="flex flex-col">
@@ -444,8 +487,8 @@ export const AgencyDashboard: React.FC = () => {
                                 <td className="px-6 py-4 text-[#888888]">{project.client}</td>
                                 <td className="px-6 py-4"><StatusBadge status={project.status} /></td>
                                 <td className="px-6 py-4 w-40">
-                                  <ProgressBar progress={project.progress} showPercentage={false} size="sm" animated={false} />
-                                  <span className="text-[10px] text-[#444444] mt-1 block text-right font-bold">{project.progress}%</span>
+                                  <ProgressBar progress={progress} showPercentage={false} size="sm" animated={false} />
+                                  <span className="text-[10px] text-[#444444] mt-1 block text-right font-bold">{progress}%</span>
                                 </td>
                                 <td className="px-6 py-4 text-right">
                                   <button className="text-[#444444] hover:text-white transition-colors">
@@ -453,7 +496,8 @@ export const AgencyDashboard: React.FC = () => {
                                   </button>
                                 </td>
                               </tr>
-                            ))
+                            );
+                            })
                           ) : (
                             <tr>
                               <td colSpan={5} className="px-6 py-10 text-center text-[#444444] text-sm">
@@ -469,7 +513,7 @@ export const AgencyDashboard: React.FC = () => {
                     <div className="md:hidden p-4 space-y-3">
                       {filteredProjects.length > 0 ? (
                         filteredProjects.map((project) => (
-                          <ProjectCard key={project.id} project={project} />
+                          <ProjectCard key={project.id} project={project} progress={getProjectProgress(project.id)} />
                         ))
                       ) : (
                         <p className="text-center text-[#444444] text-sm py-6">
@@ -504,7 +548,7 @@ export const AgencyDashboard: React.FC = () => {
                       </div>
                       <div className="min-w-0">
                         <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">{t('cards.clientPortal')}</h4>
-                        <p className="text-xs text-[#888888] truncate">progressly.app/p/...</p>
+                        <p className="text-xs text-[#888888] truncate">/p/magic-link</p>
                       </div>
                       <ChevronRight size={18} className="ml-auto text-[#222222] group-hover:text-[#444444] transition-colors shrink-0" />
                     </button>

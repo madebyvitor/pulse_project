@@ -152,6 +152,16 @@
     "login": {
       "title": "Acesse o Progressly",
       "subtitle": "Entre com sua conta para continuar",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "voce@suaagencia.com",
+      "emailRequired": "E-mail é obrigatório",
+      "emailInvalid": "Informe um e-mail válido",
+      "passwordLabel": "Senha",
+      "passwordPlaceholder": "••••••••",
+      "passwordRequired": "Senha é obrigatória",
+      "submit": "Entrar",
+      "submitting": "Entrando…",
+      "divider": "ou continue com",
       "github": "Continuar com GitHub",
       "google": "Continuar com Google",
       "noAccount": "Não tem uma conta?",
@@ -246,7 +256,7 @@
     },
     "quickActions": {
       "newEvent": "Novo Evento",
-      "progress": "Progresso",
+      "milestones": "Milestones",
       "share": "Compartilhar",
       "newProject": "Novo Projeto",
       "timeline": "Timeline",
@@ -282,26 +292,67 @@
         "cancel": "Cancelar",
         "add": "Adicionar Evento"
       },
-      "progress": {
-        "title": "Atualizar Progresso",
+      "milestones": {
+        "title": "Gerenciar Milestones",
         "project": "Projeto",
         "selectProject": "Selecione um projeto",
-        "progress": "Progresso",
-        "cancel": "Cancelar",
-        "update": "Atualizar"
+        "progress": "Progresso calculado",
+        "progressHint": "{completed} de {total} milestones concluídos",
+        "listTitle": "Milestones",
+        "addNew": "Adicionar",
+        "cancelAdd": "Cancelar",
+        "milestoneTitle": "Título do Milestone",
+        "milestoneTitlePlaceholder": "Ex: Homepage finalizada",
+        "description": "Descrição (opcional)",
+        "descriptionPlaceholder": "Detalhes do milestone...",
+        "add": "Adicionar Milestone",
+        "empty": "Nenhum milestone cadastrado. Adicione o primeiro para calcular o progresso.",
+        "close": "Fechar"
       },
       "share": {
         "title": "Compartilhar Portal do Cliente",
         "project": "Projeto",
         "selectProject": "Selecione um projeto",
-        "link": "Link do Portal",
+        "link": "Magic Link do Portal",
         "copy": "Copiar",
         "copied": "Copiado!",
+        "howItWorks": "Como funciona?",
+        "howItWorksDesc": "Cole este link no WhatsApp ou e-mail do cliente. Ele acessa o portal diretamente, sem login nem cadastro.",
         "close": "Fechar"
       }
     }
   },
   "LanguageSwitcher": {
     "label": "Idioma"
+  },
+  "ClientPortal": {
+    "badge": "Área do Cliente",
+    "greeting": "Olá, {name}",
+    "subtitle": "Acompanhe em tempo real o progresso do projeto",
+    "progressLabel": "Status Geral do Projeto",
+    "activeStatus": "Em desenvolvimento ativo",
+    "nextDelivery": {
+      "badge": "Próxima Entrega",
+      "deadline": "Prazo",
+      "approve": "Aprovar Entrega",
+      "details": "Ver Detalhes"
+    },
+    "timeline": {
+      "title": "Linha do Tempo",
+      "empty": "Nenhum evento registrado ainda."
+    },
+    "sidebar": {
+      "title": "Recursos",
+      "documents": "Documentos",
+      "documentsDesc": "Arquivos compartilhados do projeto",
+      "messages": "Mensagens",
+      "messagesDesc": "Comunicação com a agência"
+    },
+    "comingSoon": {
+      "title": "Em breve",
+      "description": "Esta funcionalidade estará disponível em uma próxima versão.",
+      "descriptionWithFeature": "{feature} estará disponível em uma próxima versão.",
+      "close": "Entendi"
+    }
   }
 }
