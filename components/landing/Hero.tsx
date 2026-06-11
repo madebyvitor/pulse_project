@@ -22,14 +22,7 @@ export function Hero() {
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="flex flex-col items-start gap-8 z-10">
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full animate-fade-in-up bg-white/5 border border-white/10">
-            <span className="w-2 h-2 rounded-full animate-pulse bg-[#C6FF4A]" />
-            <span className="text-[10px] uppercase tracking-widest text-white/60 font-bold">
-              {t("badge")}
-            </span>
-          </div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl text-white font-medium tracking-tight leading-[0.95] animate-fade-in-up stagger-1">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl text-white font-medium tracking-tight leading-[0.95] animate-fade-in-up">
             {t("headline1")}{" "}
             <span
               className="italic font-[family-name:var(--font-serif-display)] text-[#C6FF4A]"
@@ -39,11 +32,11 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-400 max-w-xl animate-fade-in-up stagger-2">
+          <p className="text-lg md:text-xl text-gray-400 max-w-xl animate-fade-in-up stagger-1">
             {t("subheadline")}
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 animate-fade-in-up stagger-3">
+          <div className="flex flex-wrap items-center gap-6 animate-fade-in-up stagger-2">
             <Link href="/login">
               <PrimaryButtonBase size="lg" className="rounded-full px-8">
                 {t("ctaPrimary")}
@@ -58,7 +51,7 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="flex items-center gap-4 pt-4 animate-fade-in-up stagger-4">
+          <div className="flex items-center gap-4 pt-4 animate-fade-in-up stagger-3">
             <div className="flex -space-x-3">
               {[1, 2, 3, 4].map((i) => (
                 <div
