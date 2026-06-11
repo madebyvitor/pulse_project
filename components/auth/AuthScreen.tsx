@@ -150,15 +150,6 @@ export function AuthScreen() {
               )}
             </motion.div>
           </AnimatePresence>
-
-          {/* Trust badge */}
-          <div className="mt-8 flex justify-center">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111]/50 border border-[#222222]">
-              <span className="text-[10px] text-[#888888] font-medium uppercase tracking-tight">
-                {t("badge")}
-              </span>
-            </div>
-          </div>
         </div>
       </section>
     </main>
