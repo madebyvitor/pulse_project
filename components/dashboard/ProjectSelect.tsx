@@ -1,13 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { cn } from '@/lib/utils'
 import type { DashboardProject } from '@/lib/dashboard/types'
 
 interface ProjectSelectProps {
@@ -23,32 +16,26 @@ export function ProjectSelect({
   onValueChange,
   placeholder,
 }: ProjectSelectProps) {
-  const items = useMemo(
-    () =>
-      projects.map((p) => ({
-        value: p.id,
-        label: `${p.name} — ${p.client}`,
-      })),
-    [projects]
-  )
-
   return (
-    <Select
-      modal={false}
-      items={items}
+    <select
       value={value}
-      onValueChange={(next) => next && onValueChange(next)}
+      onChange={(e) => onValueChange(e.target.value)}
+      className={cn(
+        'h-10 w-full max-w-full rounded-lg border border-border bg-input px-3 py-2.5 text-sm text-foreground outline-none transition-colors',
+        'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50',
+        'disabled:cursor-not-allowed disabled:opacity-50'
+      )}
     >
-      <SelectTrigger className="w-full max-w-full overflow-hidden bg-input border-border">
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent alignItemWithTrigger={false} className="z-[100]">
-        {projects.map((p) => (
-          <SelectItem key={p.id} value={p.id}>
-            {p.name} — {p.client}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+      {!value && (
+        <option value="" disabled hidden>
+          {placeholder}
+        </option>
+      )}
+      {projects.map((p) => (
+        <option key={p.id} value={p.id}>
+          {p.name} — {p.client}
+        </option>
+      ))}
+    </select>
   )
 }

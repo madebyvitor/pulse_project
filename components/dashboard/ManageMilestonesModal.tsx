@@ -71,8 +71,8 @@ export function ManageMilestonesModal({
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="max-h-[85vh] overflow-hidden sm:max-w-lg border-border bg-card">
-        <DialogHeader>
+      <DialogContent className="flex max-h-[85vh] flex-col overflow-hidden sm:max-w-lg border-border bg-card">
+        <DialogHeader className="shrink-0">
           <div className="flex items-center gap-3">
             <div className="flex size-8 items-center justify-center rounded-lg bg-purple-500/10 text-purple-400">
               <MilestoneIcon size={16} />
@@ -81,7 +81,7 @@ export function ManageMilestonesModal({
           </div>
         </DialogHeader>
 
-        <div className="space-y-5">
+        <div className="min-h-0 flex-1 space-y-5 overflow-y-auto">
           <div className="space-y-1.5">
             <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {t('project')}
