@@ -468,7 +468,7 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                         <button
                           onClick={() => setTimelineOpen(true)}
                           className="bg-[#111111] border border-[#222222] p-4 md:p-6 rounded-2xl flex items-center gap-4 hover:border-[#333333] transition-all text-left group"
@@ -500,6 +500,25 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
                               {t('cards.clientPortal')}
                             </h4>
                             <p className="text-xs text-[#888888] truncate">/client/{projects[0]?.slug ?? '…'}</p>
+                          </div>
+                          <ChevronRight
+                            size={18}
+                            className="ml-auto text-[#222222] group-hover:text-[#444444] transition-colors shrink-0"
+                          />
+                        </button>
+
+                        <button
+                          onClick={() => setMilestonesOpen(true)}
+                          className="bg-[#111111] border border-[#222222] p-4 md:p-6 rounded-2xl flex items-center gap-4 hover:border-[#333333] transition-all text-left group"
+                        >
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 shrink-0">
+                            <Milestone size={22} />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">
+                              {t('cards.milestones')}
+                            </h4>
+                            <p className="text-xs text-[#888888]">{t('cards.milestonesDesc')}</p>
                           </div>
                           <ChevronRight
                             size={18}

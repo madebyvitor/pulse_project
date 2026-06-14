@@ -387,7 +387,9 @@
     "cards": {
       "nextLaunch": "Next Launch",
       "nextLaunchDesc": "Mobile App em 3 dias",
-      "clientPortal": "Portal do Cliente"
+      "clientPortal": "Portal do Cliente",
+      "milestones": "Gerenciar Milestones",
+      "milestonesDesc": "Acompanhe o progresso dos projetos"
     },
     "modals": {
       "newProject": {

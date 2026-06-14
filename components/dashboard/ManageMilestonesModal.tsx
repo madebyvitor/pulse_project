@@ -13,13 +13,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { ProjectSelect } from '@/components/dashboard/ProjectSelect'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Progress } from '@/components/ui/progress'
 import { FormSubmitButton } from '@/components/dashboard/FormSubmitButton'
@@ -77,7 +71,7 @@ export function ManageMilestonesModal({
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg border-border bg-card">
+      <DialogContent className="max-h-[85vh] overflow-hidden sm:max-w-lg border-border bg-card">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex size-8 items-center justify-center rounded-lg bg-purple-500/10 text-purple-400">
@@ -92,24 +86,12 @@ export function ManageMilestonesModal({
             <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {t('project')}
             </Label>
-            <Select
+            <ProjectSelect
+              projects={projects}
               value={selectedProjectId}
-              onValueChange={(value) => {
-                if (!value) return
-                setSelectedProjectId(value)
-              }}
-            >
-              <SelectTrigger className="w-full bg-input border-border">
-                <SelectValue placeholder={t('selectProject')} />
-              </SelectTrigger>
-              <SelectContent>
-                {projects.map((p) => (
-                  <SelectItem key={p.id} value={p.id}>
-                    {p.name} — {p.client}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              onValueChange={setSelectedProjectId}
+              placeholder={t('selectProject')}
+            />
           </div>
 
           <div className="space-y-2 rounded-xl border border-border bg-muted/30 p-4">

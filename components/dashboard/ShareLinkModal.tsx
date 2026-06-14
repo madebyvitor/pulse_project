@@ -11,13 +11,7 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { ProjectSelect } from '@/components/dashboard/ProjectSelect'
 import type { DashboardProject } from '@/lib/dashboard/types'
 
 interface ShareLinkModalProps {
@@ -75,22 +69,12 @@ function ShareLinkModalContent({
           <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {t('project')}
           </Label>
-          <Select
-            modal={false}
+          <ProjectSelect
+            projects={projects}
             value={selectedId}
-            onValueChange={(value) => value && setSelectedId(value)}
-          >
-            <SelectTrigger className="w-full max-w-full overflow-hidden bg-input border-border">
-              <SelectValue placeholder={t('selectProject')} />
-            </SelectTrigger>
-            <SelectContent alignItemWithTrigger={false}>
-              {projects.map((p) => (
-                <SelectItem key={p.id} value={p.id}>
-                  {p.name} — {p.client}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            onValueChange={setSelectedId}
+            placeholder={t('selectProject')}
+          />
         </div>
 
         {selectedProject && (
