@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import React from 'react';
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import React from 'react'
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import {
   LayoutDashboard,
   Users,
@@ -11,13 +11,13 @@ import {
   LogOut,
   Bell,
   Plus,
-} from 'lucide-react';
+} from 'lucide-react'
 
 interface SidebarItemProps {
-  icon: React.ReactNode;
-  label: string;
-  active?: boolean;
-  onClick?: () => void;
+  icon: React.ReactNode
+  label: string
+  active?: boolean
+  onClick?: () => void
 }
 
 const SidebarItem = ({ icon, label, active, onClick }: SidebarItemProps) => (
@@ -35,28 +35,36 @@ const SidebarItem = ({ icon, label, active, onClick }: SidebarItemProps) => (
     <span className="text-sm font-medium">{label}</span>
     {active && <div className="ml-auto w-1 h-4 bg-[#C6FF4A] rounded-full" />}
   </button>
-);
+)
+
+export type DashboardSection = 'dashboard' | 'projects' | 'clients'
 
 interface AgencySidebarProps {
-  activeSection?: string;
-  onNewProject?: () => void;
+  activeSection?: DashboardSection
+  onSectionChange?: (section: DashboardSection) => void
+  onNewProject?: () => void
+  userName?: string
+  organizationName?: string
+  userInitials?: string
 }
 
 export const AgencySidebar: React.FC<AgencySidebarProps> = ({
   activeSection = 'dashboard',
+  onSectionChange,
   onNewProject,
+  userName = 'User',
+  organizationName = 'Agency',
+  userInitials = 'U',
 }) => {
-  const t = useTranslations('Dashboard.sidebar');
+  const t = useTranslations('Dashboard.sidebar')
 
   return (
     <div className="w-64 h-screen bg-[#050505] border-r border-[#222222] flex flex-col p-4">
-      {/* Logo */}
       <div className="flex items-center gap-2 px-2 mb-8">
         <Image src="/logotipo.svg" alt="Progressly Logo" width={32} height={32} className="w-8 h-8 shrink-0" />
         <span className="text-xl font-bold tracking-tight text-white">Progressly</span>
       </div>
 
-      {/* Nav Items */}
       <div className="space-y-1 mb-auto">
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2">
           {t('mainSection')}
@@ -65,44 +73,38 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
           icon={<LayoutDashboard size={18} />}
           label={t('dashboard')}
           active={activeSection === 'dashboard'}
+          onClick={() => onSectionChange?.('dashboard')}
         />
         <SidebarItem
           icon={<FolderKanban size={18} />}
           label={t('projects')}
           active={activeSection === 'projects'}
+          onClick={() => onSectionChange?.('dashboard')}
         />
         <SidebarItem
           icon={<Users size={18} />}
           label={t('clients')}
           active={activeSection === 'clients'}
+          onClick={() => onSectionChange?.('clients')}
         />
 
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2 mt-6">
           {t('systemSection')}
         </div>
-        <SidebarItem
-          icon={<Bell size={18} />}
-          label={t('notifications')}
-          active={activeSection === 'notifications'}
-        />
-        <SidebarItem
-          icon={<Settings size={18} />}
-          label={t('settings')}
-          active={activeSection === 'settings'}
-        />
+        <SidebarItem icon={<Bell size={18} />} label={t('notifications')} />
+        <SidebarItem icon={<Settings size={18} />} label={t('settings')} />
       </div>
 
-      {/* User + New Project */}
       <div className="mt-auto border-t border-[#222222] pt-4">
         <button className="w-full flex items-center gap-3 px-3 py-2 text-[#888888] hover:text-white transition-colors mb-4">
           <div className="w-8 h-8 rounded-full bg-[#222222] flex items-center justify-center text-xs font-bold shrink-0">
-            AD
+            {userInitials}
           </div>
-          <div className="flex flex-col items-start">
-            <span className="text-sm font-medium text-white">Alex Director</span>
-            <span className="text-[10px] text-[#444444]">Agency Plan</span>
+          <div className="flex flex-col items-start min-w-0">
+            <span className="text-sm font-medium text-white truncate max-w-[140px]">{userName}</span>
+            <span className="text-[10px] text-[#444444] truncate max-w-[140px]">{organizationName}</span>
           </div>
-          <LogOut size={14} className="ml-auto" />
+          <LogOut size={14} className="ml-auto shrink-0" />
         </button>
 
         <button
@@ -114,5 +116,5 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
         </button>
       </div>
     </div>
-  );
-};
+  )
+}

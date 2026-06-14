@@ -338,7 +338,7 @@
       "activeProjects": "Active projects",
       "activeProjectsDesc": "In design and development",
       "activeClients": "Active clients",
-      "activeClientsDesc": "3 new clients this month",
+      "activeClientsDesc": "Registered in your organization",
       "mrr": "MRR",
       "mrrDesc": "All-time record",
       "completed": "Completed",
@@ -351,15 +351,30 @@
       "colClient": "Client",
       "colStatus": "Status",
       "colProgress": "Progress",
-      "noResults": "No projects found for"
+      "noResults": "No projects found for",
+      "empty": "No projects yet. Create your first project to get started."
+    },
+    "clients": {
+      "title": "My Clients",
+      "subtitle": "Register clients here before creating projects.",
+      "listTitle": "Registered Clients",
+      "empty": "No clients yet. Add your first client using the form.",
+      "addTitle": "Add Client",
+      "nameLabel": "Client Name",
+      "namePlaceholder": "E.g.: Acme Corp",
+      "emailLabel": "Email",
+      "emailPlaceholder": "client@company.com",
+      "addButton": "Add Client",
+      "adding": "Saving..."
     },
     "activities": {
       "title": "Recent Activities",
-      "viewLog": "View full log"
+      "viewLog": "View full log",
+      "empty": "No recent activity yet."
     },
     "team": {
       "title": "Team Online",
-      "workspace": "Workspace: Digital Agency"
+      "workspace": "Workspace: {name}"
     },
     "quickActions": {
       "newEvent": "New Event",
@@ -385,8 +400,13 @@
         "clientNamePlaceholder": "E.g.: Acme Corp",
         "clientEmail": "Client Email",
         "clientEmailPlaceholder": "client@company.com",
+        "clientSelect": "Client",
+        "clientSelectPlaceholder": "Select a client",
+        "noClientsHint": "You need at least one client before creating a project. Register a client in the Clients tab first.",
+        "goToClients": "Go to Clients",
         "cancel": "Cancel",
-        "create": "Create Project"
+        "create": "Create Project",
+        "creating": "Creating..."
       },
       "timeline": {
         "title": "Add Timeline Event",
@@ -397,7 +417,9 @@
         "description": "Description (optional)",
         "descriptionPlaceholder": "Event details...",
         "cancel": "Cancel",
-        "add": "Add Event"
+        "add": "Add Event",
+        "adding": "Adding...",
+        "noProjects": "Create a project first before adding timeline events."
       },
       "milestones": {
         "title": "Manage Milestones",

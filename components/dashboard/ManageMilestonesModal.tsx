@@ -1,55 +1,39 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Milestone as MilestoneIcon, Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import React, { useEffect, useState, useTransition } from 'react'
+import { Milestone as MilestoneIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Progress } from '@/components/ui/progress';
-import type { Milestone } from '@/lib/milestones';
-import { calculateProgress } from '@/lib/milestones';
-
-const schema = z.object({
-  projectId: z.string().min(1),
-  title: z.string().min(2),
-  description: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof schema>;
-
-interface ProjectOption {
-  id: string;
-  name: string;
-  client: string;
-}
+} from '@/components/ui/select'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Progress } from '@/components/ui/progress'
+import { FormSubmitButton } from '@/components/dashboard/FormSubmitButton'
+import { addMilestoneAction, toggleMilestoneAction } from '@/app/actions/dashboard'
+import type { Milestone } from '@/lib/milestones'
+import { calculateProgress } from '@/lib/milestones'
+import type { DashboardProject } from '@/lib/dashboard/types'
 
 interface ManageMilestonesModalProps {
-  open: boolean;
-  onClose: () => void;
-  projects: ProjectOption[];
-  milestones: Milestone[];
-  onAddMilestone: (data: FormValues) => void;
-  onToggleMilestone: (milestoneId: string) => void;
-  preSelectedProjectId?: string;
+  open: boolean
+  onClose: () => void
+  projects: DashboardProject[]
+  milestones: Milestone[]
+  preSelectedProjectId?: string
 }
 
 export function ManageMilestonesModal({
@@ -57,46 +41,39 @@ export function ManageMilestonesModal({
   onClose,
   projects,
   milestones,
-  onAddMilestone,
-  onToggleMilestone,
   preSelectedProjectId,
 }: ManageMilestonesModalProps) {
-  const t = useTranslations('Dashboard.modals.milestones');
+  const t = useTranslations('Dashboard.modals.milestones')
   const [selectedProjectId, setSelectedProjectId] = useState(
     preSelectedProjectId ?? projects[0]?.id ?? ''
-  );
-  const [showAddForm, setShowAddForm] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
-    defaultValues: { projectId: preSelectedProjectId ?? '' },
-  });
+  )
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [, startTransition] = useTransition()
 
   useEffect(() => {
     if (open) {
-      const id = preSelectedProjectId ?? projects[0]?.id ?? '';
-      setSelectedProjectId(id);
-      setValue('projectId', id);
-      reset({ projectId: id, title: '', description: '' });
-      setShowAddForm(false);
+      const id = preSelectedProjectId ?? projects[0]?.id ?? ''
+      setSelectedProjectId(id)
+      setShowAddForm(false)
     }
-  }, [open, preSelectedProjectId, projects, reset, setValue]);
+  }, [open, preSelectedProjectId, projects])
 
-  const projectMilestones = milestones.filter((m) => m.projectId === selectedProjectId);
-  const progress = calculateProgress(milestones, selectedProjectId);
+  const projectMilestones = milestones.filter((m) => m.projectId === selectedProjectId)
+  const progress = calculateProgress(milestones, selectedProjectId)
 
-  const onSubmit = async (data: FormValues) => {
-    await new Promise((r) => setTimeout(r, 300));
-    onAddMilestone({ ...data, projectId: selectedProjectId });
-    reset({ projectId: selectedProjectId, title: '', description: '' });
-    setShowAddForm(false);
-  };
+  const handleAddMilestone = (formData: FormData) => {
+    formData.set('projectId', selectedProjectId)
+    startTransition(async () => {
+      await addMilestoneAction(formData)
+      setShowAddForm(false)
+    })
+  }
+
+  const handleToggle = (milestoneId: string) => {
+    startTransition(async () => {
+      await toggleMilestoneAction(milestoneId)
+    })
+  }
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
@@ -118,9 +95,8 @@ export function ManageMilestonesModal({
             <Select
               value={selectedProjectId}
               onValueChange={(value) => {
-                if (!value) return;
-                setSelectedProjectId(value);
-                setValue('projectId', value);
+                if (!value) return
+                setSelectedProjectId(value)
               }}
             >
               <SelectTrigger className="w-full bg-input border-border">
@@ -168,32 +144,30 @@ export function ManageMilestonesModal({
             </div>
 
             {showAddForm && (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 rounded-xl border border-border p-4">
+              <form action={handleAddMilestone} className="space-y-3 rounded-xl border border-border p-4">
+                <input type="hidden" name="projectId" value={selectedProjectId} />
                 <div className="space-y-1.5">
                   <Label htmlFor="milestone-title">{t('milestoneTitle')}</Label>
                   <Input
                     id="milestone-title"
-                    {...register('title')}
+                    name="title"
+                    required
+                    minLength={2}
                     placeholder={t('milestoneTitlePlaceholder')}
                     className="bg-input border-border"
                   />
-                  {errors.title && (
-                    <p className="text-xs text-destructive">{errors.title.message}</p>
-                  )}
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="milestone-desc">{t('description')}</Label>
                   <Textarea
                     id="milestone-desc"
-                    {...register('description')}
+                    name="description"
                     placeholder={t('descriptionPlaceholder')}
                     rows={2}
                     className="resize-none bg-input border-border"
                   />
                 </div>
-                <Button type="submit" disabled={isSubmitting} className="w-full font-bold">
-                  {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : t('add')}
-                </Button>
+                <FormSubmitButton label={t('add')} className="w-full font-bold" />
               </form>
             )}
 
@@ -208,7 +182,7 @@ export function ManageMilestonesModal({
                   >
                     <Checkbox
                       checked={milestone.completed}
-                      onCheckedChange={() => onToggleMilestone(milestone.id)}
+                      onCheckedChange={() => handleToggle(milestone.id)}
                       className="mt-0.5"
                     />
                     <div className="min-w-0 flex-1">
@@ -235,5 +209,5 @@ export function ManageMilestonesModal({
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

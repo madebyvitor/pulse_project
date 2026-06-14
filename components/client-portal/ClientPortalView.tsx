@@ -9,12 +9,12 @@ import { TimelineItem } from '@/components/client-portal/TimelineItem';
 import { ProgressBar } from '@/components/client-portal/ProgressBar';
 import { PrimaryButtonBase } from '@/components/client-portal/PrimaryButtonBase';
 import { ComingSoonModal } from '@/components/shared/ComingSoonModal';
-import type { Project, TimelineEvent } from '@/lib/mock/data';
+import type { DashboardProject, DashboardTimelineEvent } from '@/lib/dashboard/types';
 
 interface ClientPortalViewProps {
-  project: Project;
+  project: DashboardProject;
   progress: number;
-  timelineEvents: TimelineEvent[];
+  timelineEvents: DashboardTimelineEvent[];
 }
 
 export function ClientPortalView({ project, progress, timelineEvents }: ClientPortalViewProps) {

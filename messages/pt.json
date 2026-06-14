@@ -338,7 +338,7 @@
       "activeProjects": "Projetos ativos",
       "activeProjectsDesc": "Em design e desenvolvimento",
       "activeClients": "Clientes ativos",
-      "activeClientsDesc": "3 novos clientes este mês",
+      "activeClientsDesc": "Cadastrados na sua organização",
       "mrr": "MRR",
       "mrrDesc": "Recorde histórico",
       "completed": "Finalizados",
@@ -351,15 +351,30 @@
       "colClient": "Cliente",
       "colStatus": "Status",
       "colProgress": "Progresso",
-      "noResults": "Nenhum projeto encontrado para"
+      "noResults": "Nenhum projeto encontrado para",
+      "empty": "Nenhum projeto ainda. Crie o primeiro para começar."
+    },
+    "clients": {
+      "title": "Meus Clientes",
+      "subtitle": "Cadastre clientes aqui antes de criar projetos.",
+      "listTitle": "Clientes Cadastrados",
+      "empty": "Nenhum cliente ainda. Adicione o primeiro usando o formulário.",
+      "addTitle": "Adicionar Cliente",
+      "nameLabel": "Nome do Cliente",
+      "namePlaceholder": "Ex: Acme Corp",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "cliente@empresa.com",
+      "addButton": "Adicionar Cliente",
+      "adding": "Salvando..."
     },
     "activities": {
       "title": "Atividades Recentes",
-      "viewLog": "Ver log completo"
+      "viewLog": "Ver log completo",
+      "empty": "Nenhuma atividade recente."
     },
     "team": {
       "title": "Equipe Online",
-      "workspace": "Workspace: Agência Digital"
+      "workspace": "Workspace: {name}"
     },
     "quickActions": {
       "newEvent": "Novo Evento",
@@ -385,8 +400,13 @@
         "clientNamePlaceholder": "Ex: Acme Corp",
         "clientEmail": "E-mail do Cliente",
         "clientEmailPlaceholder": "cliente@empresa.com",
+        "clientSelect": "Cliente",
+        "clientSelectPlaceholder": "Selecione um cliente",
+        "noClientsHint": "Você precisa de pelo menos um cliente antes de criar um projeto. Cadastre um cliente na aba Clientes primeiro.",
+        "goToClients": "Ir para Clientes",
         "cancel": "Cancelar",
-        "create": "Criar Projeto"
+        "create": "Criar Projeto",
+        "creating": "Criando..."
       },
       "timeline": {
         "title": "Adicionar Evento à Timeline",
@@ -397,7 +417,9 @@
         "description": "Descrição (opcional)",
         "descriptionPlaceholder": "Detalhes do evento...",
         "cancel": "Cancelar",
-        "add": "Adicionar Evento"
+        "add": "Adicionar Evento",
+        "adding": "Adicionando...",
+        "noProjects": "Crie um projeto antes de adicionar eventos à timeline."
       },
       "milestones": {
         "title": "Gerenciar Milestones",

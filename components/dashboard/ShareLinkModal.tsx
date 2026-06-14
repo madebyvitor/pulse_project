@@ -1,36 +1,30 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import { Link2, Copy, Check } from 'lucide-react';
-import { useTranslations, useLocale } from 'next-intl';
+import React, { useState } from 'react'
+import { Link2, Copy, Check } from 'lucide-react'
+import { useTranslations, useLocale } from 'next-intl'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { generatePortalToken } from '@/lib/mock/data';
-
-interface Project {
-  id: string;
-  name: string;
-  client: string;
-}
+} from '@/components/ui/select'
+import type { DashboardProject } from '@/lib/dashboard/types'
 
 interface ShareLinkModalProps {
-  open: boolean;
-  onClose: () => void;
-  projects: Project[];
-  preSelectedProjectId?: string;
+  open: boolean
+  onClose: () => void
+  projects: DashboardProject[]
+  preSelectedProjectId?: string
 }
 
 function ShareLinkModalContent({
@@ -38,29 +32,30 @@ function ShareLinkModalContent({
   projects,
   preSelectedProjectId,
 }: Omit<ShareLinkModalProps, 'open'>) {
-  const t = useTranslations('Dashboard.modals.share');
-  const locale = useLocale();
+  const t = useTranslations('Dashboard.modals.share')
+  const locale = useLocale()
   const [selectedId, setSelectedId] = useState(
     preSelectedProjectId ?? projects[0]?.id ?? ''
-  );
-  const [copied, setCopied] = useState(false);
+  )
+  const [copied, setCopied] = useState(false)
 
-  const selectedProject = projects.find((p) => p.id === selectedId);
-  const token = selectedId ? generatePortalToken(selectedId) : '';
+  const selectedProject = projects.find((p) => p.id === selectedId)
   const clientLink =
-    typeof window !== 'undefined'
-      ? `${window.location.origin}/${locale}/p/${token}`
-      : `/${locale}/p/${token}`;
+    selectedProject && typeof window !== 'undefined'
+      ? `${window.location.origin}/${locale}/client/${selectedProject.slug}`
+      : selectedProject
+        ? `/${locale}/client/${selectedProject.slug}`
+        : ''
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(clientLink);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(clientLink)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     } catch {
       // fallback
     }
-  };
+  }
 
   return (
     <>
@@ -141,7 +136,7 @@ function ShareLinkModalContent({
         </Button>
       </div>
     </>
-  );
+  )
 }
 
 export function ShareLinkModal({
@@ -162,5 +157,5 @@ export function ShareLinkModal({
         ) : null}
       </DialogContent>
     </Dialog>
-  );
+  )
 }
