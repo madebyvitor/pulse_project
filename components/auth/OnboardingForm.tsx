@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/src/i18n/navigation";
 import Image from "next/image";
 import { Toast } from "@/components/auth/Toast";
+import { logout } from "@/app/actions/auth";
 
 function ProgresslyLogo() {
   return (
@@ -24,6 +25,7 @@ export function OnboardingForm() {
   const t = useTranslations("Auth.onboarding");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSigningOut, startSignOut] = useTransition();
   const [showToast, setShowToast] = useState(false);
 
   const STEPS = [t("step1"), t("step2"), t("step3")];
@@ -57,8 +59,10 @@ export function OnboardingForm() {
     setTimeout(() => router.push("/dashboard"), 1200);
   };
 
-  const handleSignOut = async () => {
-    router.push("/login");
+  const handleSignOut = () => {
+    startSignOut(async () => {
+      await logout();
+    });
   };
 
   return (
@@ -195,7 +199,8 @@ export function OnboardingForm() {
           <button
             type="button"
             onClick={handleSignOut}
-            className="flex items-center gap-1.5 text-[#444444] hover:text-[#888888] transition-colors text-xs font-medium"
+            disabled={isSigningOut}
+            className="flex items-center gap-1.5 text-[#444444] hover:text-[#888888] transition-colors text-xs font-medium disabled:opacity-50"
           >
             <LogOut size={13} />
             {t("signout")}

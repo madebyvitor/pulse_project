@@ -1,18 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { Globe, Mail, Lock, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/src/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Toast } from "./Toast";
+import { login } from "@/app/actions/auth";
 
 function GitHubIcon() {
   return (
@@ -34,11 +34,11 @@ interface LoginFormProps {
 
 export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
   const t = useTranslations("Auth.login");
-  const router = useRouter();
-  const [isGithubLoading, setIsGithubLoading] = useState(false);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const tErrors = useTranslations("Auth.errors");
+  const [isPending, startTransition] = useTransition();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<"success" | "error">("error");
 
   const loginSchema = z.object({
     email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
@@ -50,29 +50,29 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (_data: LoginData) => {
-    await new Promise((r) => setTimeout(r, 1000));
-    router.push("/dashboard");
+  const onSubmit = (data: LoginData) => {
+    const formData = new FormData();
+    formData.set("email", data.email);
+    formData.set("password", data.password);
+
+    startTransition(async () => {
+      const result = await login(formData);
+      if (result?.error) {
+        setToastType("error");
+        setToastMessage(tErrors("invalidCredentials"));
+        setShowToast(true);
+      }
+    });
   };
 
-  const handleGitHub = async () => {
-    setIsGithubLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setIsGithubLoading(false);
-    setToastMessage(t("redirectGithub"));
-    setShowToast(true);
-  };
-
-  const handleGoogle = async () => {
-    setIsGoogleLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setIsGoogleLoading(false);
-    setToastMessage(t("redirectGoogle"));
+  const handleOAuthComingSoon = () => {
+    setToastType("success");
+    setToastMessage(t("oauthComingSoon"));
     setShowToast(true);
   };
 
@@ -129,8 +129,8 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
             )}
           </div>
 
-          <Button type="submit" disabled={isSubmitting} className="w-full font-bold h-11">
-            {isSubmitting ? (
+          <Button type="submit" disabled={isPending} className="w-full font-bold h-11">
+            {isPending ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
                 {t("submitting")}
@@ -150,30 +150,23 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
         <div className="space-y-3">
           <Button
             type="button"
-            onClick={handleGitHub}
-            disabled={isGoogleLoading || isSubmitting}
+            variant="outline"
+            onClick={handleOAuthComingSoon}
+            disabled={isPending}
             className="w-full h-11 font-bold"
           >
-            {isGithubLoading ? (
-              <Loader2 size={16} className="animate-spin" />
-            ) : (
-              <GitHubIcon />
-            )}
+            <GitHubIcon />
             {t("github")}
           </Button>
 
           <Button
             type="button"
             variant="outline"
-            onClick={handleGoogle}
-            disabled={isGithubLoading || isSubmitting}
+            onClick={handleOAuthComingSoon}
+            disabled={isPending}
             className="w-full h-11"
           >
-            {isGoogleLoading ? (
-              <Loader2 size={16} className="animate-spin" />
-            ) : (
-              <Globe size={18} />
-            )}
+            <Globe size={18} />
             {t("google")}
           </Button>
         </div>
@@ -193,7 +186,7 @@ export function LoginForm({ onSwitchToSignup }: LoginFormProps) {
       <Toast
         show={showToast}
         message={toastMessage}
-        type="success"
+        type={toastType}
         onClose={() => setShowToast(false)}
       />
     </>

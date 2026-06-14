@@ -271,8 +271,14 @@
       "google": "Continue with Google",
       "noAccount": "Don't have an account?",
       "createAccount": "Create account manually",
-      "redirectGithub": "Redirecting to GitHub…",
-      "redirectGoogle": "Redirecting to Google…"
+      "oauthComingSoon": "Coming soon — use email and password for now."
+    },
+    "errors": {
+      "invalidCredentials": "Incorrect email or password.",
+      "signupFailed": "Could not create account. Please try again.",
+      "email_taken": "This email is already registered.",
+      "weak_password": "Password does not meet security requirements.",
+      "invalid_email": "Please enter a valid email address."
     },
     "signup": {
       "title": "Start for free",
@@ -281,8 +287,6 @@
       "nameLabel": "Full name",
       "emailLabel": "Professional email",
       "emailPlaceholder": "you@youragency.com",
-      "companyLabel": "Agency or company name",
-      "companyPlaceholder": "E.g.: Studio Aurora",
       "passwordLabel": "Create a password",
       "passwordPlaceholder": "••••••••",
       "submit": "Create free account",
@@ -292,11 +296,9 @@
       "privacyLink": "Privacy Policy",
       "hasAccount": "Already have an account?",
       "loginLink": "Log in",
-      "success": "Account created successfully! Redirecting…",
       "nameRequired": "Name is required",
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email",
-      "companyRequired": "Agency/company name is required",
       "passwordRequired": "Password is required",
       "passwordMin": "Password must be at least 8 characters"
     },

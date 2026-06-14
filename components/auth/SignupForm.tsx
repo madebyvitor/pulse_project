@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { User, Mail, Building2, Lock, Loader2 } from "lucide-react";
+import { User, Mail, Lock, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/src/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Toast } from "./Toast";
+import { signup } from "@/app/actions/auth";
 
 function passwordStrength(value: string): number {
   let score = 0;
@@ -34,16 +34,16 @@ interface SignupFormProps {
 
 export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
   const t = useTranslations("Auth.signup");
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const tErrors = useTranslations("Auth.errors");
+  const [isPending, startTransition] = useTransition();
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
   const signupSchema = z.object({
-    nome: z.string().min(1, t("nameRequired")),
+    name: z.string().min(1, t("nameRequired")),
     email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
-    empresa: z.string().min(1, t("companyRequired")),
-    senha: z.string().min(1, t("passwordRequired")).min(8, t("passwordMin")),
+    password: z.string().min(1, t("passwordRequired")).min(8, t("passwordMin")),
   });
 
   type SignupData = z.infer<typeof signupSchema>;
@@ -56,14 +56,21 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
     resolver: zodResolver(signupSchema),
   });
 
-  const onSubmit = async (_data: SignupData) => {
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsLoading(false);
-    setShowToast(true);
-    setTimeout(() => {
-      router.push("/onboarding");
-    }, 1200);
+  const onSubmit = (data: SignupData) => {
+    const formData = new FormData();
+    formData.set("name", data.name);
+    formData.set("email", data.email);
+    formData.set("password", data.password);
+
+    startTransition(async () => {
+      const result = await signup(formData);
+      if (result?.error) {
+        const errorKey =
+          result.error === "auth_failed" ? "signupFailed" : result.error;
+        setToastMessage(tErrors(errorKey));
+        setShowToast(true);
+      }
+    });
   };
 
   const strength = passwordStrength(passwordValue);
@@ -94,10 +101,10 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
                 id="signup-name"
                 placeholder={t("namePlaceholder")}
                 className="pl-10 bg-input border-border"
-                {...register("nome")}
+                {...register("name")}
               />
             </div>
-            {errors.nome && <p className="text-xs text-destructive">{errors.nome.message}</p>}
+            {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
           </div>
 
           <div className="space-y-1.5">
@@ -117,22 +124,6 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
             {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="signup-company" className="text-xs uppercase tracking-wider text-muted-foreground">
-              {t("companyLabel")}
-            </Label>
-            <div className="relative">
-              <Building2 size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-              <Input
-                id="signup-company"
-                placeholder={t("companyPlaceholder")}
-                className="pl-10 bg-input border-border"
-                {...register("empresa")}
-              />
-            </div>
-            {errors.empresa && <p className="text-xs text-destructive">{errors.empresa.message}</p>}
-          </div>
-
           <div className="space-y-2">
             <Label htmlFor="signup-password" className="text-xs uppercase tracking-wider text-muted-foreground">
               {t("passwordLabel")}
@@ -144,12 +135,12 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
                 type="password"
                 placeholder={t("passwordPlaceholder")}
                 className="pl-10 bg-input border-border"
-                {...register("senha", {
+                {...register("password", {
                   onChange: (e) => setPasswordValue(e.target.value),
                 })}
               />
             </div>
-            {errors.senha && <p className="text-xs text-destructive">{errors.senha.message}</p>}
+            {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
             <div className="flex gap-1 h-1 px-1">
               {[0, 1, 2].map((i) => (
                 <div
@@ -162,8 +153,8 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
             </div>
           </div>
 
-          <Button type="submit" disabled={isLoading} className="w-full font-bold h-11">
-            {isLoading ? <Loader2 size={16} className="animate-spin" /> : t("submit")}
+          <Button type="submit" disabled={isPending} className="w-full font-bold h-11">
+            {isPending ? <Loader2 size={16} className="animate-spin" /> : t("submit")}
           </Button>
         </form>
 
@@ -195,8 +186,8 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
 
       <Toast
         show={showToast}
-        message={t("success")}
-        type="success"
+        message={toastMessage}
+        type="error"
         onClose={() => setShowToast(false)}
       />
     </>
