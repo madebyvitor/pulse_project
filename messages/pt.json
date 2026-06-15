@@ -354,6 +354,15 @@
       "noResults": "Nenhum projeto encontrado para",
       "empty": "Nenhum projeto ainda. Crie o primeiro para começar."
     },
+    "projectsPage": {
+      "title": "Projetos",
+      "subtitle": "Gerencie e acompanhe todos os projetos da agência",
+      "searchPlaceholder": "Pesquisar por nome do projeto...",
+      "newProject": "Novo Projeto",
+      "lastUpdated": "Última atualização",
+      "backToProjects": "Voltar aos projetos",
+      "comingSoon": "Detalhes do projeto em breve"
+    },
     "clients": {
       "title": "Meus Clientes",
       "subtitle": "Cadastre clientes aqui antes de criar projetos.",

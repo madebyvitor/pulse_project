@@ -12,6 +12,31 @@ import {
   Bell,
   Plus,
 } from 'lucide-react'
+import { Link } from '@/src/i18n/navigation'
+
+interface SidebarLinkProps {
+  href: string
+  icon: React.ReactNode
+  label: string
+  active?: boolean
+}
+
+const SidebarLink = ({ href, icon, label, active }: SidebarLinkProps) => (
+  <Link
+    href={href}
+    className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 group ${
+      active
+        ? 'bg-[#1a1a1a] text-[#C6FF4A]'
+        : 'text-[#888888] hover:bg-[#111111] hover:text-white'
+    }`}
+  >
+    <span className={`${active ? 'text-[#C6FF4A]' : 'text-[#888888] group-hover:text-white'}`}>
+      {icon}
+    </span>
+    <span className="text-sm font-medium">{label}</span>
+    {active && <div className="ml-auto w-1 h-4 bg-[#C6FF4A] rounded-full" />}
+  </Link>
+)
 
 interface SidebarItemProps {
   icon: React.ReactNode
@@ -69,17 +94,17 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2">
           {t('mainSection')}
         </div>
-        <SidebarItem
+        <SidebarLink
+          href="/dashboard"
           icon={<LayoutDashboard size={18} />}
           label={t('dashboard')}
           active={activeSection === 'dashboard'}
-          onClick={() => onSectionChange?.('dashboard')}
         />
-        <SidebarItem
+        <SidebarLink
+          href="/dashboard/projects"
           icon={<FolderKanban size={18} />}
           label={t('projects')}
           active={activeSection === 'projects'}
-          onClick={() => onSectionChange?.('dashboard')}
         />
         <SidebarItem
           icon={<Users size={18} />}

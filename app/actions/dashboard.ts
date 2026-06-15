@@ -14,9 +14,13 @@ import { generateUniqueProjectSlug } from '@/lib/slug'
 import { calculateProgress } from '@/lib/milestones'
 import { deriveProjectStatusFromProgress, mapMilestone } from '@/lib/dashboard/map-data'
 
-async function revalidateDashboard() {
+async function revalidateDashboard(projectId?: string) {
   const locale = await getLocale()
   revalidatePath(`/${locale}/dashboard`)
+  revalidatePath(`/${locale}/dashboard/projects`)
+  if (projectId) {
+    revalidatePath(`/${locale}/dashboard/projects/${projectId}`)
+  }
 }
 
 async function syncProjectProgress(projectId: string) {
@@ -143,7 +147,7 @@ export async function addTimelineEventAction(formData: FormData) {
     }),
   ])
 
-  await revalidateDashboard()
+  await revalidateDashboard(parsed.data.projectId)
   return { success: true as const }
 }
 
@@ -169,7 +173,7 @@ export async function addMilestoneAction(formData: FormData) {
   })
 
   await syncProjectProgress(parsed.data.projectId)
-  await revalidateDashboard()
+  await revalidateDashboard(parsed.data.projectId)
   return { success: true as const }
 }
 
@@ -182,7 +186,7 @@ export async function toggleMilestoneAction(milestoneId: string) {
   })
 
   await syncProjectProgress(milestone.projectId)
-  await revalidateDashboard()
+  await revalidateDashboard(milestone.projectId)
   return { success: true as const }
 }
 
@@ -203,6 +207,6 @@ export async function updateProjectProgressAction(
     },
   })
 
-  await revalidateDashboard()
+  await revalidateDashboard(projectId)
   return { success: true as const }
 }

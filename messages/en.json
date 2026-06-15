@@ -354,6 +354,15 @@
       "noResults": "No projects found for",
       "empty": "No projects yet. Create your first project to get started."
     },
+    "projectsPage": {
+      "title": "Projects",
+      "subtitle": "Manage and track all agency projects",
+      "searchPlaceholder": "Search by project name...",
+      "newProject": "New Project",
+      "lastUpdated": "Last updated",
+      "backToProjects": "Back to projects",
+      "comingSoon": "Project details coming soon"
+    },
     "clients": {
       "title": "My Clients",
       "subtitle": "Register clients here before creating projects.",
