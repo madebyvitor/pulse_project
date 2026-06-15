@@ -361,7 +361,21 @@
       "newProject": "Novo Projeto",
       "lastUpdated": "Última atualização",
       "backToProjects": "Voltar aos projetos",
-      "comingSoon": "Detalhes do projeto em breve"
+      "comingSoon": "Detalhes do projeto em breve",
+      "filteredBy": "Mostrando projetos de {name}",
+      "clearFilter": "Limpar filtro"
+    },
+    "clientsPage": {
+      "title": "Clientes",
+      "subtitle": "Gerencie a carteira de clientes da sua agência",
+      "searchPlaceholder": "Pesquisar por nome ou e-mail...",
+      "newClient": "Novo Cliente",
+      "activeProjects": "{count} projetos ativos",
+      "noResults": "Nenhum cliente encontrado para",
+      "empty": "Nenhum cliente ainda. Adicione o primeiro cliente para começar.",
+      "delete": "Excluir cliente",
+      "deleteDisabled": "Não é possível excluir — cliente possui projetos vinculados",
+      "deleteConfirm": "Excluir este cliente?"
     },
     "clients": {
       "title": "Meus Clientes",
@@ -401,6 +415,14 @@
       "milestonesDesc": "Acompanhe o progresso dos projetos"
     },
     "modals": {
+      "newClient": {
+        "title": "Novo Cliente",
+        "cancel": "Cancelar",
+        "create": "Adicionar Cliente",
+        "creating": "Salvando...",
+        "invalidData": "Verifique os campos de nome e e-mail.",
+        "duplicateEmail": "Já existe um cliente com este e-mail."
+      },
       "newProject": {
         "title": "Novo Projeto",
         "projectName": "Nome do Projeto",
@@ -413,7 +435,7 @@
         "clientEmailPlaceholder": "cliente@empresa.com",
         "clientSelect": "Cliente",
         "clientSelectPlaceholder": "Selecione um cliente",
-        "noClientsHint": "Você precisa de pelo menos um cliente antes de criar um projeto. Cadastre um cliente na aba Clientes primeiro.",
+        "noClientsHint": "Você precisa de pelo menos um cliente antes de criar um projeto. Cadastre um cliente na página de Clientes primeiro.",
         "goToClients": "Ir para Clientes",
         "cancel": "Cancelar",
         "create": "Criar Projeto",

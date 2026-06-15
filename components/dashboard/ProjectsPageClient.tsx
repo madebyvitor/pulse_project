@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import { DashboardShell } from '@/components/dashboard/DashboardShell'
 import { ProjectsListView } from '@/components/dashboard/ProjectsListView'
 import type { DashboardClient, DashboardProject } from '@/lib/dashboard/types'
@@ -31,11 +32,14 @@ export function ProjectsPageClient({
       clients={clients}
     >
       {(shell) => (
-        <ProjectsListView
-          projects={projects}
-          milestones={milestones}
-          onNewProject={shell.openNewProject}
-        />
+        <Suspense fallback={<div className="h-32" />}>
+          <ProjectsListView
+            projects={projects}
+            milestones={milestones}
+            clients={clients}
+            onNewProject={shell.openNewProject}
+          />
+        </Suspense>
       )}
     </DashboardShell>
   )

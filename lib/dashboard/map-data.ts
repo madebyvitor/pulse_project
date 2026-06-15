@@ -68,11 +68,14 @@ export function formatRelativeTime(date: Date, locale: string): string {
   return `${diffDays}d ago`
 }
 
-export function mapClient(client: Client): DashboardClient {
+export function mapClient(
+  client: Client & { _count?: { projects: number } }
+): DashboardClient {
   return {
     id: client.id,
     name: client.name,
     email: client.email,
+    projectCount: client._count?.projects ?? 0,
   }
 }
 
@@ -86,6 +89,7 @@ export function mapProject(
     slug: project.slug,
     name: project.name,
     description: project.description ?? undefined,
+    clientId: project.clientId,
     client: project.client.name,
     clientEmail: project.client.email,
     status: mapProjectStatus(project.status),

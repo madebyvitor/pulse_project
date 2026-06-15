@@ -25,14 +25,12 @@ import { ProgressBar } from './ProgressBar'
 import { AddTimelineEventModal } from './AddTimelineEventModal'
 import { ManageMilestonesModal } from './ManageMilestonesModal'
 import { ShareLinkModal } from './ShareLinkModal'
-import { ClientsSection } from './ClientsSection'
 import type {
   Activity,
   DashboardClient,
   DashboardProject,
 } from '@/lib/dashboard/types'
 import { calculateProgress, type Milestone as MilestoneType } from '@/lib/milestones'
-import type { DashboardSection } from './AgencySidebar'
 
 interface AgencyDashboardProps {
   organizationName: string
@@ -111,7 +109,6 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
   activities,
 }) => {
   const t = useTranslations('Dashboard')
-  const [activeSection, setActiveSection] = useState<DashboardSection>('dashboard')
   const [searchQuery, setSearchQuery] = useState('')
 
   const [timelineOpen, setTimelineOpen] = useState(false)
@@ -126,7 +123,7 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
 
   const getProjectProgress = (projectId: string) => calculateProgress(milestones, projectId)
 
-  const headerSearch = activeSection === 'dashboard' && (
+  const headerSearch = (
     <div className="relative group w-full max-w-sm">
       <Search
         className="absolute left-3 top-1/2 -translate-y-1/2 text-[#444444] group-focus-within:text-[#C6FF4A] transition-colors"
@@ -158,20 +155,15 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
       <ShareLinkModal open={shareOpen} onClose={() => setShareOpen(false)} projects={projects} />
 
       <DashboardShell
-        activeSection={activeSection}
+        activeSection="dashboard"
         userName={userName}
         organizationName={organizationName}
         userInitials={userInitials}
         clients={clients}
-        onSectionChange={setActiveSection}
         headerContent={headerSearch}
       >
         {(shell) => (
           <>
-            {activeSection === 'clients' ? (
-              <ClientsSection clients={clients} />
-            ) : (
-              <>
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-6 md:mb-8">
                   <div>
                     <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1">
@@ -449,8 +441,6 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
                   </div>
                 </div>
               </>
-            )}
-          </>
         )}
       </DashboardShell>
     </>

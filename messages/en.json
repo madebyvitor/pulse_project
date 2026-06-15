@@ -361,7 +361,21 @@
       "newProject": "New Project",
       "lastUpdated": "Last updated",
       "backToProjects": "Back to projects",
-      "comingSoon": "Project details coming soon"
+      "comingSoon": "Project details coming soon",
+      "filteredBy": "Showing projects for {name}",
+      "clearFilter": "Clear filter"
+    },
+    "clientsPage": {
+      "title": "Clients",
+      "subtitle": "Manage your agency client portfolio",
+      "searchPlaceholder": "Search by name or email...",
+      "newClient": "New Client",
+      "activeProjects": "{count} active projects",
+      "noResults": "No clients found for",
+      "empty": "No clients yet. Add your first client to get started.",
+      "delete": "Delete client",
+      "deleteDisabled": "Cannot delete — client has linked projects",
+      "deleteConfirm": "Delete this client?"
     },
     "clients": {
       "title": "My Clients",
@@ -401,6 +415,14 @@
       "milestonesDesc": "Track project progress"
     },
     "modals": {
+      "newClient": {
+        "title": "New Client",
+        "cancel": "Cancel",
+        "create": "Add Client",
+        "creating": "Saving...",
+        "invalidData": "Please check the name and email fields.",
+        "duplicateEmail": "A client with this email already exists."
+      },
       "newProject": {
         "title": "New Project",
         "projectName": "Project Name",
@@ -413,7 +435,7 @@
         "clientEmailPlaceholder": "client@company.com",
         "clientSelect": "Client",
         "clientSelectPlaceholder": "Select a client",
-        "noClientsHint": "You need at least one client before creating a project. Register a client in the Clients tab first.",
+        "noClientsHint": "You need at least one client before creating a project. Register a client on the Clients page first.",
         "goToClients": "Go to Clients",
         "cancel": "Cancel",
         "create": "Create Project",

@@ -14,7 +14,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Link } from '@/src/i18n/navigation'
+import { Link, useRouter } from '@/src/i18n/navigation'
 import { AgencySidebar, type DashboardSection } from './AgencySidebar'
 import { NewProjectModal } from './NewProjectModal'
 import type { DashboardClient } from '@/lib/dashboard/types'
@@ -26,8 +26,11 @@ interface DashboardShellProps {
   userInitials: string
   clients: DashboardClient[]
   onSectionChange?: (section: DashboardSection) => void
+  onNewClient?: () => void
   headerContent?: React.ReactNode
-  children: React.ReactNode | ((actions: { openNewProject: () => void }) => React.ReactNode)
+  children:
+    | React.ReactNode
+    | ((actions: { openNewProject: () => void; openNewClient: () => void }) => React.ReactNode)
 }
 
 export function DashboardShell({
@@ -37,17 +40,30 @@ export function DashboardShell({
   userInitials,
   clients,
   onSectionChange,
+  onNewClient,
   headerContent,
   children,
 }: DashboardShellProps) {
   const t = useTranslations('Dashboard')
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [newProjectOpen, setNewProjectOpen] = useState(false)
+
+  const openNewProject = () => setNewProjectOpen(true)
+  const openNewClient = () => onNewClient?.()
+
+  const handlePrimaryAction = () => {
+    if (activeSection === 'clients') {
+      openNewClient()
+    } else {
+      openNewProject()
+    }
+  }
 
   const sidebarProps = {
     activeSection,
     onSectionChange,
-    onNewProject: () => setNewProjectOpen(true),
+    onNewProject: openNewProject,
     userName,
     organizationName,
     userInitials,
@@ -59,7 +75,7 @@ export function DashboardShell({
         open={newProjectOpen}
         onClose={() => setNewProjectOpen(false)}
         clients={clients}
-        onGoToClients={() => onSectionChange?.('clients')}
+        onGoToClients={() => router.push('/dashboard/clients')}
       />
 
       <AnimatePresence>
@@ -82,7 +98,7 @@ export function DashboardShell({
               <AgencySidebar
                 {...sidebarProps}
                 onNewProject={() => {
-                  setNewProjectOpen(true)
+                  openNewProject()
                   setMobileMenuOpen(false)
                 }}
               />
@@ -128,7 +144,7 @@ export function DashboardShell({
 
             <div className="flex items-center gap-2 md:gap-6 shrink-0">
               <button
-                onClick={() => setNewProjectOpen(true)}
+                onClick={handlePrimaryAction}
                 className="md:hidden p-2 bg-[#C6FF4A] text-black rounded-lg hover:opacity-90 active:scale-95 transition-all"
               >
                 <Plus size={18} />
@@ -161,7 +177,7 @@ export function DashboardShell({
               transition={{ duration: 0.4 }}
             >
               {typeof children === 'function'
-                ? children({ openNewProject: () => setNewProjectOpen(true) })
+                ? children({ openNewProject, openNewClient })
                 : children}
             </motion.div>
           </main>
@@ -189,20 +205,20 @@ export function DashboardShell({
             <span className="text-[9px] font-semibold uppercase tracking-wider">{t('sidebar.projects')}</span>
           </Link>
           <button
-            onClick={() => setNewProjectOpen(true)}
+            onClick={handlePrimaryAction}
             className="-mt-6 w-14 h-14 rounded-full bg-[#C6FF4A] text-black flex items-center justify-center shadow-[0_0_20px_rgba(198,255,74,0.3)] hover:opacity-90 active:scale-95 transition-all"
           >
             <Plus size={24} />
           </button>
-          <button
-            onClick={() => onSectionChange?.('clients')}
+          <Link
+            href="/dashboard/clients"
             className={`flex flex-col items-center gap-1 px-3 py-1 rounded-xl ${
               activeSection === 'clients' ? 'text-[#C6FF4A]' : 'text-[#888888]'
             }`}
           >
             <UsersIcon size={20} />
             <span className="text-[9px] font-semibold uppercase tracking-wider">{t('sidebar.clients')}</span>
-          </button>
+          </Link>
           <button className="flex flex-col items-center gap-1 px-3 py-1 rounded-xl text-[#888888] hover:text-white transition-colors">
             <Settings size={20} />
             <span className="text-[9px] font-semibold uppercase tracking-wider">{t('quickActions.settings')}</span>

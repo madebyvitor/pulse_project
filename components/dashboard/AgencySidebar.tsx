@@ -106,11 +106,11 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
           label={t('projects')}
           active={activeSection === 'projects'}
         />
-        <SidebarItem
+        <SidebarLink
+          href="/dashboard/clients"
           icon={<Users size={18} />}
           label={t('clients')}
           active={activeSection === 'clients'}
-          onClick={() => onSectionChange?.('clients')}
         />
 
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2 mt-6">

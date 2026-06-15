@@ -1,26 +1,42 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, Search } from 'lucide-react'
+import { Plus, Search, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
+import { Link } from '@/src/i18n/navigation'
 import { ProjectListCard } from './ProjectListCard'
-import type { DashboardProject } from '@/lib/dashboard/types'
+import type { DashboardClient, DashboardProject } from '@/lib/dashboard/types'
 import { calculateProgress, type Milestone } from '@/lib/milestones'
 
 interface ProjectsListViewProps {
   projects: DashboardProject[]
   milestones: Milestone[]
+  clients: DashboardClient[]
   onNewProject: () => void
 }
 
-export function ProjectsListView({ projects, milestones, onNewProject }: ProjectsListViewProps) {
+export function ProjectsListView({
+  projects,
+  milestones,
+  clients,
+  onNewProject,
+}: ProjectsListViewProps) {
   const t = useTranslations('Dashboard.projectsPage')
   const tProjects = useTranslations('Dashboard.projects')
   const [searchQuery, setSearchQuery] = useState('')
+  const searchParams = useSearchParams()
+  const clientId = searchParams.get('clientId')
 
-  const filteredProjects = projects.filter((p) =>
+  const filteredByClient = clientId
+    ? projects.filter((p) => p.clientId === clientId)
+    : projects
+
+  const filteredProjects = filteredByClient.filter((p) =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
+
+  const activeClient = clientId ? clients.find((c) => c.id === clientId) : undefined
 
   const getProjectProgress = (projectId: string) => calculateProgress(milestones, projectId)
 
@@ -39,6 +55,21 @@ export function ProjectsListView({ projects, milestones, onNewProject }: Project
           {t('newProject')}
         </button>
       </div>
+
+      {activeClient && (
+        <div className="flex items-center justify-between gap-3 bg-[#111111] border border-[#222222] rounded-lg px-4 py-3">
+          <p className="text-sm text-[#888888]">
+            {t('filteredBy', { name: activeClient.name })}
+          </p>
+          <Link
+            href="/dashboard/projects"
+            className="flex items-center gap-1.5 text-xs font-semibold text-[#C6FF4A] hover:opacity-80 transition-opacity shrink-0"
+          >
+            <X size={14} />
+            {t('clearFilter')}
+          </Link>
+        </div>
+      )}
 
       <div className="relative group max-w-md">
         <Search

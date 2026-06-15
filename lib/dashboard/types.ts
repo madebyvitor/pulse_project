@@ -4,6 +4,7 @@ export interface DashboardClient {
   id: string
   name: string
   email: string
+  projectCount: number
 }
 
 export interface DashboardProject {
@@ -11,6 +12,7 @@ export interface DashboardProject {
   slug: string
   name: string
   description?: string
+  clientId: string
   client: string
   clientEmail: string
   status: ProjectStatus

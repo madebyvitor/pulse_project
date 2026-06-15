@@ -18,6 +18,7 @@ async function revalidateDashboard(projectId?: string) {
   const locale = await getLocale()
   revalidatePath(`/${locale}/dashboard`)
   revalidatePath(`/${locale}/dashboard/projects`)
+  revalidatePath(`/${locale}/dashboard/clients`)
   if (projectId) {
     revalidatePath(`/${locale}/dashboard/projects/${projectId}`)
   }
@@ -82,6 +83,35 @@ export async function createClientAction(formData: FormData) {
   } catch {
     return { error: 'duplicate_email' as const }
   }
+
+  await revalidateDashboard()
+  return { success: true as const }
+}
+
+export async function deleteClientAction(clientId: string) {
+  const ctx = await requireAuthenticatedOrganization()
+
+  const parsed = z.string().uuid().safeParse(clientId)
+  if (!parsed.success) {
+    return { error: 'invalid_data' as const }
+  }
+
+  await assertClientAccess(parsed.data)
+
+  const client = await prisma.client.findFirst({
+    where: { id: parsed.data, organizationId: ctx.organization.id },
+    include: { _count: { select: { projects: true } } },
+  })
+
+  if (!client) {
+    return { error: 'not_found' as const }
+  }
+
+  if (client._count.projects > 0) {
+    return { error: 'has_projects' as const }
+  }
+
+  await prisma.client.delete({ where: { id: parsed.data } })
 
   await revalidateDashboard()
   return { success: true as const }
