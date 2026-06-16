@@ -18,7 +18,6 @@ function PricingTier({ tierKey, highlighted = false, showTrial = false }: Pricin
   const prefix = tierKey;
 
   const name = t(`${prefix}.name`);
-  const price = t(`${prefix}.price`);
   const description = t(`${prefix}.description`);
   const cta = t(`${prefix}.cta`);
   const features = [
@@ -46,8 +45,7 @@ function PricingTier({ tierKey, highlighted = false, showTrial = false }: Pricin
       <div className="mb-8">
         <h3 className="text-xl text-white font-bold mb-2">{name}</h3>
         <div className="flex items-baseline gap-1">
-          <span className="text-4xl text-white font-bold">{price}</span>
-          <span className="text-gray-500">{t("perMonth")}</span>
+          <span className="text-3xl text-white font-bold">{t("comingSoon")}</span>
         </div>
         {showTrial && (
           <span className="inline-block mt-2 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-[#C6FF4A]/10 text-[#C6FF4A]">

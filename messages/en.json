@@ -168,6 +168,7 @@
     "headline": "Simple pricing. No surprises.",
     "description": "Pick the plan that fits your workload.",
     "popular": "Most Popular",
+    "comingSoon": "Coming soon",
     "perMonth": "/mo",
     "trialBadge": "14-day free trial",
     "starter": {
