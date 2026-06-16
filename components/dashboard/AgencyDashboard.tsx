@@ -345,7 +345,6 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
                           <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">
                             {t('cards.nextLaunch')}
                           </h4>
-                          <p className="text-xs text-[#888888]">{t('cards.nextLaunchDesc')}</p>
                         </div>
                         <ChevronRight
                           size={18}
@@ -364,9 +363,6 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
                           <h4 className="font-bold text-sm md:text-base group-hover:text-[#C6FF4A] transition-colors">
                             {t('cards.clientPortal')}
                           </h4>
-                          <p className="text-xs text-[#888888] truncate">
-                            /client/{projects[0]?.slug ?? '…'}
-                          </p>
                         </div>
                         <ChevronRight
                           size={18}
