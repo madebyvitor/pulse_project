@@ -27,6 +27,7 @@ export interface DashboardProject {
 
 export type TimelineEventType = 'milestone' | 'design' | 'deploy' | 'rocket' | 'manual'
 export type TimelineEventStatus = 'completed' | 'current' | 'pending'
+export type TimelineEventSource = 'github' | 'vercel' | 'figma' | 'manual'
 
 export interface DashboardTimelineEvent {
   id: string
@@ -36,6 +37,9 @@ export interface DashboardTimelineEvent {
   timestamp: string
   status: TimelineEventStatus
   type: TimelineEventType
+  source: TimelineEventSource
+  projectName: string
+  createdAt: string
 }
 
 export interface Activity {

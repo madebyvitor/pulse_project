@@ -100,6 +100,23 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
 
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
+                    {t('source')}
+                  </label>
+                  <select
+                    name="source"
+                    required
+                    defaultValue="MANUAL"
+                    className="w-full bg-[#1a1a1a] border border-[#222222] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6FF4A]/40 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all text-white"
+                  >
+                    <option value="GITHUB">{t('sourceGithub')}</option>
+                    <option value="VERCEL">{t('sourceVercel')}</option>
+                    <option value="FIGMA">{t('sourceFigma')}</option>
+                    <option value="MANUAL">{t('sourceManual')}</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#888888] uppercase tracking-wider">
                     {t('eventTitle')} <span className="text-[#C6FF4A]">*</span>
                   </label>
                   <input

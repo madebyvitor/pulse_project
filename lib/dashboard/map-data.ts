@@ -4,6 +4,7 @@ import type {
   Project,
   ProjectStatus as PrismaProjectStatus,
   TimelineEvent,
+  TimelineEventSource as PrismaTimelineEventSource,
   TimelineEventStatus as PrismaTimelineEventStatus,
   TimelineEventType as PrismaTimelineEventType,
 } from '@/src/generated/prisma/client'
@@ -13,6 +14,7 @@ import type {
   DashboardProject,
   DashboardTimelineEvent,
   ProjectStatus,
+  TimelineEventSource,
   TimelineEventStatus,
   TimelineEventType,
 } from '@/lib/dashboard/types'
@@ -35,6 +37,13 @@ const TIMELINE_STATUS_MAP: Record<PrismaTimelineEventStatus, TimelineEventStatus
   COMPLETED: 'completed',
   CURRENT: 'current',
   PENDING: 'pending',
+}
+
+const SOURCE_MAP: Record<PrismaTimelineEventSource, TimelineEventSource> = {
+  GITHUB: 'github',
+  VERCEL: 'vercel',
+  FIGMA: 'figma',
+  MANUAL: 'manual',
 }
 
 export function mapProjectStatus(status: PrismaProjectStatus): ProjectStatus {
@@ -110,7 +119,8 @@ export function mapMilestone(milestone: Milestone) {
 
 export function mapTimelineEvent(
   event: TimelineEvent,
-  locale: string
+  locale: string,
+  projectName = ''
 ): DashboardTimelineEvent {
   return {
     id: event.id,
@@ -120,7 +130,17 @@ export function mapTimelineEvent(
     timestamp: formatRelativeTime(event.createdAt, locale),
     status: TIMELINE_STATUS_MAP[event.status],
     type: TIMELINE_TYPE_MAP[event.type],
+    source: SOURCE_MAP[event.source],
+    projectName,
+    createdAt: event.createdAt.toISOString(),
   }
+}
+
+export function mapTimelineEventWithProject(
+  event: TimelineEvent & { project: Project },
+  locale: string
+): DashboardTimelineEvent {
+  return mapTimelineEvent(event, locale, event.project.name)
 }
 
 export function mapTimelineEventsToActivities(

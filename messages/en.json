@@ -325,6 +325,7 @@
       "dashboard": "Dashboard",
       "projects": "Projects",
       "clients": "Clients",
+      "timeline": "Timeline",
       "notifications": "Notifications",
       "settings": "Settings",
       "newProject": "New Project"
@@ -395,6 +396,36 @@
       "viewLog": "View full log",
       "empty": "No recent activity yet."
     },
+    "timelinePage": {
+      "title": "Timeline",
+      "subtitle": "Live feed of all project updates across your agency",
+      "newEvent": "New Event",
+      "empty": "No events recorded yet. Add your first event to start the feed.",
+      "emptyFiltered": "No events match this filter.",
+      "progress": {
+        "title": "Overall Progress",
+        "activeProjects": "{count} active projects"
+      },
+      "integrations": {
+        "title": "Configure Integrations",
+        "description": "Connect GitHub, Vercel, and Figma to populate this feed automatically via webhooks.",
+        "cta": "Set up integrations",
+        "featureName": "Integrations"
+      },
+      "groups": {
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "thisWeek": "This Week",
+        "earlier": "Earlier"
+      },
+      "filters": {
+        "all": "All",
+        "github": "GitHub",
+        "vercel": "Vercel",
+        "figma": "Figma",
+        "manual": "Manual"
+      }
+    },
     "team": {
       "title": "Team Online",
       "workspace": "Workspace: {name}"
@@ -445,6 +476,11 @@
         "title": "Add Timeline Event",
         "project": "Project",
         "selectProject": "Select a project",
+        "source": "Source",
+        "sourceGithub": "GitHub",
+        "sourceVercel": "Vercel",
+        "sourceFigma": "Figma",
+        "sourceManual": "Manual",
         "eventTitle": "Event Title",
         "eventTitlePlaceholder": "E.g.: Homepage completed",
         "description": "Description (optional)",

@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import {
   Bell,
   FolderKanban,
+  History,
   LayoutDashboard,
   Menu,
   Plus,
-  Settings,
   Users as UsersIcon,
   X,
 } from 'lucide-react'
@@ -219,10 +219,15 @@ export function DashboardShell({
             <UsersIcon size={20} />
             <span className="text-[9px] font-semibold uppercase tracking-wider">{t('sidebar.clients')}</span>
           </Link>
-          <button className="flex flex-col items-center gap-1 px-3 py-1 rounded-xl text-[#888888] hover:text-white transition-colors">
-            <Settings size={20} />
-            <span className="text-[9px] font-semibold uppercase tracking-wider">{t('quickActions.settings')}</span>
-          </button>
+          <Link
+            href="/dashboard/timeline"
+            className={`flex flex-col items-center gap-1 px-3 py-1 rounded-xl ${
+              activeSection === 'timeline' ? 'text-[#C6FF4A]' : 'text-[#888888]'
+            }`}
+          >
+            <History size={20} />
+            <span className="text-[9px] font-semibold uppercase tracking-wider">{t('sidebar.timeline')}</span>
+          </Link>
         </div>
       </nav>
     </>

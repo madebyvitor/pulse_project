@@ -19,6 +19,7 @@ async function revalidateDashboard(projectId?: string) {
   revalidatePath(`/${locale}/dashboard`)
   revalidatePath(`/${locale}/dashboard/projects`)
   revalidatePath(`/${locale}/dashboard/clients`)
+  revalidatePath(`/${locale}/dashboard/timeline`)
   if (projectId) {
     revalidatePath(`/${locale}/dashboard/projects/${projectId}`)
   }
@@ -52,7 +53,15 @@ const timelineEventSchema = z.object({
   projectId: z.string().uuid(),
   title: z.string().min(3),
   description: z.string().optional(),
+  source: z.enum(['GITHUB', 'VERCEL', 'FIGMA', 'MANUAL']).default('MANUAL'),
 })
+
+const SOURCE_TO_TYPE = {
+  GITHUB: 'DEPLOY',
+  VERCEL: 'ROCKET',
+  FIGMA: 'DESIGN',
+  MANUAL: 'MANUAL',
+} as const
 
 const milestoneSchema = z.object({
   projectId: z.string().uuid(),
@@ -153,6 +162,7 @@ export async function addTimelineEventAction(formData: FormData) {
     projectId: formData.get('projectId'),
     title: formData.get('title'),
     description: formData.get('description') || undefined,
+    source: formData.get('source') || 'MANUAL',
   })
 
   if (!parsed.success) {
@@ -161,13 +171,16 @@ export async function addTimelineEventAction(formData: FormData) {
 
   await assertProjectAccess(parsed.data.projectId)
 
+  const eventType = SOURCE_TO_TYPE[parsed.data.source]
+
   await prisma.$transaction([
     prisma.timelineEvent.create({
       data: {
         projectId: parsed.data.projectId,
         title: parsed.data.title,
         description: parsed.data.description,
-        type: 'MANUAL',
+        source: parsed.data.source,
+        type: eventType,
         status: 'CURRENT',
       },
     }),

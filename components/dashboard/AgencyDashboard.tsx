@@ -399,6 +399,14 @@ export const AgencyDashboard: React.FC<AgencyDashboardProps> = ({
                     <div className="bg-[#111111] border border-[#222222] rounded-2xl overflow-hidden">
                       <div className="px-4 md:px-6 py-4 border-b border-[#222222] flex justify-between items-center bg-[#161616]/50">
                         <h2 className="font-bold text-base md:text-lg">{t('activities.title')}</h2>
+                        {activities.length > 0 && (
+                          <Link
+                            href="/dashboard/timeline"
+                            className="text-[10px] font-bold uppercase tracking-wider text-[#888888] hover:text-[#C6FF4A] transition-colors"
+                          >
+                            {t('activities.viewLog')}
+                          </Link>
+                        )}
                       </div>
                       <div className="p-4 md:p-6">
                         {activities.length === 0 ? (
