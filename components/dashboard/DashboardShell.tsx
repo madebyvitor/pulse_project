@@ -170,6 +170,13 @@ export function DashboardShell({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
+              {activeSection === 'dashboard' && (
+                <div className="mb-6 md:mb-8 rounded-xl border border-amber-500/20 bg-amber-500/5 px-4 py-3 md:px-5 md:py-4 text-sm text-[#cccccc] space-y-0.5">
+                  <p className="font-semibold text-amber-400/90">{t('earlyAccess.title')}</p>
+                  <p>{t('earlyAccess.feedback')}</p>
+                  <p>{t('earlyAccess.features')}</p>
+                </div>
+              )}
               {typeof children === 'function'
                 ? children({ openNewProject, openNewClient })
                 : children}

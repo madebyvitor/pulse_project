@@ -335,6 +335,11 @@
       "welcome": "Welcome back! Here's what's happening.",
       "title": "Dashboard"
     },
+    "earlyAccess": {
+      "title": "⚠️ Progressly is currently in Early Access.",
+      "feedback": "We're collecting feedback and fixing bugs.",
+      "features": "Some features are still under development."
+    },
     "metrics": {
       "activeProjects": "Active projects",
       "activeProjectsDesc": "In design and development",
