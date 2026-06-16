@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useTransition } from 'react'
+import React, { useState, useTransition } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import {
@@ -11,9 +11,11 @@ import {
   LogOut,
   Plus,
   History,
+  MessageSquare,
 } from 'lucide-react'
 import { Link } from '@/src/i18n/navigation'
 import { logout } from '@/app/actions/auth'
+import { FeedbackModal } from '@/components/dashboard/FeedbackModal'
 
 interface SidebarLinkProps {
   href: string
@@ -84,6 +86,7 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
 }) => {
   const t = useTranslations('Dashboard.sidebar')
   const [isSigningOut, startSignOut] = useTransition()
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
 
   const handleSignOut = () => {
     startSignOut(async () => {
@@ -131,6 +134,11 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
           {t('systemSection')}
         </div>
         <SidebarItem icon={<Settings size={18} />} label={t('settings')} />
+        <SidebarItem
+          icon={<MessageSquare size={18} />}
+          label={t('feedback')}
+          onClick={() => setFeedbackOpen(true)}
+        />
       </div>
 
       <div className="mt-auto border-t border-[#222222] pt-4">
@@ -159,6 +167,8 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
           {t('newProject')}
         </button>
       </div>
+
+      <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
     </div>
   )
 }

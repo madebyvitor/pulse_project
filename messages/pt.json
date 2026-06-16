@@ -332,6 +332,7 @@
       "clients": "Clientes",
       "timeline": "Timeline",
       "settings": "Configurações",
+      "feedback": "Feedback",
       "signOut": "Sair da conta",
       "newProject": "Novo Projeto"
     },
@@ -527,6 +528,20 @@
         "howItWorks": "Como funciona?",
         "howItWorksDesc": "Cole este link no WhatsApp ou e-mail do cliente. Ele acessa o portal diretamente, sem login nem cadastro.",
         "close": "Fechar"
+      },
+      "feedback": {
+        "title": "Compartilhe seu feedback",
+        "subtitle": "O que você acha do Progressly?",
+        "categoryLabel": "Categoria",
+        "categoryPlaceholder": "Selecione uma categoria",
+        "categoryBug": "Bug",
+        "categorySuggestion": "Sugestão",
+        "categoryPraise": "Elogio",
+        "messageLabel": "Sua mensagem",
+        "messagePlaceholder": "Conte-nos o que você pensa...",
+        "submit": "Enviar Feedback",
+        "success": "Obrigado! Seu feedback nos ajuda a melhorar.",
+        "invalidData": "Preencha todos os campos corretamente."
       }
     }
   },

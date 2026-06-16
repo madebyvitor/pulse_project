@@ -39,6 +39,12 @@ enum TimelineEventSource {
   MANUAL
 }
 
+enum FeedbackCategory {
+  BUG
+  SUGGESTION
+  PRAISE
+}
+
 model User {
   id            String             @id @db.Uuid
   email         String             @unique
@@ -46,6 +52,7 @@ model User {
   createdAt     DateTime           @default(now()) @map("created_at")
   updatedAt     DateTime           @updatedAt @map("updated_at")
   organizations UserOrganization[]
+  feedbacks     Feedback[]
 
   @@map("User")
 }
@@ -128,4 +135,15 @@ model TimelineEvent {
   project     Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@map("TimelineEvent")
+}
+
+model Feedback {
+  id        String           @id @default(uuid()) @db.Uuid
+  message   String
+  category  FeedbackCategory
+  userId    String           @map("user_id") @db.Uuid
+  createdAt DateTime         @default(now()) @map("created_at")
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("Feedback")
 }

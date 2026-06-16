@@ -332,6 +332,7 @@
       "clients": "Clients",
       "timeline": "Timeline",
       "settings": "Settings",
+      "feedback": "Feedback",
       "signOut": "Sign out",
       "newProject": "New Project"
     },
@@ -527,6 +528,20 @@
         "howItWorks": "How does it work?",
         "howItWorksDesc": "Share this link via WhatsApp or email. The client accesses the portal directly — no login or registration required.",
         "close": "Close"
+      },
+      "feedback": {
+        "title": "Share your feedback",
+        "subtitle": "What do you think about Progressly?",
+        "categoryLabel": "Category",
+        "categoryPlaceholder": "Select a category",
+        "categoryBug": "Bug",
+        "categorySuggestion": "Suggestion",
+        "categoryPraise": "Praise",
+        "messageLabel": "Your message",
+        "messagePlaceholder": "Tell us what's on your mind...",
+        "submit": "Send Feedback",
+        "success": "Thank you! Your feedback helps us improve.",
+        "invalidData": "Please fill in all fields correctly."
       }
     }
   },
