@@ -326,8 +326,8 @@
       "projects": "Projects",
       "clients": "Clients",
       "timeline": "Timeline",
-      "notifications": "Notifications",
       "settings": "Settings",
+      "signOut": "Sign out",
       "newProject": "New Project"
     },
     "header": {

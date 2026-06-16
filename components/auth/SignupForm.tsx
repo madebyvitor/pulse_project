@@ -66,7 +66,9 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
       const result = await signup(formData);
       if (result?.error) {
         const errorKey =
-          result.error === "auth_failed" ? "signupFailed" : result.error;
+          result.error === "auth_failed" || result.error === "signup_failed"
+            ? "signupFailed"
+            : result.error;
         setToastMessage(tErrors(errorKey));
         setShowToast(true);
       }

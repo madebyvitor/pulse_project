@@ -326,8 +326,8 @@
       "projects": "Projetos",
       "clients": "Clientes",
       "timeline": "Timeline",
-      "notifications": "Notificações",
       "settings": "Configurações",
+      "signOut": "Sair da conta",
       "newProject": "Novo Projeto"
     },
     "header": {

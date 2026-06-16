@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import {
-  Bell,
   FolderKanban,
   History,
   LayoutDashboard,
@@ -148,11 +147,6 @@ export function DashboardShell({
                 className="md:hidden p-2 bg-[#C6FF4A] text-black rounded-lg hover:opacity-90 active:scale-95 transition-all"
               >
                 <Plus size={18} />
-              </button>
-
-              <button className="relative p-2 text-[#888888] hover:bg-[#111111] rounded-lg transition-colors">
-                <Bell size={18} />
-                <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#C6FF4A] rounded-full border-2 border-[#050505]" />
               </button>
 
               <div className="hidden md:flex items-center gap-3">

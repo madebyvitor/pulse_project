@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useTransition } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import {
@@ -9,11 +9,11 @@ import {
   FolderKanban,
   Settings,
   LogOut,
-  Bell,
   Plus,
   History,
 } from 'lucide-react'
 import { Link } from '@/src/i18n/navigation'
+import { logout } from '@/app/actions/auth'
 
 interface SidebarLinkProps {
   href: string
@@ -83,6 +83,13 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
   userInitials = 'U',
 }) => {
   const t = useTranslations('Dashboard.sidebar')
+  const [isSigningOut, startSignOut] = useTransition()
+
+  const handleSignOut = () => {
+    startSignOut(async () => {
+      await logout()
+    })
+  }
 
   return (
     <div className="w-64 h-screen bg-[#050505] border-r border-[#222222] flex flex-col p-4">
@@ -123,12 +130,17 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2 mt-6">
           {t('systemSection')}
         </div>
-        <SidebarItem icon={<Bell size={18} />} label={t('notifications')} />
         <SidebarItem icon={<Settings size={18} />} label={t('settings')} />
       </div>
 
       <div className="mt-auto border-t border-[#222222] pt-4">
-        <button className="w-full flex items-center gap-3 px-3 py-2 text-[#888888] hover:text-white transition-colors mb-4">
+        <button
+          type="button"
+          onClick={handleSignOut}
+          disabled={isSigningOut}
+          aria-label={t('signOut')}
+          className="w-full flex items-center gap-3 px-3 py-2 text-[#888888] hover:text-white transition-colors mb-4 disabled:opacity-50"
+        >
           <div className="w-8 h-8 rounded-full bg-[#222222] flex items-center justify-center text-xs font-bold shrink-0">
             {userInitials}
           </div>
