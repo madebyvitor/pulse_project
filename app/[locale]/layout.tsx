@@ -49,6 +49,9 @@ export async function generateMetadata({
     title: meta.title,
     description: meta.description,
     keywords: ["project management", "freelancer", "agency", "client", "visibility", "timeline", "communication"],
+    icons: {
+      icon: "/logotipo.svg",
+    },
     openGraph: {
       title: meta.title,
       description: meta.description,
