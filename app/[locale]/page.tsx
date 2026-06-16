@@ -1,4 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
+import { LandingPageShell } from "@/components/landing/LandingPageShell";
 import { Nav } from "@/components/landing/Nav";
 import { Hero } from "@/components/landing/Hero";
 import { Integrations } from "@/components/landing/Integrations";
@@ -21,21 +22,23 @@ export default async function LandingPage({
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white">
-      <Nav />
-      <main>
-        <Hero />
-        <Integrations />
-        <HowItWorks />
-        <ClientTimelineFeature />
-        <ProjectFeedFeature />
-        <GithubIntegrationSpotlight />
-        <Testimonials />
-        <Pricing />
-        <FAQ />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
+    <LandingPageShell>
+      <div className="min-h-screen bg-[#050505] text-white">
+        <Nav />
+        <main>
+          <Hero />
+          <Integrations />
+          <HowItWorks />
+          <ClientTimelineFeature />
+          <ProjectFeedFeature />
+          <GithubIntegrationSpotlight />
+          <Testimonials />
+          <Pricing />
+          <FAQ />
+          <CTA />
+        </main>
+        <Footer />
+      </div>
+    </LandingPageShell>
   );
 }

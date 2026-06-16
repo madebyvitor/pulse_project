@@ -7,6 +7,10 @@
     "getStarted": "Começar",
     "getStartedNow": "Começar Agora"
   },
+  "Intro": {
+    "line1": "Comunicação com clientes, ",
+    "line2": "reimaginada."
+  },
   "Hero": {
     "headline1": "Faça o seu cliente sentir que o projeto está",
     "headlineHighlight": "vivo.",
