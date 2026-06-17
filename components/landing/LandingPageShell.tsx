@@ -1,11 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { LandingIntro } from "@/components/landing/LandingIntro";
 
 const STORAGE_KEY = "cf_intro_played";
 
-type IntroState = "checking" | "playing" | "done";
+const crossfadeTransition = {
+  duration: 1.1,
+  ease: [0.4, 0, 1, 1] as const,
+};
+
+type IntroState = "checking" | "playing" | "revealing" | "done";
 
 type LandingPageShellProps = {
   children: React.ReactNode;
@@ -37,21 +43,40 @@ export function LandingPageShell({ children }: LandingPageShellProps) {
     };
   }, []);
 
+  const handleExitStart = useCallback(() => {
+    setIntroState("revealing");
+  }, []);
+
   const handleIntroDone = useCallback(() => {
     sessionStorage.setItem(STORAGE_KEY, "true");
     document.body.style.overflow = "";
     setIntroState("done");
   }, []);
 
-  const isPlaying = introState === "playing";
-  const hideContent = introState === "checking" || isPlaying;
+  const showIntro = introState === "playing" || introState === "revealing";
+  const contentVisible = introState === "revealing" || introState === "done";
+  const contentInteractive = introState === "done";
 
   return (
     <>
-      {isPlaying && <LandingIntro onDone={handleIntroDone} />}
-      <div aria-hidden={isPlaying} className={hideContent ? "invisible" : undefined}>
+      <AnimatePresence>
+        {showIntro && (
+          <LandingIntro
+            key="landing-intro"
+            onDone={handleIntroDone}
+            onExitStart={handleExitStart}
+          />
+        )}
+      </AnimatePresence>
+      <motion.div
+        aria-hidden={showIntro && !contentVisible}
+        initial={false}
+        animate={{ opacity: contentVisible ? 1 : 0 }}
+        transition={crossfadeTransition}
+        className={contentInteractive ? undefined : "pointer-events-none"}
+      >
         {children}
-      </div>
+      </motion.div>
     </>
   );
 }

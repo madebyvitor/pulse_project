@@ -26,26 +26,33 @@ const exitTransition = {
 
 type LandingIntroProps = {
   onDone: () => void;
+  onExitStart?: () => void;
 };
 
-export function LandingIntro({ onDone }: LandingIntroProps) {
+export function LandingIntro({ onDone, onExitStart }: LandingIntroProps) {
   const t = useTranslations("Intro");
   const [phase, setPhase] = useState<"enter" | "exit">("enter");
 
   useEffect(() => {
-    const exitTimer = setTimeout(() => setPhase("exit"), EXIT_START_MS);
+    const exitTimer = setTimeout(() => {
+      setPhase("exit");
+      onExitStart?.();
+    }, EXIT_START_MS);
     const doneTimer = setTimeout(() => onDone(), INTRO_DURATION_MS);
 
     return () => {
       clearTimeout(exitTimer);
       clearTimeout(doneTimer);
     };
-  }, [onDone]);
+  }, [onDone, onExitStart]);
 
   return (
-    <div
+    <motion.div
       role="presentation"
       className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050505]"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: phase === "exit" ? 0 : 1 }}
+      transition={exitTransition}
     >
       <div
         aria-live="polite"
@@ -70,6 +77,6 @@ export function LandingIntro({ onDone }: LandingIntroProps) {
           {t("line2")}
         </motion.p>
       </div>
-    </div>
+    </motion.div>
   );
 }
