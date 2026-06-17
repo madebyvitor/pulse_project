@@ -1,6 +1,6 @@
 import { getLocale } from 'next-intl/server'
 import { redirect } from '@/src/i18n/navigation'
-import { createClient } from '@/utils/supabase/server'
+import { getAuthUser } from '@/lib/auth/get-auth-user'
 import { prisma } from '@/lib/prisma'
 
 export type AuthenticatedOrganization = {
@@ -20,10 +20,7 @@ export type AuthenticatedOrganization = {
 }
 
 export async function getAuthenticatedOrganization(): Promise<AuthenticatedOrganization | null> {
-  const supabase = await createClient()
-  const {
-    data: { user: authUser },
-  } = await supabase.auth.getUser()
+  const authUser = await getAuthUser()
 
   if (!authUser?.email) {
     return null

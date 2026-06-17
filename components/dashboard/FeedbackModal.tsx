@@ -16,9 +16,16 @@ import { submitFeedbackAction } from '@/app/actions/feedback'
 interface FeedbackModalProps {
   open: boolean
   onClose: () => void
+  defaultCategory?: 'BUG' | 'SUGGESTION' | 'PRAISE' | 'NEW_INTEGRATION'
+  defaultMessage?: string
 }
 
-export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
+export function FeedbackModal({
+  open,
+  onClose,
+  defaultCategory,
+  defaultMessage = '',
+}: FeedbackModalProps) {
   const t = useTranslations('Dashboard.modals.feedback')
   const [error, setError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
@@ -85,7 +92,8 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
                 <select
                   name="category"
                   required
-                  defaultValue=""
+                  key={defaultCategory ?? 'default'}
+                  defaultValue={defaultCategory ?? ''}
                   className="w-full bg-[#1a1a1a] border border-[#222222] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6FF4A]/40 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all text-white"
                 >
                   <option value="" disabled>
@@ -94,6 +102,7 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
                   <option value="BUG">{t('categoryBug')}</option>
                   <option value="SUGGESTION">{t('categorySuggestion')}</option>
                   <option value="PRAISE">{t('categoryPraise')}</option>
+                  <option value="NEW_INTEGRATION">{t('categoryNewIntegration')}</option>
                 </select>
               </div>
 
@@ -107,6 +116,8 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
                   minLength={10}
                   maxLength={2000}
                   rows={5}
+                  key={defaultMessage || 'default-message'}
+                  defaultValue={defaultMessage}
                   placeholder={t('messagePlaceholder')}
                   className="w-full bg-[#0a0a0a] border border-[#222222] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6FF4A]/40 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all placeholder:text-[#444444] resize-none"
                 />

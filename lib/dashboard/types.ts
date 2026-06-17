@@ -48,3 +48,13 @@ export interface Activity {
   content: string
   time: string
 }
+
+export type IntegrationProvider = 'GITHUB' | 'VERCEL' | 'FIGMA' | 'SLACK'
+export type IntegrationIcon = 'github' | 'vercel' | 'figma' | 'slack'
+
+export interface DashboardIntegration {
+  provider: IntegrationProvider
+  icon: IntegrationIcon
+  timelineSource: TimelineEventSource | null
+  connected: boolean
+}

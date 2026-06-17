@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { getLocale } from 'next-intl/server'
 import { z } from 'zod'
-import { createClient } from '@/utils/supabase/server'
+import { getAuthUser } from '@/lib/auth/get-auth-user'
 import { prisma } from '@/lib/prisma'
 import { getAuthenticatedOrganization } from '@/lib/auth/get-organization'
 import { redirect } from '@/src/i18n/navigation'
@@ -31,10 +31,7 @@ export async function completeOnboardingAction(formData: FormData) {
     redirect({ href: '/dashboard', locale: await getLocale() })
   }
 
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await getAuthUser()
 
   const userId = user?.id
   if (!userId) {

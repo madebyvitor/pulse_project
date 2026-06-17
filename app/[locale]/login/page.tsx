@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale, setRequestLocale } from "next-intl/server";
 import { AuthScreen } from "@/components/auth/AuthScreen";
-import { createClient } from "@/utils/supabase/server";
+import { getAuthUser } from "@/lib/auth/get-auth-user";
 import { redirect } from "@/src/i18n/navigation";
 
 export async function generateMetadata({
@@ -29,10 +29,7 @@ export default async function LoginPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getAuthUser();
 
   if (user) {
     redirect({ href: "/dashboard", locale: await getLocale() });

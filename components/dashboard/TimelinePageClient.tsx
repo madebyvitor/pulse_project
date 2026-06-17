@@ -3,12 +3,17 @@
 import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from '@/src/i18n/navigation'
 import { DashboardShell } from '@/components/dashboard/DashboardShell'
 import { TimelineFeed } from '@/components/dashboard/TimelineFeed'
 import { TimelineAside } from '@/components/dashboard/TimelineAside'
 import { AddTimelineEventModal } from '@/components/dashboard/AddTimelineEventModal'
-import { ComingSoonModal } from '@/components/shared/ComingSoonModal'
-import type { DashboardClient, DashboardProject, DashboardTimelineEvent } from '@/lib/dashboard/types'
+import type {
+  DashboardClient,
+  DashboardProject,
+  DashboardTimelineEvent,
+  TimelineEventSource,
+} from '@/lib/dashboard/types'
 
 interface TimelinePageClientProps {
   organizationName: string
@@ -19,6 +24,7 @@ interface TimelinePageClientProps {
   clients: DashboardClient[]
   agencyProgress: number
   activeProjectCount: number
+  connectedSources: TimelineEventSource[]
 }
 
 export function TimelinePageClient({
@@ -30,10 +36,11 @@ export function TimelinePageClient({
   clients,
   agencyProgress,
   activeProjectCount,
+  connectedSources,
 }: TimelinePageClientProps) {
   const t = useTranslations('Dashboard.timelinePage')
+  const router = useRouter()
   const [eventModalOpen, setEventModalOpen] = useState(false)
-  const [integrationsOpen, setIntegrationsOpen] = useState(false)
 
   return (
     <>
@@ -67,7 +74,7 @@ export function TimelinePageClient({
             <TimelineAside
               agencyProgress={agencyProgress}
               activeProjectCount={activeProjectCount}
-              onConfigureIntegrations={() => setIntegrationsOpen(true)}
+              onConfigureIntegrations={() => router.push('/dashboard/integrations')}
             />
           </div>
         </div>
@@ -77,12 +84,7 @@ export function TimelinePageClient({
         open={eventModalOpen}
         onClose={() => setEventModalOpen(false)}
         projects={projects}
-      />
-
-      <ComingSoonModal
-        open={integrationsOpen}
-        onClose={() => setIntegrationsOpen(false)}
-        feature={t('integrations.featureName')}
+        connectedSources={connectedSources}
       />
     </>
   )

@@ -331,6 +331,7 @@
       "projects": "Projects",
       "clients": "Clients",
       "timeline": "Timeline",
+      "integrations": "Integrations",
       "settings": "Settings",
       "feedback": "Feedback",
       "signOut": "Sign out",
@@ -437,6 +438,41 @@
         "manual": "Manual"
       }
     },
+    "integrationsPage": {
+      "title": "Integrations",
+      "subtitle": "Connect your tools to automate project updates",
+      "activeConnections": "{count} active connections",
+      "searchPlaceholder": "Search integrations...",
+      "noResults": "No integrations found for",
+      "empty": "No integrations available.",
+      "requestIntegration": "Request an integration",
+      "status": {
+        "connected": "Connected",
+        "disconnected": "Disconnected"
+      },
+      "actions": {
+        "connect": "Connect",
+        "disconnect": "Disconnect"
+      },
+      "cards": {
+        "github": {
+          "name": "GitHub",
+          "description": "Track commits, pull requests, and releases automatically."
+        },
+        "vercel": {
+          "name": "Vercel",
+          "description": "Surface deployments and preview builds in your timeline."
+        },
+        "figma": {
+          "name": "Figma",
+          "description": "Share design updates and file changes with clients."
+        },
+        "slack": {
+          "name": "Slack",
+          "description": "Get notified in your workspace when projects move forward."
+        }
+      }
+    },
     "team": {
       "title": "Team Online",
       "workspace": "Workspace: {name}"
@@ -537,6 +573,7 @@
         "categoryBug": "Bug",
         "categorySuggestion": "Suggestion",
         "categoryPraise": "Praise",
+        "categoryNewIntegration": "New Integration",
         "messageLabel": "Your message",
         "messagePlaceholder": "Tell us what's on your mind...",
         "submit": "Send Feedback",

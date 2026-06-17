@@ -6,24 +6,38 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { FormSubmitButton } from '@/components/dashboard/FormSubmitButton'
 import { addTimelineEventAction } from '@/app/actions/dashboard'
-import type { DashboardProject } from '@/lib/dashboard/types'
+import type { DashboardProject, TimelineEventSource } from '@/lib/dashboard/types'
 
 interface AddTimelineEventModalProps {
   open: boolean
   onClose: () => void
   projects: DashboardProject[]
   preSelectedProjectId?: string
+  connectedSources?: TimelineEventSource[]
 }
+
+const SOURCE_OPTIONS: { value: TimelineEventSource; labelKey: string; prismaValue: string }[] = [
+  { value: 'github', labelKey: 'sourceGithub', prismaValue: 'GITHUB' },
+  { value: 'vercel', labelKey: 'sourceVercel', prismaValue: 'VERCEL' },
+  { value: 'figma', labelKey: 'sourceFigma', prismaValue: 'FIGMA' },
+  { value: 'manual', labelKey: 'sourceManual', prismaValue: 'MANUAL' },
+]
 
 export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
   open,
   onClose,
   projects,
   preSelectedProjectId,
+  connectedSources = [],
 }) => {
   const t = useTranslations('Dashboard.modals.timeline')
   const [isPending, startTransition] = useTransition()
   const defaultProjectId = preSelectedProjectId ?? projects[0]?.id ?? ''
+
+  const availableSources = SOURCE_OPTIONS.filter(
+    (option) => option.value === 'manual' || connectedSources.includes(option.value)
+  )
+  const defaultSource = availableSources[0]?.prismaValue ?? 'MANUAL'
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -105,13 +119,14 @@ export const AddTimelineEventModal: React.FC<AddTimelineEventModalProps> = ({
                   <select
                     name="source"
                     required
-                    defaultValue="MANUAL"
+                    defaultValue={defaultSource}
                     className="w-full bg-[#1a1a1a] border border-[#222222] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#C6FF4A]/40 focus:ring-1 focus:ring-[#C6FF4A]/10 transition-all text-white"
                   >
-                    <option value="GITHUB">{t('sourceGithub')}</option>
-                    <option value="VERCEL">{t('sourceVercel')}</option>
-                    <option value="FIGMA">{t('sourceFigma')}</option>
-                    <option value="MANUAL">{t('sourceManual')}</option>
+                    {availableSources.map((option) => (
+                      <option key={option.value} value={option.prismaValue}>
+                        {t(option.labelKey)}
+                      </option>
+                    ))}
                   </select>
                 </div>
 

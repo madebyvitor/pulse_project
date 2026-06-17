@@ -43,6 +43,19 @@ enum FeedbackCategory {
   BUG
   SUGGESTION
   PRAISE
+  NEW_INTEGRATION
+}
+
+enum IntegrationProvider {
+  GITHUB
+  VERCEL
+  FIGMA
+  SLACK
+}
+
+enum IntegrationStatus {
+  CONNECTED
+  DISCONNECTED
 }
 
 model User {
@@ -58,14 +71,28 @@ model User {
 }
 
 model Organization {
-  id        String             @id @default(uuid()) @db.Uuid
-  name      String
-  createdAt DateTime           @default(now()) @map("created_at")
-  members   UserOrganization[]
-  clients   Client[]
-  projects  Project[]
+  id             String                    @id @default(uuid()) @db.Uuid
+  name           String
+  createdAt      DateTime                  @default(now()) @map("created_at")
+  members        UserOrganization[]
+  clients        Client[]
+  projects       Project[]
+  integrations   OrganizationIntegration[]
 
   @@map("Organization")
+}
+
+model OrganizationIntegration {
+  id             String              @id @default(uuid()) @db.Uuid
+  organizationId String              @map("organization_id") @db.Uuid
+  provider       IntegrationProvider
+  accessToken    String?             @map("access_token")
+  status         IntegrationStatus   @default(DISCONNECTED)
+  connectedAt    DateTime?           @map("connected_at")
+  organization   Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, provider])
+  @@map("OrganizationIntegration")
 }
 
 model UserOrganization {

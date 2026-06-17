@@ -12,6 +12,7 @@ import {
   Plus,
   History,
   MessageSquare,
+  Plug,
 } from 'lucide-react'
 import { Link } from '@/src/i18n/navigation'
 import { logout } from '@/app/actions/auth'
@@ -65,7 +66,7 @@ const SidebarItem = ({ icon, label, active, onClick }: SidebarItemProps) => (
   </button>
 )
 
-export type DashboardSection = 'dashboard' | 'projects' | 'clients' | 'timeline'
+export type DashboardSection = 'dashboard' | 'projects' | 'clients' | 'timeline' | 'integrations'
 
 interface AgencySidebarProps {
   activeSection?: DashboardSection
@@ -128,6 +129,12 @@ export const AgencySidebar: React.FC<AgencySidebarProps> = ({
           icon={<History size={18} />}
           label={t('timeline')}
           active={activeSection === 'timeline'}
+        />
+        <SidebarLink
+          href="/dashboard/integrations"
+          icon={<Plug size={18} />}
+          label={t('integrations')}
+          active={activeSection === 'integrations'}
         />
 
         <div className="text-[10px] font-bold text-[#444444] uppercase tracking-widest px-3 mb-2 mt-6">

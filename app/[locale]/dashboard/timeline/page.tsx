@@ -4,6 +4,7 @@ import { TimelinePageClient } from '@/components/dashboard/TimelinePageClient'
 import { getOrganizationOrRedirectOnboarding } from '@/lib/auth/get-organization'
 import { prisma } from '@/lib/prisma'
 import { mapClient, mapProject, mapTimelineEventWithProject } from '@/lib/dashboard/map-data'
+import { getConnectedTimelineSources } from '@/lib/integrations/map-data'
 import { calculateAgencyProgress } from '@/lib/dashboard/timeline-utils'
 
 export async function generateMetadata({
@@ -36,7 +37,7 @@ export default async function TimelinePage({
   const { organization, user } = await getOrganizationOrRedirectOnboarding()
   const organizationId = organization.id
 
-  const [clients, events, projects] = await Promise.all([
+  const [clients, events, projects, integrationRows] = await Promise.all([
     prisma.client.findMany({
       where: { organizationId },
       orderBy: { name: 'asc' },
@@ -51,6 +52,9 @@ export default async function TimelinePage({
       include: { client: true },
       orderBy: { updatedAt: 'desc' },
     }),
+    prisma.organizationIntegration.findMany({
+      where: { organizationId, status: 'CONNECTED' },
+    }),
   ])
 
   const displayName = user.name ?? user.email.split('@')[0]
@@ -58,6 +62,7 @@ export default async function TimelinePage({
   const mappedEvents = events.map((e) => mapTimelineEventWithProject(e, locale))
   const agencyProgress = calculateAgencyProgress(projects)
   const activeProjectCount = projects.filter((p) => p.status !== 'DONE').length
+  const connectedSources = getConnectedTimelineSources(integrationRows)
 
   return (
     <TimelinePageClient
@@ -69,6 +74,7 @@ export default async function TimelinePage({
       clients={clients.map(mapClient)}
       agencyProgress={agencyProgress}
       activeProjectCount={activeProjectCount}
+      connectedSources={connectedSources}
     />
   )
 }

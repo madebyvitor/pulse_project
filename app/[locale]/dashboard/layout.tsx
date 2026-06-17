@@ -1,5 +1,5 @@
 import { getLocale } from 'next-intl/server'
-import { createClient } from '@/utils/supabase/server'
+import { getAuthUser } from '@/lib/auth/get-auth-user'
 import { redirect } from '@/src/i18n/navigation'
 
 export default async function DashboardLayout({
@@ -7,10 +7,7 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await getAuthUser()
 
   if (!user) {
     redirect({ href: '/login', locale: await getLocale() })

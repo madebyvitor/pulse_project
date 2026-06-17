@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAuthenticatedOrganization } from '@/lib/auth/get-organization'
 
 const feedbackSchema = z.object({
-  category: z.enum(['BUG', 'SUGGESTION', 'PRAISE']),
+  category: z.enum(['BUG', 'SUGGESTION', 'PRAISE', 'NEW_INTEGRATION']),
   message: z.string().trim().min(10).max(2000),
 })
 

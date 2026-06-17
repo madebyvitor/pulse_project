@@ -331,6 +331,7 @@
       "projects": "Projetos",
       "clients": "Clientes",
       "timeline": "Timeline",
+      "integrations": "Integrações",
       "settings": "Configurações",
       "feedback": "Feedback",
       "signOut": "Sair da conta",
@@ -437,6 +438,41 @@
         "manual": "Manual"
       }
     },
+    "integrationsPage": {
+      "title": "Integrações",
+      "subtitle": "Conecte suas ferramentas para automatizar atualizações de projetos",
+      "activeConnections": "{count} conexões ativas",
+      "searchPlaceholder": "Buscar integrações...",
+      "noResults": "Nenhuma integração encontrada para",
+      "empty": "Nenhuma integração disponível.",
+      "requestIntegration": "Solicitar integração",
+      "status": {
+        "connected": "Conectado",
+        "disconnected": "Desconectado"
+      },
+      "actions": {
+        "connect": "Conectar",
+        "disconnect": "Desconectar"
+      },
+      "cards": {
+        "github": {
+          "name": "GitHub",
+          "description": "Acompanhe commits, pull requests e releases automaticamente."
+        },
+        "vercel": {
+          "name": "Vercel",
+          "description": "Exiba deploys e preview builds na sua timeline."
+        },
+        "figma": {
+          "name": "Figma",
+          "description": "Compartilhe atualizações de design e alterações de arquivos com clientes."
+        },
+        "slack": {
+          "name": "Slack",
+          "description": "Receba notificações no seu workspace quando os projetos avançarem."
+        }
+      }
+    },
     "team": {
       "title": "Equipe Online",
       "workspace": "Workspace: {name}"
@@ -537,6 +573,7 @@
         "categoryBug": "Bug",
         "categorySuggestion": "Sugestão",
         "categoryPraise": "Elogio",
+        "categoryNewIntegration": "Nova Integração",
         "messageLabel": "Sua mensagem",
         "messagePlaceholder": "Conte-nos o que você pensa...",
         "submit": "Enviar Feedback",

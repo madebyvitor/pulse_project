@@ -20,6 +20,7 @@ async function revalidateDashboard(projectId?: string) {
   revalidatePath(`/${locale}/dashboard/projects`)
   revalidatePath(`/${locale}/dashboard/clients`)
   revalidatePath(`/${locale}/dashboard/timeline`)
+  revalidatePath(`/${locale}/dashboard/integrations`)
   if (projectId) {
     revalidatePath(`/${locale}/dashboard/projects/${projectId}`)
   }
