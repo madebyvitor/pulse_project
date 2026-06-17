@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useOptimistic, useState, useTransition } from 'react'
 import { Milestone as MilestoneIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from '@/src/i18n/navigation'
 import {
   Dialog,
   DialogContent,
@@ -38,22 +39,30 @@ export function ManageMilestonesModal({
   preSelectedProjectId,
 }: ManageMilestonesModalProps) {
   const t = useTranslations('Dashboard.modals.milestones')
+  const router = useRouter()
   const [selectedProjectId, setSelectedProjectId] = useState(
     preSelectedProjectId ?? projects[0]?.id ?? ''
   )
   const [showAddForm, setShowAddForm] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [, startTransition] = useTransition()
+  const [optimisticMilestones, setOptimisticMilestones] = useOptimistic(
+    milestones,
+    (state, update: { id: string; completed: boolean }) =>
+      state.map((m) => (m.id === update.id ? { ...m, completed: update.completed } : m))
+  )
 
   useEffect(() => {
     if (open) {
       const id = preSelectedProjectId ?? projects[0]?.id ?? ''
       setSelectedProjectId(id)
       setShowAddForm(false)
+      setError(null)
     }
   }, [open, preSelectedProjectId, projects])
 
-  const projectMilestones = milestones.filter((m) => m.projectId === selectedProjectId)
-  const progress = calculateProgress(milestones, selectedProjectId)
+  const projectMilestones = optimisticMilestones.filter((m) => m.projectId === selectedProjectId)
+  const progress = calculateProgress(optimisticMilestones, selectedProjectId)
 
   const handleAddMilestone = (formData: FormData) => {
     formData.set('projectId', selectedProjectId)
@@ -63,9 +72,17 @@ export function ManageMilestonesModal({
     })
   }
 
-  const handleToggle = (milestoneId: string) => {
+  const handleToggle = (milestoneId: string, completed: boolean) => {
+    setError(null)
     startTransition(async () => {
-      await toggleMilestoneAction(milestoneId)
+      setOptimisticMilestones({ id: milestoneId, completed })
+      try {
+        await toggleMilestoneAction(milestoneId)
+        router.refresh()
+      } catch {
+        setError(t('toggleError'))
+        router.refresh()
+      }
     })
   }
 
@@ -153,6 +170,8 @@ export function ManageMilestonesModal({
               </form>
             )}
 
+            {error && <p className="text-sm text-red-400">{error}</p>}
+
             <div className="max-h-48 space-y-2 overflow-y-auto">
               {projectMilestones.length === 0 ? (
                 <p className="py-4 text-center text-sm text-muted-foreground">{t('empty')}</p>
@@ -164,7 +183,9 @@ export function ManageMilestonesModal({
                   >
                     <Checkbox
                       checked={milestone.completed}
-                      onCheckedChange={() => handleToggle(milestone.id)}
+                      onCheckedChange={(checked) =>
+                        handleToggle(milestone.id, checked === true)
+                      }
                       className="mt-0.5"
                     />
                     <div className="min-w-0 flex-1">

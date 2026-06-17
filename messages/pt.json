@@ -552,6 +552,7 @@
         "descriptionPlaceholder": "Detalhes do milestone...",
         "add": "Adicionar Milestone",
         "empty": "Nenhum milestone cadastrado. Adicione o primeiro para calcular o progresso.",
+        "toggleError": "Não foi possível atualizar o milestone.",
         "close": "Fechar"
       },
       "share": {
